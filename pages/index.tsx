@@ -12,7 +12,7 @@ const Home: NextPage = () => {
       </Head>
 
       <main className="flex flex-col items-center">
-        <h1 className="text-9xl mt-5 mb-10 font-bold">Todo</h1>
+        <h1 className="drop-shadow text-9xl mt-5 mb-10 font-bold">Todo</h1>
         <Todos />
       </main>
     </div>
