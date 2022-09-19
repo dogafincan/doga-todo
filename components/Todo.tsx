@@ -1,3 +1,3 @@
 export default function Todo() {
-  return <div>Todo</div>;
+  return <div className="text-3xl">Todo</div>;
 }
