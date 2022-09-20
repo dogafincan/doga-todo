@@ -5,7 +5,6 @@ import Todos from "../components/Todos";
 import memoji from "../public/memoji.png";
 
 const Home: NextPage = () => {
-  const css = { width: "100%", height: "auto" };
   return (
     <div className="flex flex-col items-center">
       <Head>
@@ -14,19 +13,23 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className="w-2/3 space-y-4 p-8">
-        <div className="flex justify-between shadow dark:shadow-none rounded-3xl bg-gradient-to-r from-rose-500/80 to-fuchsia-500/80 h-60 px-8">
-          <div className="flex flex-col justify-center space-y-4">
+      <main className="space-y-4 p-8 md:w-3/4 lg:w-2/3 xl:w-1/2">
+        <div className="flex h-auto flex-col rounded-3xl bg-gradient-to-r from-rose-500/80 to-fuchsia-500/80 px-8 pt-8 shadow dark:shadow-none lg:flex-row lg:justify-between">
+          <div className="flex flex-col justify-center space-y-4 lg:w-2/3 lg:pb-8">
             <h1 className="text-5xl text-white">Todo</h1>
-            <h2 className="text-slate-50 dark:text-slate-200 text-xl">
-              My personal dev and design playground.
+            <h2 className="text-xl text-slate-50 dark:text-slate-200">
+              My personal dev and design playground. Lorem ipsum dolor sit amet,
+              consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+              labore et dolore magna aliqua. Ut enim ad minim veniam, quis
+              nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+              consequat.
             </h2>
           </div>
-          <div className="flex flex-col justify-end mb-[-12px]">
+          <div className="flex flex-col items-center justify-end">
             <Image
               src={memoji}
               alt="Picture of the author"
-              className="w-[200px] items-center"
+              className="w-[200px]"
             />
           </div>
         </div>
