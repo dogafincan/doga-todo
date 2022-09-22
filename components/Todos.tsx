@@ -10,7 +10,7 @@ const initialTodos = [
   { id: "6", title: "🥥 Coconut" },
 ];
 
-export default function Todos({ todosProps }: any) {
+export default function Todos({ todos }: any) {
   const [todo, setTodo] = useState("");
   // const [todos, setTodos] = useState(initialTodos);
 
@@ -30,7 +30,7 @@ export default function Todos({ todosProps }: any) {
           placeholder="Add todo..."
         />
       </form>
-      {todosProps.map((todo: { id: string; title: string }) => {
+      {todos.map((todo: { id: string; title: string }) => {
         return <Todo key={todo.id} initialTodo={todo.title} />;
       })}
     </>

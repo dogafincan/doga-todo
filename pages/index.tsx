@@ -48,7 +48,7 @@ const Home: NextPage<Props> = ({ todos }) => {
             />
           </div>
         </div>
-        <Todos todosProps={todos} />
+        <Todos todos={todos} />
       </main>
     </div>
   );
