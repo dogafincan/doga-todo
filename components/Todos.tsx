@@ -2,23 +2,21 @@ import { useState } from "react";
 import Todo from "./Todo";
 
 const initialTodos = [
-  "🍅 Tomato",
-  "🥒 Cucumber",
-  "🧀 Cheese",
-  "🥬 Lettuce",
-  "🥑 Avocado",
-  "🥥 Coconut",
+  { id: "1", title: "🍅 Tomato" },
+  { id: "2", title: "🥒 Cucumber" },
+  { id: "3", title: "🧀 Cheese" },
+  { id: "4", title: "🥬 Lettuce" },
+  { id: "5", title: "🥑 Avocado" },
+  { id: "6", title: "🥥 Coconut" },
 ];
 
-let counter = 0;
-
-export default function Todos() {
+export default function Todos({ todosProps }: any) {
   const [todo, setTodo] = useState("");
-  const [todos, setTodos] = useState(initialTodos);
+  // const [todos, setTodos] = useState(initialTodos);
 
   function handleSubmit(event: React.SyntheticEvent) {
     event.preventDefault();
-    setTodos([todo, ...todos]);
+    // setTodos([todo, ...todos]);
     setTodo("");
   }
 
@@ -32,9 +30,8 @@ export default function Todos() {
           placeholder="Add todo..."
         />
       </form>
-      {todos.map((todo, index) => {
-        counter++;
-        return <Todo key={counter} initialTodo={todo} />;
+      {todosProps.map((todo: { id: string; title: string }) => {
+        return <Todo key={todo.id} initialTodo={todo.title} />;
       })}
     </>
   );

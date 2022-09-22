@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 type Props = {
-  initialTodo: string;
+  initialTodo: string | null | undefined;
 };
 
 export default function Todo({ initialTodo }: Props) {
@@ -17,7 +17,7 @@ export default function Todo({ initialTodo }: Props) {
     setEdit(!edit);
   }
 
-  return edit ? (
+  return edit && todo ? (
     <form onSubmit={handleSubmit} className="flex flex-col">
       <input
         className="h-20 rounded-3xl py-3.5 px-8 text-2xl shadow dark:border dark:border-slate-50/10 dark:bg-neutral-700/40 dark:shadow-none"

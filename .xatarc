@@ -1,0 +1,6 @@
+{
+  "databaseURL": "https://Doga-Fincan-s-workspace-pbeo4t.xata.sh/db/todo",
+  "codegen": {
+    "output": "utils/xata.ts"
+  }
+}
