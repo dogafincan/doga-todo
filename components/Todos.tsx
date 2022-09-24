@@ -1,36 +1,28 @@
-import { useState } from "react";
+import { SelectedPick } from "@xata.io/client";
+import { TodosRecord } from "../utils/xata";
+import AddTodo from "./AddTodo";
 import Todo from "./Todo";
 
-const initialTodos = [
-  { id: "1", title: "🍅 Tomato" },
-  { id: "2", title: "🥒 Cucumber" },
-  { id: "3", title: "🧀 Cheese" },
-  { id: "4", title: "🥬 Lettuce" },
-  { id: "5", title: "🥑 Avocado" },
-  { id: "6", title: "🥥 Coconut" },
-];
+// const initialTodos = [
+//   { id: "1", title: "🍅 Tomato" },
+//   { id: "2", title: "🥒 Cucumber" },
+//   { id: "3", title: "🧀 Cheese" },
+//   { id: "4", title: "🥬 Lettuce" },
+//   { id: "5", title: "🥑 Avocado" },
+//   { id: "6", title: "🥥 Coconut" },
+// ];
 
-export default function Todos({ todos }: any) {
-  const [todo, setTodo] = useState("");
-  // const [todos, setTodos] = useState(initialTodos);
+type TodosProps = {
+  todos: Readonly<SelectedPick<TodosRecord, ["*"]>>[];
+};
 
-  function handleSubmit(event: React.SyntheticEvent) {
-    event.preventDefault();
-    // setTodos([todo, ...todos]);
-    setTodo("");
-  }
+export default function Todos({ todos }: TodosProps) {
+  console.log("rendered!");
 
   return (
     <>
-      <form onSubmit={handleSubmit} className="flex flex-col">
-        <input
-          className="h-20 rounded-3xl py-3.5 px-8 text-2xl shadow dark:border dark:border-slate-50/10 dark:bg-neutral-700/40 dark:shadow-none"
-          value={todo}
-          onChange={(event) => setTodo(event.target.value)}
-          placeholder="Add todo..."
-        />
-      </form>
-      {todos.map((todo: { id: string; title: string }) => {
+      <AddTodo />
+      {todos.map((todo) => {
         return <Todo key={todo.id} initialTodo={todo.title} />;
       })}
     </>

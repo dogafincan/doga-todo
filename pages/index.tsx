@@ -5,9 +5,8 @@ import Todos from "../components/Todos";
 import memoji from "../public/memoji.png";
 import { getXataClient } from "../utils/xata";
 
-const xata = getXataClient();
-
 export const getServerSideProps = async () => {
+  const xata = getXataClient();
   const todos = await xata.db.todos.getAll();
 
   return {
