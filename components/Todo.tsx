@@ -24,6 +24,18 @@ export default function Todo({ todo }: TodoProps) {
     }).then(() => window.location.reload());
   };
 
+  const deleteTodo = () => {
+    fetch("/api/delete-todo", {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        id: todo.id,
+      }),
+    }).then(() => window.location.reload());
+  };
+
   function handleSubmit(event: React.SyntheticEvent) {
     event.preventDefault();
     editTodo();
@@ -37,6 +49,7 @@ export default function Todo({ todo }: TodoProps) {
   function toggleDone() {
     setEdit(false);
     setDone(!done);
+    deleteTodo();
   }
 
   return (
