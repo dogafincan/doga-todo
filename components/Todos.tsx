@@ -1,6 +1,6 @@
 import { SelectedPick } from "@xata.io/client";
 import { TodosRecord } from "../utils/xata";
-import AddTodo from "./AddTodo";
+import AddTodoForm from "./AddTodoForm";
 import Todo from "./Todo";
 
 // const initialTodos = [
@@ -21,9 +21,9 @@ export default function Todos({ todos }: TodosProps) {
 
   return (
     <>
-      <AddTodo />
+      <AddTodoForm />
       {todos.map((todo) => {
-        return <Todo key={todo.id} initialTodo={todo.title} />;
+        return <Todo key={todo.id} todo={todo} />;
       })}
     </>
   );

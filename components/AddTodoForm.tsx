@@ -1,9 +1,9 @@
 import { useState } from "react";
 
-const AddTodo = () => {
+const AddTodoForm = () => {
   const [title, setTitle] = useState("");
 
-  const add = () => {
+  const addTodo = () => {
     fetch("/api/add-todo", {
       method: "POST",
       headers: {
@@ -17,7 +17,7 @@ const AddTodo = () => {
 
   function handleSubmit(event: React.SyntheticEvent) {
     event.preventDefault();
-    add();
+    addTodo();
     setTitle("");
   }
 
@@ -33,4 +33,4 @@ const AddTodo = () => {
   );
 };
 
-export default AddTodo;
+export default AddTodoForm;

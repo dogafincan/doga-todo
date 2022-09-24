@@ -1,16 +1,32 @@
+import { SelectedPick } from "@xata.io/client";
 import React, { useState } from "react";
+import { TodosRecord } from "../utils/xata";
 
-type Props = {
-  initialTodo: string | null | undefined;
+type TodoProps = {
+  todo: Readonly<SelectedPick<TodosRecord, ["*"]>>;
 };
 
-export default function Todo({ initialTodo }: Props) {
-  const [todo, setTodo] = useState(initialTodo);
+export default function Todo({ todo }: TodoProps) {
+  const [title, setTitle] = useState(todo.title);
   const [edit, setEdit] = useState(false);
   const [done, setDone] = useState(false);
 
+  const editTodo = () => {
+    fetch("/api/edit-todo", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        id: todo.id,
+        title,
+      }),
+    }).then(() => window.location.reload());
+  };
+
   function handleSubmit(event: React.SyntheticEvent) {
     event.preventDefault();
+    editTodo();
     setEdit(!edit);
   }
 
@@ -39,15 +55,15 @@ export default function Todo({ initialTodo }: Props) {
         <form onSubmit={handleSubmit} className="flex flex-1">
           <input
             className="flex h-20 flex-1 rounded-r-3xl bg-transparent py-3.5 text-2xl focus:outline-none"
-            value={todo ?? ""}
-            onChange={(event) => setTodo(event.target.value)}
+            value={title ?? ""}
+            onChange={(event) => setTitle(event.target.value)}
             placeholder="Add todo..."
             autoFocus
             onBlur={toggleEdit}
           />
         </form>
       ) : (
-        todo
+        title
       )}
     </div>
   );
