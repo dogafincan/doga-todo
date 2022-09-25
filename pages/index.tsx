@@ -3,23 +3,9 @@ import Head from "next/head";
 import Image from "next/future/image";
 import Todos from "../components/Todos";
 import memoji from "../public/memoji.png";
-import { getXataClient } from "../utils/xata";
 import AddTodoForm from "../components/AddTodoForm";
 
-export const getServerSideProps = async () => {
-  const xata = getXataClient();
-  const todos = await xata.db.todos.getAll();
-
-  return {
-    props: {
-      todos,
-    },
-  };
-};
-
-type Props = Awaited<ReturnType<typeof getServerSideProps>>["props"];
-
-const Home: NextPage<Props> = ({ todos }) => {
+const Index: NextPage = () => {
   return (
     <div className="flex flex-col items-center">
       <Head>
@@ -55,4 +41,4 @@ const Home: NextPage<Props> = ({ todos }) => {
   );
 };
 
-export default Home;
+export default Index;
