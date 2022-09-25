@@ -4,6 +4,7 @@ import Image from "next/future/image";
 import Todos from "../components/Todos";
 import memoji from "../public/memoji.png";
 import { getXataClient } from "../utils/xata";
+import AddTodoForm from "../components/AddTodoForm";
 
 export const getServerSideProps = async () => {
   const xata = getXataClient();
@@ -47,7 +48,8 @@ const Home: NextPage<Props> = ({ todos }) => {
             />
           </div>
         </div>
-        <Todos todos={todos} />
+        <AddTodoForm />
+        <Todos />
       </main>
     </div>
   );

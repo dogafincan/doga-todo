@@ -1,6 +1,7 @@
 import { SelectedPick } from "@xata.io/client";
+import axios from "axios";
+import { useQuery } from "@tanstack/react-query";
 import { TodosRecord } from "../utils/xata";
-import AddTodoForm from "./AddTodoForm";
 import Todo from "./Todo";
 
 // const initialTodos = [
@@ -12,17 +13,23 @@ import Todo from "./Todo";
 //   { id: "6", title: "🥥 Coconut" },
 // ];
 
-type TodosProps = {
-  todos: Readonly<SelectedPick<TodosRecord, ["*"]>>[];
-};
+type Todo = Readonly<SelectedPick<TodosRecord, ["*"]>>;
 
-export default function Todos({ todos }: TodosProps) {
-  console.log("rendered!");
+export default function Todos() {
+  const fetchTodos = () => axios.get("/api/todos").then((res) => res.data);
+  const { status, data, error } = useQuery(["todos"], fetchTodos);
+
+  if (status === "loading") {
+    return <span>Loading...</span>;
+  }
+
+  if (error instanceof Error) {
+    return <span>Error: {error.message}</span>;
+  }
 
   return (
     <>
-      <AddTodoForm />
-      {todos.map((todo) => {
+      {data.map((todo: Todo) => {
         return <Todo key={todo.id} todo={todo} />;
       })}
     </>

@@ -42,8 +42,13 @@ export default function Todo({ todo }: TodoProps) {
     setEdit(!edit);
   }
 
-  function toggleEdit() {
-    setEdit(!edit);
+  function startEdit() {
+    setEdit(true);
+  }
+
+  function endEdit() {
+    setEdit(false);
+    if (todo.title !== title) editTodo();
   }
 
   function toggleDone() {
@@ -54,7 +59,7 @@ export default function Todo({ todo }: TodoProps) {
 
   return (
     <div
-      onClick={toggleEdit}
+      onClick={startEdit}
       className={`flex h-20 items-center rounded-3xl bg-white py-3.5 pl-8 text-2xl shadow dark:border dark:border-slate-50/10 dark:bg-neutral-700/40 dark:shadow-none ${
         edit && "ring-4"
       }`}
@@ -72,7 +77,7 @@ export default function Todo({ todo }: TodoProps) {
             onChange={(event) => setTitle(event.target.value)}
             placeholder="Add todo..."
             autoFocus
-            onBlur={toggleEdit}
+            onBlur={endEdit}
           />
         </form>
       ) : (
