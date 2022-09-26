@@ -73,6 +73,7 @@ export default function Todo({ todo }: TodoProps) {
       {edit ? (
         <form onSubmit={handleSubmit} className="flex flex-1">
           <input
+            type="text"
             className="flex h-20 flex-1 rounded-r-3xl bg-transparent py-3.5 text-2xl focus:outline-none"
             value={title ?? ""}
             onChange={(event) => setTitle(event.target.value)}
