@@ -1,9 +1,10 @@
-import { SelectedPick } from "@xata.io/client";
-import React, { useState } from "react";
-import { TodosRecord } from "../utils/xata";
+import { useState } from "react";
+import axios from "axios";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { Todos } from "../utils/xata";
 
 type TodoProps = {
-  todo: Readonly<SelectedPick<TodosRecord, ["*"]>>;
+  todo: Todos;
 };
 
 export default function Todo({ todo }: TodoProps) {
@@ -11,18 +12,18 @@ export default function Todo({ todo }: TodoProps) {
   const [edit, setEdit] = useState(false);
   const [done, setDone] = useState(false);
 
-  const editTodo = () => {
-    fetch("/api/edit-todo", {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        id: todo.id,
-        title,
-      }),
-    }).then(() => window.location.reload());
-  };
+  const patchTodo = () =>
+    axios
+      .patch("/api/edit-todo", { id: todo.id, title })
+      .then((res) => res.data);
+
+  const queryClient = useQueryClient();
+
+  const patchMutation = useMutation(patchTodo, {
+    onSuccess: () => {
+      queryClient.invalidateQueries(["todos"]);
+    },
+  });
 
   const deleteTodo = () => {
     fetch("/api/delete-todo", {
@@ -38,7 +39,7 @@ export default function Todo({ todo }: TodoProps) {
 
   function handleSubmit(event: React.SyntheticEvent) {
     event.preventDefault();
-    editTodo();
+    patchMutation.mutate();
     setEdit(!edit);
   }
 
@@ -48,7 +49,7 @@ export default function Todo({ todo }: TodoProps) {
 
   function endEdit() {
     setEdit(false);
-    if (todo.title !== title) editTodo();
+    if (todo.title !== title) patchMutation.mutate();
   }
 
   function toggleDone() {
