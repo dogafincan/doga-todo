@@ -67,6 +67,7 @@ export default function Todo({ todo }: TodoProps) {
     >
       <input
         type="checkbox"
+        name="complete-todo"
         className="mr-6 h-6 w-6 rounded-full border-2 border-slate-400/50 bg-slate-200/25 dark:border-slate-50/10 dark:bg-neutral-700/40"
         onChange={toggleDone}
       />
@@ -74,6 +75,7 @@ export default function Todo({ todo }: TodoProps) {
         <form onSubmit={handleSubmit} className="flex flex-1">
           <input
             type="text"
+            name="edit-todo"
             className="flex h-20 flex-1 rounded-r-3xl bg-transparent py-3.5 text-2xl focus:outline-none"
             value={title ?? ""}
             onChange={(event) => setTitle(event.target.value)}
