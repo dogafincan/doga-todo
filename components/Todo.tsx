@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Todos } from "../utils/xata";
@@ -10,7 +10,12 @@ type TodoProps = {
 export default function Todo({ todo }: TodoProps) {
   const [title, setTitle] = useState(todo.title);
   const [edit, setEdit] = useState(false);
-  const [done, setDone] = useState(false);
+  const [editClick, setEditClick] = useState(false);
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    inputRef.current?.focus();
+  }, [editClick]);
 
   const patchTodo = () =>
     axios
@@ -40,7 +45,8 @@ export default function Todo({ todo }: TodoProps) {
   function handleSubmit(event: React.SyntheticEvent) {
     event.preventDefault();
     patchMutation.mutate();
-    setEdit(!edit);
+    setEdit(false);
+    setEditClick(false);
   }
 
   function startEdit() {
@@ -54,13 +60,17 @@ export default function Todo({ todo }: TodoProps) {
 
   function toggleDone() {
     setEdit(false);
-    setDone(!done);
     deleteTodo();
+  }
+
+  function handleClick() {
+    setEditClick(true);
   }
 
   return (
     <div
-      onClick={startEdit}
+      onClick={handleClick}
+      onFocus={startEdit}
       className={`flex h-20 items-center rounded-3xl bg-white py-3.5 pl-8 text-2xl shadow dark:border dark:border-slate-50/10 dark:bg-neutral-700/40 dark:shadow-none ${
         edit && "ring-4"
       }`}
@@ -68,24 +78,30 @@ export default function Todo({ todo }: TodoProps) {
       <input
         type="checkbox"
         name="complete-todo"
-        className="mr-6 h-6 w-6 rounded-full border-2 border-slate-400/50 bg-slate-200/25 dark:border-slate-50/10 dark:bg-neutral-700/40"
+        className="mr-6 h-6 w-6 appearance-none rounded-full border-2 border-slate-400/50 bg-slate-200/25 dark:border-slate-50/10 dark:bg-neutral-700/40"
         onChange={toggleDone}
       />
-      {edit ? (
+      {edit || editClick ? (
         <form onSubmit={handleSubmit} className="flex flex-1">
+          <label className="hidden" htmlFor="edit-todo">
+            Todo title
+          </label>
           <input
             type="text"
             name="edit-todo"
-            className="flex h-20 flex-1 rounded-r-3xl bg-transparent py-3.5 text-2xl focus:outline-none"
+            autoComplete="off"
+            ref={inputRef}
+            className="flex flex-1 appearance-none rounded-r-3xl border-0 bg-transparent p-0 py-3.5 text-2xl focus:border-0 focus:ring-0"
             value={title ?? ""}
             onChange={(event) => setTitle(event.target.value)}
             placeholder="Add todo..."
-            autoFocus
             onBlur={endEdit}
           />
         </form>
       ) : (
-        title
+        <div onFocus={handleClick} tabIndex={0}>
+          {title}
+        </div>
       )}
     </div>
   );
