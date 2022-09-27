@@ -78,23 +78,24 @@ export default function Todo({ todo }: TodoProps) {
       <input
         type="checkbox"
         name="complete-todo"
+        role="button"
+        aria-pressed="false"
+        aria-label="Mark completed"
         className="mr-6 h-6 w-6 appearance-none rounded-full border-2 border-slate-400/50 bg-slate-200/25 dark:border-slate-50/10 dark:bg-neutral-700/40"
         onChange={toggleDone}
       />
       {edit || editClick ? (
         <form onSubmit={handleSubmit} className="flex flex-1">
-          <label className="hidden" htmlFor="edit-todo">
-            Todo title
-          </label>
           <input
             type="text"
             name="edit-todo"
             autoComplete="off"
+            aria-label="Todo title"
             ref={inputRef}
             className="flex flex-1 appearance-none rounded-r-3xl border-0 bg-transparent p-0 py-3.5 text-2xl focus:border-0 focus:ring-0"
             value={title ?? ""}
             onChange={(event) => setTitle(event.target.value)}
-            placeholder="Add todo..."
+            placeholder="Add title..."
             onBlur={endEdit}
           />
         </form>
