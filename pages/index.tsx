@@ -3,7 +3,7 @@ import Head from "next/head";
 import Image from "next/future/image";
 import Todos from "../components/Todos";
 import memoji from "../public/memoji.png";
-import AddTodoForm from "../components/AddTodoForm";
+import TodoForm from "../components/TodoForm";
 
 const Index: NextPage = () => {
   return (
@@ -34,7 +34,7 @@ const Index: NextPage = () => {
             />
           </div>
         </div>
-        <AddTodoForm />
+        <TodoForm />
         <Todos />
       </main>
     </div>
