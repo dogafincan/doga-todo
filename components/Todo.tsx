@@ -80,7 +80,7 @@ export default function Todo({ todo }: TodoProps) {
   return (
     <div
       onClick={handleTitleClick}
-      className={`flex h-20 items-center rounded-3xl bg-white py-3.5 pl-8 text-2xl shadow dark:border dark:border-slate-50/10 dark:bg-neutral-700/40 dark:shadow-none ${
+      className={`flex h-20 cursor-text items-center rounded-3xl bg-white py-3.5 pl-8 text-2xl shadow dark:border dark:border-slate-50/10 dark:bg-neutral-700/40 dark:shadow-none ${
         (active || edit) && "ring-4 ring-blue-400 dark:ring-blue-500"
       }`}
     >
