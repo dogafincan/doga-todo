@@ -10,12 +10,11 @@ type TodoProps = {
 export default function Todo({ todo }: TodoProps) {
   const [title, setTitle] = useState(todo.title);
   const [edit, setEdit] = useState(false);
-  const [editClick, setEditClick] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     inputRef.current?.focus();
-  }, [editClick]);
+  }, [edit]);
 
   const patchTodo = () =>
     axios
@@ -46,31 +45,28 @@ export default function Todo({ todo }: TodoProps) {
     event.preventDefault();
     patchMutation.mutate();
     setEdit(false);
-    setEditClick(false);
   }
 
-  function startEdit() {
-    setEdit(true);
+  function handleChange() {
+    deleteTodo();
   }
 
-  function endEdit() {
+  function handleBlur() {
     setEdit(false);
     if (todo.title !== title) patchMutation.mutate();
   }
 
-  function toggleDone() {
-    setEdit(false);
-    deleteTodo();
+  function handleClick() {
+    setEdit(true);
   }
 
-  function handleClick() {
-    setEditClick(true);
+  function handleFocus() {
+    setEdit(true);
   }
 
   return (
     <div
       onClick={handleClick}
-      onFocus={startEdit}
       className={`flex h-20 items-center rounded-3xl bg-white py-3.5 pl-8 text-2xl shadow dark:border dark:border-slate-50/10 dark:bg-neutral-700/40 dark:shadow-none ${
         edit && "ring-4"
       }`}
@@ -82,9 +78,9 @@ export default function Todo({ todo }: TodoProps) {
         aria-pressed="false"
         aria-label="Mark completed"
         className="mr-6 h-6 w-6 appearance-none rounded-full border-2 border-slate-400/50 bg-slate-200/25 dark:border-slate-50/10 dark:bg-neutral-700/40"
-        onChange={toggleDone}
+        onChange={handleChange}
       />
-      {edit || editClick ? (
+      {edit ? (
         <form onSubmit={handleSubmit} className="flex flex-1">
           <input
             type="text"
@@ -96,11 +92,11 @@ export default function Todo({ todo }: TodoProps) {
             value={title ?? ""}
             onChange={(event) => setTitle(event.target.value)}
             placeholder="Add title..."
-            onBlur={endEdit}
+            onBlur={handleBlur}
           />
         </form>
       ) : (
-        <div onFocus={handleClick} tabIndex={0}>
+        <div onFocus={handleFocus} tabIndex={0}>
           {title}
         </div>
       )}
