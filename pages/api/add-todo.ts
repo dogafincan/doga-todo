@@ -5,7 +5,7 @@ const handler: NextApiHandler = async (req, res) => {
   const { title } = req.body;
   const xata = getXataClient();
   const todo = await xata.db.todos.create({ title });
-  res.status(200).json({ todo });
+  res.status(200).json(todo);
 };
 
 export default handler;

@@ -7,7 +7,7 @@ const handler: NextApiHandler = async (req, res) => {
   const todo = await xata.db.todos.update(id, {
     title,
   });
-  res.status(200).json({ todo });
+  res.status(200).json(todo);
 };
 
 export default handler;

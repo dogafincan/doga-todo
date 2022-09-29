@@ -1,51 +1,22 @@
 import { useEffect, useRef, useState } from "react";
-import axios from "axios";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Todos } from "../utils/xata";
+import useEditTodo from "../utils/useEditTodo";
+import useDeleteTodo from "../utils/useDeleteTodo";
 
-type TodoProps = {
-  todo: Todos;
-};
-
-export default function Todo({ todo }: TodoProps) {
-  const [title, setTitle] = useState(todo.title);
+export default function Todo({ todo }: { todo: Todos }) {
+  const [title, setTitle] = useState(todo.title ?? "");
   const [edit, setEdit] = useState(false);
   const [active, setActive] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
+  const { editTodo } = useEditTodo();
+  const { deleteTodo } = useDeleteTodo();
 
   useEffect(() => {
     inputRef.current?.focus();
   }, [edit]);
 
-  // Extract API calls below as sperate functions
-  const patchTodo = () =>
-    axios
-      .patch("/api/edit-todo", { id: todo.id, title })
-      .then((res) => res.data);
-
-  const queryClient = useQueryClient();
-
-  const patchMutation = useMutation(patchTodo, {
-    onSuccess: () => {
-      queryClient.invalidateQueries(["todos"]);
-    },
-  });
-
-  const deleteTodo = () => {
-    fetch("/api/delete-todo", {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        id: todo.id,
-      }),
-    }).then(() => window.location.reload());
-  };
-  // Extract API calls above as sperate functions
-
   function handleCheckboxChange() {
-    deleteTodo();
+    deleteTodo({ id: todo.id });
   }
 
   function handleCheckboxFocus() {
@@ -62,14 +33,17 @@ export default function Todo({ todo }: TodoProps) {
 
   function handleTitleSubmit(event: React.SyntheticEvent) {
     event.preventDefault();
-    patchMutation.mutate();
+    editTodo({ id: todo.id, title });
     setEdit(false);
   }
 
   function handleTitleBlur() {
     setEdit(false);
     setActive(false);
-    if (todo.title !== title) patchMutation.mutate();
+
+    if (todo.title !== title) {
+      editTodo({ id: todo.id, title });
+    }
   }
 
   function handleTitleFocus() {
@@ -104,7 +78,7 @@ export default function Todo({ todo }: TodoProps) {
             aria-label="Todo title"
             ref={inputRef}
             className="flex flex-1 appearance-none rounded-r-3xl border-0 bg-transparent p-0 py-3.5 text-2xl focus:border-0 focus:ring-0"
-            value={title ?? ""}
+            value={title}
             onChange={(event) => setTitle(event.target.value)}
             placeholder="Add title"
             onBlur={handleTitleBlur}

@@ -1,6 +1,4 @@
-import axios from "axios";
-import { useQuery } from "@tanstack/react-query";
-import { Todos as TodosType } from "../utils/xata";
+import useGetTodos from "../utils/useGetTodos";
 import Todo from "./Todo";
 
 // const initialTodos = [
@@ -12,23 +10,18 @@ import Todo from "./Todo";
 //   { id: "6", title: "🥥 Coconut" },
 // ];
 
-export default function Todos() {
-  const getTodos = () => axios.get("/api/todos").then((res) => res.data);
-  const { status, data, error } = useQuery(["todos"], getTodos);
-
-  if (status === "loading") {
-    return <span>Loading...</span>;
-  }
-
-  if (error instanceof Error) {
-    return <span>Error: {error.message}</span>;
-  }
+const Todos = () => {
+  const { status, data, error } = useGetTodos();
+  if (status === "error") return <div>{`An error has occurred: ${error}`}</div>;
+  if (status === "loading") return <div>Loading...</div>;
 
   return (
     <>
-      {data.map((todo: TodosType) => {
+      {data?.map((todo) => {
         return <Todo key={todo.id} todo={todo} />;
       })}
     </>
   );
-}
+};
+
+export default Todos;

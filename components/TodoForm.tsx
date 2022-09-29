@@ -1,23 +1,13 @@
 import { useState } from "react";
+import useAddTodo from "../utils/useAddTodo";
 
 const AddTodoForm = () => {
   const [title, setTitle] = useState("");
-
-  const addTodo = () => {
-    fetch("/api/add-todo", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        title,
-      }),
-    }).then(() => window.location.reload());
-  };
+  const { addTodo } = useAddTodo();
 
   function handleSubmit(event: React.SyntheticEvent) {
     event.preventDefault();
-    addTodo();
+    addTodo({ title });
     setTitle("");
   }
 
