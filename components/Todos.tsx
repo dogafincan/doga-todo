@@ -1,3 +1,4 @@
+import { Dispatch, SetStateAction } from "react";
 import useGetTodos from "../utils/useGetTodos";
 import Todo from "./Todo";
 
@@ -10,11 +11,13 @@ import Todo from "./Todo";
 //   { id: "6", title: "🥥 Coconut" },
 // ];
 
-const Todos = () => {
-  const { status, data, error } = useGetTodos();
-
-  if (status === "error") return <div>{`An error has occurred: ${error}`}</div>;
-  if (status === "loading") return <div>Loading...</div>;
+const Todos = ({
+  setLoading,
+}: {
+  setLoading: Dispatch<SetStateAction<boolean>>;
+}) => {
+  const { data, isFetched } = useGetTodos();
+  if (isFetched) setLoading(false);
 
   return (
     <>

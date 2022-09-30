@@ -8,12 +8,15 @@ const getTodos = async (): Promise<Todos[]> => {
 };
 
 const useGetTodos = () => {
-  const { status, data, error } = useQuery<Todos[], Error>(["todos"], getTodos);
+  const { status, data, isFetched } = useQuery<Todos[], Error>(
+    ["todos"],
+    getTodos
+  );
 
   return {
     status,
     data,
-    error,
+    isFetched,
   };
 };
 

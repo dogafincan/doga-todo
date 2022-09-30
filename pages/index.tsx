@@ -3,8 +3,11 @@ import Image from "next/future/image";
 import Todos from "../components/Todos";
 import Memoji from "../public/memoji.png";
 import TodoForm from "../components/TodoForm";
+import { useState } from "react";
 
 const Index = () => {
+  const [isLoading, setLoading] = useState(true);
+
   return (
     <div className="flex flex-col items-center">
       <Head>
@@ -32,8 +35,8 @@ const Index = () => {
             />
           </div>
         </div>
-        <TodoForm />
-        <Todos />
+        <TodoForm isLoading={isLoading} />
+        <Todos setLoading={setLoading} />
       </main>
     </div>
   );

@@ -3,7 +3,7 @@ import { Todos } from "../utils/xata";
 import useEditTodo from "../utils/useEditTodo";
 import useDeleteTodo from "../utils/useDeleteTodo";
 
-export default function Todo({ todo }: { todo: Todos }) {
+const Todo = ({ todo }: { todo: Todos }) => {
   const [title, setTitle] = useState(todo.title ?? "");
   const [edit, setEdit] = useState(false);
   const [active, setActive] = useState(false);
@@ -15,41 +15,41 @@ export default function Todo({ todo }: { todo: Todos }) {
     inputRef.current?.focus();
   }, [edit]);
 
-  function handleCheckboxChange() {
+  const handleCheckboxChange = () => {
     deleteTodo.mutate({ id: todo.id });
-  }
+  };
 
-  function handleCheckboxFocus() {
+  const handleCheckboxFocus = () => {
     setActive(true);
-  }
+  };
 
-  function handleCheckboxBlur() {
+  const handleCheckboxBlur = () => {
     setActive(false);
-  }
+  };
 
-  function handleTitleClick() {
+  const handleTitleClick = () => {
     setEdit(true);
-  }
+  };
 
-  function handleTitleSubmit(event: React.SyntheticEvent) {
+  const handleTitleSubmit = (event: React.SyntheticEvent) => {
     event.preventDefault();
     setEdit(false);
     editTodo.mutate({ id: todo.id, title });
-  }
+  };
 
-  function handleTitleBlur() {
+  const handleTitleBlur = () => {
     setEdit(false);
     setActive(false);
 
     if (todo.title !== title) {
       editTodo.mutate({ id: todo.id, title });
     }
-  }
+  };
 
-  function handleTitleFocus() {
+  const handleTitleFocus = () => {
     setEdit(true);
     setActive(true);
-  }
+  };
 
   return (
     <div
@@ -91,4 +91,6 @@ export default function Todo({ todo }: { todo: Todos }) {
       )}
     </div>
   );
-}
+};
+
+export default Todo;
