@@ -12,11 +12,11 @@ const Index = () => {
         <meta name="Todo" content="Todo list app" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className="max-w-5xl space-y-4 p-8 md:w-3/4 lg:w-2/3 xl:w-1/2">
+      <main className="w-full max-w-5xl space-y-4 p-3 sm:p-8 md:w-3/4 lg:w-2/3 xl:w-1/2">
         <div className="flex h-auto flex-col rounded-3xl bg-gradient-to-r from-rose-500/80 to-fuchsia-500/80 px-8 pt-8 shadow dark:shadow-none lg:flex-row lg:justify-between">
           <div className="flex flex-col justify-center space-y-4 lg:w-2/3 lg:pb-8">
             <h1 className="text-5xl text-white">Todo</h1>
-            <h2 className="text-xl text-slate-50 dark:text-slate-50">
+            <h2 className="text-slate-50 dark:text-slate-50">
               My personal dev and design playground. Lorem ipsum dolor sit amet,
               consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
               labore et dolore magna aliqua. Ut enim ad minim veniam, quis

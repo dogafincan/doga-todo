@@ -2,9 +2,9 @@ import type { NextApiHandler } from "next";
 import { getXataClient } from "../../utils/xata";
 
 const handler: NextApiHandler = async (req, res) => {
-  const { title } = req.body;
+  const { id, title } = req.body;
   const xata = getXataClient();
-  const todo = await xata.db.todos.create({ title });
+  const todo = await xata.db.todos.create(id, { title });
   res.status(200).json(todo);
 };
 

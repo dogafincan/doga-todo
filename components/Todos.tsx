@@ -12,6 +12,7 @@ import Todo from "./Todo";
 
 const Todos = () => {
   const { status, data, error } = useGetTodos();
+
   if (status === "error") return <div>{`An error has occurred: ${error}`}</div>;
   if (status === "loading") return <div>Loading...</div>;
 
