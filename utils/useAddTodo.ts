@@ -18,7 +18,7 @@ const useAddTodo = () => {
       if (previousTodos) {
         queryClient.setQueryData<Todos[]>(
           ["todos"],
-          [...previousTodos, newTodo]
+          [newTodo, ...previousTodos]
         );
       }
 

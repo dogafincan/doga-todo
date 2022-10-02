@@ -3,5 +3,5 @@
 @tailwind utilities;
 
 body {
-  @apply bg-slate-50 text-xl text-slate-900 dark:bg-black dark:text-slate-50;
+  @apply bg-slate-50 text-base text-slate-900 dark:bg-black dark:text-slate-50 sm:text-xl;
 }

@@ -1,4 +1,5 @@
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction, useEffect } from "react";
+import { motion } from "framer-motion";
 import useGetTodos from "../utils/useGetTodos";
 import Todo from "./Todo";
 
@@ -17,14 +18,17 @@ const Todos = ({
   setLoading: Dispatch<SetStateAction<boolean>>;
 }) => {
   const { data, isFetched } = useGetTodos();
-  if (isFetched) setLoading(false);
+
+  useEffect(() => {
+    if (isFetched) setLoading(false);
+  }, [isFetched, setLoading]);
 
   return (
-    <>
+    <motion.ul className="space-y-4">
       {data?.map((todo) => {
         return <Todo key={todo.id} todo={todo} />;
       })}
-    </>
+    </motion.ul>
   );
 };
 
