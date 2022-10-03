@@ -15,18 +15,21 @@ const AddTodoForm = ({ isLoading }: { isLoading: boolean }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col">
-      <motion.input
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        layout
-        transition={{ duration: 0.4 }}
+    <motion.form
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      layout
+      transition={{ duration: 0.2 }}
+      onSubmit={handleSubmit}
+      className="flex flex-col"
+    >
+      <input
         tabIndex={0}
         type="text"
         name="add-todo"
         autoComplete="off"
         aria-label="Add todo"
-        className={`h-20 appearance-none rounded-3xl border-0 py-3.5 px-8 text-base shadow focus:border-transparent focus:ring-4 focus:ring-blue-400 dark:border dark:border-slate-50/10 dark:bg-neutral-700/40 dark:shadow-none dark:focus:ring-blue-500 sm:text-xl ${
+        className={`h-20 appearance-none rounded-3xl border-0 py-3.5 px-8 text-base shadow duration-200 ease-linear focus:border-transparent focus:outline-0 focus:ring-4 focus:ring-blue-400 motion-reduce:transition-all dark:border dark:border-slate-50/10 dark:bg-neutral-700/40 dark:shadow-none dark:focus:ring-blue-500 sm:text-xl ${
           isLoading && "animate-pulse"
         }`}
         value={title}
@@ -34,7 +37,7 @@ const AddTodoForm = ({ isLoading }: { isLoading: boolean }) => {
         placeholder={isLoading ? "Loading..." : "Add todo"}
         disabled={isLoading}
       />
-    </form>
+    </motion.form>
   );
 };
 
