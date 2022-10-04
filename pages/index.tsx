@@ -2,12 +2,14 @@ import { useState } from "react";
 import Head from "next/head";
 import Image from "next/future/image";
 import { motion } from "framer-motion";
-import Todos from "../components/Todos";
-import Memoji from "../public/memoji.png";
-import TodoForm from "../components/TodoForm";
+import Todos from "@components/Todos";
+import Memoji from "@public/memoji.png";
+import TodoForm from "@components/TodoForm";
+import LoginButton from "@components/LoginButton";
 
 const Index = () => {
   const [isLoading, setLoading] = useState(true);
+  // isLoadingAuth
 
   return (
     <div className="flex flex-col items-center">
@@ -26,12 +28,11 @@ const Index = () => {
           >
             <h1 className="text-5xl text-white">Todo</h1>
             <h2 className="text-slate-50 dark:text-slate-50">
-              My personal dev and design playground. Lorem ipsum dolor sit amet,
-              consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-              labore et dolore magna aliqua. Ut enim ad minim veniam, quis
-              nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-              consequat.
+              My personal dev and design playground.
             </h2>
+            <div>
+              <LoginButton />
+            </div>
           </motion.div>
           <motion.div
             initial={{ opacity: 0 }}

@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction, useEffect } from "react";
 import { motion } from "framer-motion";
-import useGetTodos from "../utils/useGetTodos";
-import Todo from "./Todo";
+import useGetTodos from "@utils/useGetTodos";
+import Todo from "@components/Todo";
 
 // const initialTodos = [
 //   { id: "1", title: "🍅 Tomato" },

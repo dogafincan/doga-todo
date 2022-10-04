@@ -1,5 +1,5 @@
 import type { NextApiHandler } from "next";
-import { getXataClient } from "../../utils/xata";
+import { getXataClient } from "@utils/xata";
 
 const handler: NextApiHandler = async (_req, res) => {
   const xata = getXataClient();

@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { Todos } from "./xata";
+import { Todos } from "@utils/xata";
 
 const getTodos = async (): Promise<Todos[]> => {
   const res = await axios.get("/api/get-todos");
