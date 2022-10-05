@@ -9,7 +9,6 @@ import LoginButton from "@components/LoginButton";
 
 const Index = () => {
   const [isLoading, setLoading] = useState(true);
-  // isLoadingAuth
 
   return (
     <div className="flex flex-col items-center">
@@ -19,12 +18,12 @@ const Index = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className="flex w-full flex-col space-y-4 p-3 md:w-11/12 md:p-8 lg:w-4/5 xl:w-4/6 2xl:w-7/12">
-        <div className="flex h-auto flex-col rounded-3xl bg-gradient-to-r from-rose-500/80 to-fuchsia-500/80 px-8 pt-8 shadow dark:shadow-none lg:flex-row lg:justify-between">
+        <div className="flex h-auto flex-col rounded-3xl bg-gradient-to-r from-rose-500/80 to-fuchsia-500/80 px-8 pt-8 shadow dark:shadow-none">
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.4 }}
-            className="flex flex-col justify-center space-y-4 lg:w-2/3 lg:pb-8"
+            className="flex flex-col items-center space-y-4"
           >
             <h1 className="text-5xl text-white">Todo</h1>
             <h2 className="text-slate-50 dark:text-slate-50">

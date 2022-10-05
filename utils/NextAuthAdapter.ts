@@ -1,7 +1,7 @@
 import type { Adapter } from "next-auth/adapters";
 import type { XataClient } from "@utils/xata";
 
-// TODO: use the official Xata next-auth adapter once it gets released.
+// Use the official Xata next-auth adapter once it gets released.
 export function XataAdapter(client: XataClient): Adapter {
   return {
     async createUser(user) {
