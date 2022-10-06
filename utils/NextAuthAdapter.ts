@@ -2,7 +2,7 @@ import type { Adapter } from "next-auth/adapters";
 import type { XataClient } from "@utils/xata";
 
 // Use the official Xata next-auth adapter once it gets released.
-export function XataAdapter(client: XataClient): Adapter {
+export const XataAdapter = (client: XataClient): Adapter => {
   return {
     async createUser(user) {
       const newUser = await client.db.nextauth_users.create(user);
@@ -139,4 +139,4 @@ export function XataAdapter(client: XataClient): Adapter {
       await client.db.nextauth_users_sessions.delete(connectedSession.id);
     },
   };
-}
+};
