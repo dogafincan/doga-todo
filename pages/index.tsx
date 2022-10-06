@@ -10,7 +10,7 @@ import LoginButton from "@components/LoginButton";
 
 const initialLocalTodos = [
   { id: "1", title: "👋 Hi there!" },
-  { id: "2", title: "👨‍💻 My name is Doga Fincan" },
+  { id: "2", title: "👨‍💻 My name is Doga Fincan." },
   { id: "3", title: "🔥 I've set up a few todos for you." },
   { id: "4", title: "🕹 Feel free to play around." },
   { id: "5", title: "🚀 Or log in above to create your own!" },
@@ -42,9 +42,11 @@ const Index = () => {
             transition={{ duration: 0.4 }}
             className="flex flex-col items-center space-y-4"
           >
-            <h1 className="text-5xl text-white">Todo</h1>
-            <h2 className="text-slate-50 dark:text-slate-50">
-              My personal dev playground.
+            <h1 className="font-['Pacifico'] text-6xl text-white duration-200 ease-linear will-change-auto motion-reduce:transition-transform sm:text-9xl ">
+              Todo
+            </h1>
+            <h2 className="text-slate-50 ease-linear motion-reduce:transition-transform dark:text-slate-50">
+              A fun way to get things done.
             </h2>
             <div>
               <LoginButton />
