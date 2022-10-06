@@ -28,7 +28,7 @@ const Index = () => {
   return (
     <div className="flex flex-col items-center">
       <Head>
-        <title>Todo</title>
+        <title>Doga Todo</title>
         <meta name="description" content="My personal dev playground." />
         <meta name="keywords" content="Todo, List, Groceries, Productivity" />
         <meta name="author" content="Doga Fincan" />
@@ -42,8 +42,8 @@ const Index = () => {
             transition={{ duration: 0.4 }}
             className="flex flex-col items-center space-y-4"
           >
-            <h1 className="font-['Pacifico'] text-6xl text-white duration-200 ease-linear will-change-auto motion-reduce:transition-transform sm:text-9xl ">
-              Todo
+            <h1 className="mb-3 font-['Pacifico'] text-5xl text-white duration-200 ease-linear will-change-auto motion-reduce:transition-transform sm:mb-6 sm:text-7xl">
+              Doga Todo
             </h1>
             <h2 className="text-slate-50 ease-linear motion-reduce:transition-transform dark:text-slate-50">
               A fun way to get things done.
