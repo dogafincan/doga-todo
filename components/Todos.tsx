@@ -1,22 +1,20 @@
-import { Dispatch, SetStateAction, useEffect } from "react";
+import { useEffect } from "react";
+import { useSession } from "next-auth/react";
 import { motion } from "framer-motion";
 import useGetTodos from "@utils/useGetTodos";
 import Todo from "@components/Todo";
-
-// const initialTodos = [
-//   { id: "1", title: "🍅 Tomato" },
-//   { id: "2", title: "🥒 Cucumber" },
-//   { id: "3", title: "🧀 Cheese" },
-//   { id: "4", title: "🥬 Lettuce" },
-//   { id: "5", title: "🥑 Avocado" },
-//   { id: "6", title: "🥥 Coconut" },
-// ];
+import { LocalTodo, SetLoading, SetLocalTodos } from "@utils/types";
 
 const Todos = ({
   setLoading,
+  localTodos,
+  setLocalTodos,
 }: {
-  setLoading: Dispatch<SetStateAction<boolean>>;
+  setLoading: SetLoading;
+  localTodos: LocalTodo[];
+  setLocalTodos: SetLocalTodos;
 }) => {
+  const { status } = useSession();
   const { data, isFetched } = useGetTodos();
 
   useEffect(() => {
@@ -25,9 +23,28 @@ const Todos = ({
 
   return (
     <motion.ul className="space-y-4">
-      {data?.map((todo) => {
-        return <Todo key={todo.id} todo={todo} />;
-      })}
+      {status === "unauthenticated"
+        ? localTodos.map((localTodo) => {
+            return (
+              <Todo
+                key={localTodo.id}
+                todo={localTodo}
+                localTodos={localTodos}
+                setLocalTodos={setLocalTodos}
+              />
+            );
+          })
+        : Array.isArray(data) &&
+          data?.map((todo) => {
+            return (
+              <Todo
+                key={todo.id}
+                todo={todo}
+                localTodos={localTodos}
+                setLocalTodos={setLocalTodos}
+              />
+            );
+          })}
     </motion.ul>
   );
 };

@@ -1,14 +1,25 @@
 import { useEffect, useRef, useState } from "react";
+import { useSession } from "next-auth/react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Todos } from "@utils/xata";
 import useEditTodo from "@utils/useEditTodo";
 import useDeleteTodo from "@utils/useDeleteTodo";
+import { LocalTodo, SetLocalTodos } from "@utils/types";
 
-const Todo = ({ todo }: { todo: Todos }) => {
+const Todo = ({
+  todo,
+  localTodos,
+  setLocalTodos,
+}: {
+  todo: Todos;
+  localTodos: LocalTodo[];
+  setLocalTodos: SetLocalTodos;
+}) => {
   const [title, setTitle] = useState(todo.title ?? "");
   const [edit, setEdit] = useState(false);
   const [active, setActive] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
+  const { status } = useSession();
   const { editTodo } = useEditTodo();
   const { deleteTodo } = useDeleteTodo();
 
@@ -16,8 +27,24 @@ const Todo = ({ todo }: { todo: Todos }) => {
     inputRef.current?.focus();
   }, [edit]);
 
+  const editLocalTodo = () => {
+    setLocalTodos(
+      localTodos.map((localTodo) => {
+        if (localTodo.id === todo.id) {
+          return { id: localTodo.id, title };
+        } else {
+          return localTodo;
+        }
+      })
+    );
+  };
+
   const handleCheckboxChange = () => {
-    deleteTodo.mutate({ id: todo.id });
+    if (status === "unauthenticated") {
+      setLocalTodos(localTodos.filter((localTodo) => localTodo.id !== todo.id));
+    } else {
+      deleteTodo.mutate({ id: todo.id });
+    }
   };
 
   const handleCheckboxFocus = () => {
@@ -35,7 +62,13 @@ const Todo = ({ todo }: { todo: Todos }) => {
   const handleTitleSubmit = (event: React.SyntheticEvent) => {
     event.preventDefault();
     setEdit(false);
-    editTodo.mutate({ id: todo.id, title });
+    setActive(false);
+
+    if (status === "unauthenticated") {
+      editLocalTodo();
+    } else {
+      editTodo.mutate({ id: todo.id, title });
+    }
   };
 
   const handleTitleBlur = () => {
@@ -43,7 +76,11 @@ const Todo = ({ todo }: { todo: Todos }) => {
     setActive(false);
 
     if (todo.title !== title) {
-      editTodo.mutate({ id: todo.id, title });
+      if (status === "unauthenticated") {
+        editLocalTodo();
+      } else {
+        editTodo.mutate({ id: todo.id, title });
+      }
     }
   };
 

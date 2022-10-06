@@ -12,6 +12,7 @@ const tables = [
     columns: [
       { name: "title", type: "string" },
       { name: "createdAt", type: "datetime" },
+      { name: "user", type: "link", link: { table: "nextauth_users" } },
     ],
   },
   {
@@ -37,14 +38,6 @@ const tables = [
       { name: "scope", type: "string" },
       { name: "id_token", type: "text" },
       { name: "session_state", type: "string" },
-    ],
-  },
-  {
-    name: "nextauth_verificationTokens",
-    columns: [
-      { name: "identifier", type: "string" },
-      { name: "token", type: "string" },
-      { name: "expires", type: "datetime" },
     ],
   },
   {
@@ -83,11 +76,6 @@ export type NextauthUsersRecord = NextauthUsers & XataRecord;
 export type NextauthAccounts = InferredTypes["nextauth_accounts"];
 export type NextauthAccountsRecord = NextauthAccounts & XataRecord;
 
-export type NextauthVerificationTokens =
-  InferredTypes["nextauth_verificationTokens"];
-export type NextauthVerificationTokensRecord = NextauthVerificationTokens &
-  XataRecord;
-
 export type NextauthUsersAccounts = InferredTypes["nextauth_users_accounts"];
 export type NextauthUsersAccountsRecord = NextauthUsersAccounts & XataRecord;
 
@@ -101,7 +89,6 @@ export type DatabaseSchema = {
   todos: TodosRecord;
   nextauth_users: NextauthUsersRecord;
   nextauth_accounts: NextauthAccountsRecord;
-  nextauth_verificationTokens: NextauthVerificationTokensRecord;
   nextauth_users_accounts: NextauthUsersAccountsRecord;
   nextauth_users_sessions: NextauthUsersSessionsRecord;
   nextauth_sessions: NextauthSessionsRecord;

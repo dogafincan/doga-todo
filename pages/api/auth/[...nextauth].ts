@@ -1,6 +1,6 @@
 import NextAuth, { NextAuthOptions } from "next-auth";
 import GithubProvider from "next-auth/providers/github";
-import { XataAdapter } from "@utils/NextAuthAdapter";
+import { XataAdapter } from "@utils/nextAuthAdapter";
 import { getXataClient } from "@utils/xata";
 
 const xataClient = getXataClient();

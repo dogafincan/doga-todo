@@ -1,16 +1,33 @@
 import { useState } from "react";
+import { useSession } from "next-auth/react";
 import { motion } from "framer-motion";
 import { v4 as uuid } from "uuid";
 import useAddTodo from "@utils/useAddTodo";
+import { LocalTodo, SetLocalTodos } from "@utils/types";
 
-const AddTodoForm = ({ isLoading }: { isLoading: boolean }) => {
+const AddTodoForm = ({
+  isLoading,
+  localTodos,
+  setLocalTodos,
+}: {
+  isLoading: boolean;
+  localTodos: LocalTodo[];
+  setLocalTodos: SetLocalTodos;
+}) => {
+  const { status } = useSession();
   const [title, setTitle] = useState("");
   const { addTodo } = useAddTodo();
   const id = "todo" + uuid();
 
   const handleSubmit = (event: React.SyntheticEvent) => {
     event.preventDefault();
-    addTodo.mutate({ id, title });
+
+    if (status === "unauthenticated") {
+      setLocalTodos([{ id, title }, ...localTodos]);
+    } else {
+      addTodo.mutate({ id, title });
+    }
+
     setTitle("");
   };
 
