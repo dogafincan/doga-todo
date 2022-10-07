@@ -4,14 +4,7 @@ import { useSession } from "next-auth/react";
 import Todos from "@components/Todos";
 import TodoForm from "@components/TodoForm";
 import HeroBanner from "@components/HeroBanner";
-
-const initialLocalTodos = [
-  { id: "1", title: "👋 Hi there!" },
-  { id: "2", title: "👨‍💻 My name is Doga Fincan." },
-  { id: "3", title: "🔥 I've set up a few todos for you." },
-  { id: "4", title: "🕹 Feel free to play around." },
-  { id: "5", title: "🚀 Or log in above to create your own!" },
-];
+import initialLocalTodos from "@utils/initialLocalTodos";
 
 const Index = () => {
   const { status } = useSession();
