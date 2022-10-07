@@ -61,7 +61,7 @@ const Index = () => {
             <Image
               priority
               src={Memoji}
-              alt="Picture of the author"
+              alt="Memoji of Doga Fincan"
               className="w-[200px]"
             />
           </motion.div>
