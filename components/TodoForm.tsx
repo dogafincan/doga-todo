@@ -14,7 +14,7 @@ const AddTodoForm = ({
   localTodos: LocalTodo[];
   setLocalTodos: SetLocalTodos;
 }) => {
-  const { session } = useSession();
+  const { session, status } = useSession();
   const [title, setTitle] = useState("");
   const { addTodo } = useAddTodo();
   const id = "todo" + uuid();
@@ -22,7 +22,7 @@ const AddTodoForm = ({
   const handleSubmit = (event: React.SyntheticEvent) => {
     event.preventDefault();
 
-    if (session) {
+    if (session && status === "success") {
       addTodo.mutate({ id, title });
     } else {
       setLocalTodos([{ id, title }, ...localTodos]);

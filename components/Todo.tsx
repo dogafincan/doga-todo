@@ -19,7 +19,7 @@ const Todo = ({
   const [edit, setEdit] = useState(false);
   const [active, setActive] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
-  const { session } = useSession();
+  const { session, status } = useSession();
   const { editTodo } = useEditTodo();
   const { deleteTodo } = useDeleteTodo();
 
@@ -40,7 +40,7 @@ const Todo = ({
   };
 
   const handleCheckboxChange = () => {
-    if (session) {
+    if (session && status === "success") {
       deleteTodo.mutate({ id: todo.id });
     } else {
       setLocalTodos(localTodos.filter((localTodo) => localTodo.id !== todo.id));
@@ -64,7 +64,7 @@ const Todo = ({
     setEdit(false);
     setActive(false);
 
-    if (session) {
+    if (session && status === "success") {
       editTodo.mutate({ id: todo.id, title });
     } else {
       editLocalTodo();
@@ -76,7 +76,7 @@ const Todo = ({
     setActive(false);
 
     if (todo.title !== title) {
-      if (session) {
+      if (session && status === "success") {
         editTodo.mutate({ id: todo.id, title });
       } else {
         editLocalTodo();

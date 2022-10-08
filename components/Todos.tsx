@@ -14,7 +14,7 @@ const Todos = ({
   localTodos: LocalTodo[];
   setLocalTodos: SetLocalTodos;
 }) => {
-  const { session } = useSession();
+  const { session, status } = useSession();
   const { data, isFetched } = useGetTodos();
 
   useEffect(() => {
@@ -23,7 +23,7 @@ const Todos = ({
 
   return (
     <motion.ul className="space-y-4">
-      {session
+      {session && status === "success"
         ? Array.isArray(data) &&
           data?.map((todo) => {
             return (
