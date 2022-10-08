@@ -1,18 +1,14 @@
 import { useState } from "react";
 import Head from "next/head";
-import { useSession } from "next-auth/react";
 import Todos from "@components/Todos";
 import TodoForm from "@components/TodoForm";
 import HeroBanner from "@components/HeroBanner";
 import initialLocalTodos from "@utils/initialLocalTodos";
+import useSession from "@utils/useSession";
 
 const Index = () => {
-  const { status } = useSession();
-
-  const [isLoading, setLoading] = useState(
-    status === "unauthenticated" ? false : true
-  );
-
+  const { session } = useSession();
+  const [isLoading, setLoading] = useState(session ? true : false);
   const [localTodos, setLocalTodos] = useState(initialLocalTodos);
 
   return (
