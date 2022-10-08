@@ -12,7 +12,7 @@ const Index = () => {
   const [localTodos, setLocalTodos] = useState(initialLocalTodos);
 
   return (
-    <div className="flex flex-col items-center">
+    <>
       <Head>
         <title>Doga Todo</title>
         <meta name="description" content="My personal dev playground." />
@@ -20,7 +20,7 @@ const Index = () => {
         <meta name="author" content="Doga Fincan" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className="flex w-full flex-col space-y-4 p-3 md:w-11/12 md:p-8 lg:w-4/5 xl:w-4/6 2xl:w-7/12">
+      <main className="flex w-full max-w-4xl flex-col space-y-4 p-3 md:w-11/12 md:p-8">
         <HeroBanner />
         <TodoForm
           isLoading={isLoading}
@@ -33,7 +33,7 @@ const Index = () => {
           setLocalTodos={setLocalTodos}
         />
       </main>
-    </div>
+    </>
   );
 };
 
