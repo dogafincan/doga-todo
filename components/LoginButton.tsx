@@ -1,6 +1,7 @@
 import { signIn, signOut } from "next-auth/react";
 import { FaGithub } from "react-icons/fa";
 import useSession from "@utils/useSession";
+import LoginButtonText from "./LoginButtonText";
 
 const LoginButton = () => {
   const { session, status } = useSession();
@@ -24,9 +25,7 @@ const LoginButton = () => {
       >
         <p className="flex items-center gap-x-2">
           <FaGithub />
-          {session && "Sign out"}
-          {status === "loading" && "Loading..."}
-          {!session && "Continue with GitHub"}
+          <LoginButtonText />
         </p>
       </button>
     </div>
