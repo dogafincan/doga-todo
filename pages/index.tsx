@@ -11,7 +11,7 @@ const Index = ({
   initialIsLoggedIn,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const [isLoggedIn] = useState(initialIsLoggedIn);
-  const [isLoading, setLoading] = useState(isLoggedIn ? false : true);
+  const [isLoading, setLoading] = useState(isLoggedIn ? true : false);
   const [localTodos, setLocalTodos] = useState(initialLocalTodos);
 
   return (
