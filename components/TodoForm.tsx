@@ -36,7 +36,7 @@ const AddTodoForm = ({
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       layout
-      transition={{ duration: 0.2 }}
+      transition={{ duration: 0.4 }}
       onSubmit={handleSubmit}
       className="flex flex-col"
     >
