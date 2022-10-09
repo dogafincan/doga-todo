@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import { motion } from "framer-motion";
-import useSession from "@utils/useSession";
 import useGetTodos from "@utils/useGetTodos";
 import Todo from "@components/Todo";
 import { LocalTodo, SetLoading, SetLocalTodos } from "@utils/types";
@@ -9,12 +8,13 @@ const Todos = ({
   setLoading,
   localTodos,
   setLocalTodos,
+  isLoggedIn,
 }: {
   setLoading: SetLoading;
   localTodos: LocalTodo[];
   setLocalTodos: SetLocalTodos;
+  isLoggedIn: boolean;
 }) => {
-  const { session, status } = useSession();
   const { data, isFetched } = useGetTodos();
 
   useEffect(() => {
@@ -23,7 +23,7 @@ const Todos = ({
 
   return (
     <motion.ul className="space-y-4">
-      {session && status === "success"
+      {isLoggedIn
         ? Array.isArray(data) &&
           data?.map((todo) => {
             return (
@@ -32,6 +32,7 @@ const Todos = ({
                 todo={todo}
                 localTodos={localTodos}
                 setLocalTodos={setLocalTodos}
+                isLoggedIn={isLoggedIn}
               />
             );
           })
@@ -42,6 +43,7 @@ const Todos = ({
                 todo={localTodo}
                 localTodos={localTodos}
                 setLocalTodos={setLocalTodos}
+                isLoggedIn={isLoggedIn}
               />
             );
           })}

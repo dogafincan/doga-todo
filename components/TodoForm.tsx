@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { v4 as uuid } from "uuid";
-import useSession from "@utils/useSession";
 import useAddTodo from "@utils/useAddTodo";
 import { LocalTodo, SetLocalTodos } from "@utils/types";
 
@@ -9,12 +8,13 @@ const AddTodoForm = ({
   isLoading,
   localTodos,
   setLocalTodos,
+  isLoggedIn,
 }: {
   isLoading: boolean;
   localTodos: LocalTodo[];
   setLocalTodos: SetLocalTodos;
+  isLoggedIn: boolean;
 }) => {
-  const { session, status } = useSession();
   const [title, setTitle] = useState("");
   const { addTodo } = useAddTodo();
   const id = "todo" + uuid();
@@ -22,7 +22,7 @@ const AddTodoForm = ({
   const handleSubmit = (event: React.SyntheticEvent) => {
     event.preventDefault();
 
-    if (session && status === "success") {
+    if (isLoggedIn) {
       addTodo.mutate({ id, title });
     } else {
       setLocalTodos([{ id, title }, ...localTodos]);

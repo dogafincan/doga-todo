@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import useSession from "@utils/useSession";
 import { Todos } from "@utils/xata";
 import useEditTodo from "@utils/useEditTodo";
 import useDeleteTodo from "@utils/useDeleteTodo";
@@ -10,16 +9,17 @@ const Todo = ({
   todo,
   localTodos,
   setLocalTodos,
+  isLoggedIn,
 }: {
   todo: Todos;
   localTodos: LocalTodo[];
   setLocalTodos: SetLocalTodos;
+  isLoggedIn: boolean;
 }) => {
   const [title, setTitle] = useState(todo.title ?? "");
   const [edit, setEdit] = useState(false);
   const [active, setActive] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
-  const { session, status } = useSession();
   const { editTodo } = useEditTodo();
   const { deleteTodo } = useDeleteTodo();
 
@@ -40,7 +40,7 @@ const Todo = ({
   };
 
   const handleCheckboxChange = () => {
-    if (session && status === "success") {
+    if (isLoggedIn) {
       deleteTodo.mutate({ id: todo.id });
     } else {
       setLocalTodos(localTodos.filter((localTodo) => localTodo.id !== todo.id));
@@ -64,7 +64,7 @@ const Todo = ({
     setEdit(false);
     setActive(false);
 
-    if (session && status === "success") {
+    if (isLoggedIn) {
       editTodo.mutate({ id: todo.id, title });
     } else {
       editLocalTodo();
@@ -76,7 +76,7 @@ const Todo = ({
     setActive(false);
 
     if (todo.title !== title) {
-      if (session && status === "success") {
+      if (isLoggedIn) {
         editTodo.mutate({ id: todo.id, title });
       } else {
         editLocalTodo();

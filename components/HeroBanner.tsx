@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import LoginButton from "@components/LoginButton";
 import Memoji from "@public/memoji.png";
 
-const HeroBanner = () => (
+const HeroBanner = ({ isLoggedIn }: { isLoggedIn: boolean }) => (
   <div className="flex h-auto flex-col rounded-3xl bg-gradient-to-r from-rose-500/80 to-fuchsia-500/80 px-8 pt-8 shadow dark:shadow-none">
     <motion.div
       initial={{ opacity: 0 }}
@@ -17,9 +17,7 @@ const HeroBanner = () => (
       <h2 className="text-slate-50 ease-linear motion-reduce:transition-transform dark:text-slate-50">
         A fun way to get things done.
       </h2>
-      <div>
-        <LoginButton />
-      </div>
+      <LoginButton isLoggedIn={isLoggedIn} />
     </motion.div>
     <motion.div
       initial={{ opacity: 0 }}
