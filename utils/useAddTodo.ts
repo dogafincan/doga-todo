@@ -15,7 +15,9 @@ const useAddTodo = () => {
   const mutation = useMutation(addTodo, {
     onMutate: async (newTodo: Todos) => {
       await queryClient.cancelQueries(["todos" + session?.user?.email ?? ""]);
-      const previousTodos = queryClient.getQueryData<Todos[]>(["todos"]);
+      const previousTodos = queryClient.getQueryData<Todos[]>([
+        "todos" + session?.user?.email ?? "",
+      ]);
 
       if (previousTodos) {
         queryClient.setQueryData<Todos[]>(
