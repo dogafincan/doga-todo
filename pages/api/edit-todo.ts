@@ -9,14 +9,7 @@ const handler: NextApiHandler = async (req, res) => {
   if (session) {
     const { id, title } = req.body;
     const xata = getXataClient();
-
-    const user = await xata.db.nextauth_users
-      .filter({ email: session.user!.email! })
-      .getFirst();
-
-    const todo = await xata.db.todos.filter({ user: user!, id }).getFirst();
-    const editedTodo = await todo!.update({ title });
-
+    const editedTodo = await xata.db.todos.update(id, { title });
     res.status(200).json(editedTodo);
   } else {
     res.status(204);

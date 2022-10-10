@@ -12,54 +12,7 @@ const tables = [
     columns: [
       { name: "title", type: "string" },
       { name: "createdAt", type: "datetime" },
-      { name: "user", type: "link", link: { table: "nextauth_users" } },
-    ],
-  },
-  {
-    name: "nextauth_users",
-    columns: [
-      { name: "email", type: "email" },
-      { name: "emailVerified", type: "datetime" },
-      { name: "name", type: "string" },
-      { name: "image", type: "string" },
-    ],
-  },
-  {
-    name: "nextauth_accounts",
-    columns: [
-      { name: "user", type: "link", link: { table: "nextauth_users" } },
-      { name: "type", type: "string" },
-      { name: "provider", type: "string" },
-      { name: "providerAccountId", type: "string" },
-      { name: "refresh_token", type: "string" },
-      { name: "access_token", type: "string" },
-      { name: "expires_at", type: "int" },
-      { name: "token_type", type: "string" },
-      { name: "scope", type: "string" },
-      { name: "id_token", type: "text" },
-      { name: "session_state", type: "string" },
-    ],
-  },
-  {
-    name: "nextauth_users_accounts",
-    columns: [
-      { name: "user", type: "link", link: { table: "nextauth_users" } },
-      { name: "account", type: "link", link: { table: "nextauth_accounts" } },
-    ],
-  },
-  {
-    name: "nextauth_users_sessions",
-    columns: [
-      { name: "user", type: "link", link: { table: "nextauth_users" } },
-      { name: "session", type: "link", link: { table: "nextauth_sessions" } },
-    ],
-  },
-  {
-    name: "nextauth_sessions",
-    columns: [
-      { name: "sessionToken", type: "string" },
-      { name: "expires", type: "datetime" },
-      { name: "user", type: "link", link: { table: "nextauth_users" } },
+      { name: "createdBy", type: "email" },
     ],
   },
 ] as const;
@@ -70,28 +23,8 @@ export type InferredTypes = SchemaInference<SchemaTables>;
 export type Todos = InferredTypes["todos"];
 export type TodosRecord = Todos & XataRecord;
 
-export type NextauthUsers = InferredTypes["nextauth_users"];
-export type NextauthUsersRecord = NextauthUsers & XataRecord;
-
-export type NextauthAccounts = InferredTypes["nextauth_accounts"];
-export type NextauthAccountsRecord = NextauthAccounts & XataRecord;
-
-export type NextauthUsersAccounts = InferredTypes["nextauth_users_accounts"];
-export type NextauthUsersAccountsRecord = NextauthUsersAccounts & XataRecord;
-
-export type NextauthUsersSessions = InferredTypes["nextauth_users_sessions"];
-export type NextauthUsersSessionsRecord = NextauthUsersSessions & XataRecord;
-
-export type NextauthSessions = InferredTypes["nextauth_sessions"];
-export type NextauthSessionsRecord = NextauthSessions & XataRecord;
-
 export type DatabaseSchema = {
   todos: TodosRecord;
-  nextauth_users: NextauthUsersRecord;
-  nextauth_accounts: NextauthAccountsRecord;
-  nextauth_users_accounts: NextauthUsersAccountsRecord;
-  nextauth_users_sessions: NextauthUsersSessionsRecord;
-  nextauth_sessions: NextauthSessionsRecord;
 };
 
 const DatabaseClient = buildClient();

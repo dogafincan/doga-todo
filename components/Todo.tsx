@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { useSession } from "next-auth/react";
 import { motion } from "framer-motion";
 import { Todos } from "@utils/xata";
 import useEditTodo from "@utils/useEditTodo";
@@ -9,13 +10,12 @@ const Todo = ({
   todo,
   localTodos,
   setLocalTodos,
-  isLoggedIn,
 }: {
   todo: Todos;
   localTodos: LocalTodo[];
   setLocalTodos: SetLocalTodos;
-  isLoggedIn: boolean;
 }) => {
+  const { status } = useSession();
   const [title, setTitle] = useState(todo.title ?? "");
   const [edit, setEdit] = useState(false);
   const [active, setActive] = useState(false);
@@ -40,9 +40,11 @@ const Todo = ({
   };
 
   const handleCheckboxChange = () => {
-    if (isLoggedIn) {
+    if (status === "authenticated") {
       deleteTodo.mutate({ id: todo.id });
-    } else {
+    }
+
+    if (status === "unauthenticated") {
       setLocalTodos(localTodos.filter((localTodo) => localTodo.id !== todo.id));
     }
   };
@@ -64,9 +66,11 @@ const Todo = ({
     setEdit(false);
     setActive(false);
 
-    if (isLoggedIn) {
+    if (status === "authenticated") {
       editTodo.mutate({ id: todo.id, title });
-    } else {
+    }
+
+    if (status === "unauthenticated") {
       editLocalTodo();
     }
   };
@@ -76,9 +80,11 @@ const Todo = ({
     setActive(false);
 
     if (todo.title !== title) {
-      if (isLoggedIn) {
+      if (status === "authenticated") {
         editTodo.mutate({ id: todo.id, title });
-      } else {
+      }
+
+      if (status === "unauthenticated") {
         editLocalTodo();
       }
     }
@@ -94,13 +100,13 @@ const Todo = ({
       layout
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      transition={{ duration: 0.4 }}
+      transition={{ duration: 0.2 }}
       exit={{ opacity: 0 }}
       onClick={handleTitleClick}
     >
       <div
         className={`flex h-20 cursor-text items-center rounded-3xl bg-white pl-5 shadow duration-200 ease-linear motion-reduce:transition-colors dark:border dark:border-slate-50/10 dark:bg-neutral-700/40 dark:shadow-none sm:py-3.5 sm:pl-8 ${
-          (active || edit) && "ring-4 ring-blue-400 dark:ring-blue-500"
+          active || edit ? "ring-4 ring-blue-400 dark:ring-blue-500" : ""
         }`}
       >
         <input

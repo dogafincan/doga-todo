@@ -10,7 +10,7 @@ const handler: NextApiHandler = async (req, res) => {
     const xata = getXataClient();
 
     const todos = await xata.db.todos
-      .filter("user.email", session.user!.email!)
+      .filter("createdBy", session.user!.email!)
       .sort("createdAt", "desc")
       .getAll();
 

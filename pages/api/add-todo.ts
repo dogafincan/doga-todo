@@ -10,14 +10,10 @@ const handler: NextApiHandler = async (req, res) => {
     const { id, title } = req.body;
     const xata = getXataClient();
 
-    const user = await xata.db.nextauth_users
-      .filter({ email: session.user!.email! })
-      .getFirst();
-
     const todo = await xata.db.todos.create(id, {
       title,
       createdAt: new Date(),
-      user: { id: user!.id },
+      createdBy: session.user!.email!,
     });
 
     res.status(200).json(todo);

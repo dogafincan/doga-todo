@@ -7,4 +7,4 @@ export type LocalTodo = {
 
 export type SetLocalTodos = Dispatch<SetStateAction<LocalTodo[]>>;
 
-export type SetLoading = Dispatch<SetStateAction<boolean>>;
+export type SetIsLoading = Dispatch<SetStateAction<boolean>>;
