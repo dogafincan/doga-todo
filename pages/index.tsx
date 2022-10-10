@@ -1,14 +1,14 @@
 import { useState } from "react";
 import Head from "next/head";
+import { GetServerSideProps, InferGetServerSidePropsType } from "next/types";
 import cookie from "cookie";
 import Todos from "@components/Todos";
 import TodoForm from "@components/TodoForm";
 import HeroBanner from "@components/HeroBanner";
-import initialLocalTodos from "@utils/initialLocalTodos";
-import { GetServerSideProps, InferGetServerSidePropsType } from "next/types";
 
 const Index = ({
   initialIsLoggedIn,
+  initialLocalTodos,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const [isLoggedIn] = useState(initialIsLoggedIn);
   const [isLoading, setLoading] = useState(isLoggedIn ? true : false);
@@ -50,6 +50,13 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   return {
     props: {
       initialIsLoggedIn: JSON.parse(cookies.isLoggedIn ?? "false"),
+      initialLocalTodos: [
+        { id: "1", title: "👋 Hi there!" },
+        { id: "2", title: "👨‍💻 My name is Doga Fincan." },
+        { id: "3", title: "🔥 I've set up a few todos for you." },
+        { id: "4", title: "🕹 Feel free to play around." },
+        { id: "5", title: "🚀 Or log in above to create your own!" },
+      ],
     },
   };
 };
