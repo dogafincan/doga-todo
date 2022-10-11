@@ -1,11 +1,11 @@
-import { useState } from "react";
+import { memo, useState } from "react";
 import { useSession } from "next-auth/react";
 import { motion } from "framer-motion";
 import { v4 as uuid } from "uuid";
 import useAddTodo from "@utils/useAddTodo";
 import { LocalTodo, SetLocalTodos } from "@utils/types";
 
-const AddTodoForm = ({
+const AddTodoForm = memo(function AddTodoForm({
   isLoading,
   localTodos,
   setLocalTodos,
@@ -13,7 +13,7 @@ const AddTodoForm = ({
   isLoading: boolean;
   localTodos: LocalTodo[];
   setLocalTodos: SetLocalTodos;
-}) => {
+}) {
   const { status } = useSession();
   const [title, setTitle] = useState("");
   const { addTodo } = useAddTodo();
@@ -57,6 +57,6 @@ const AddTodoForm = ({
       />
     </motion.form>
   );
-};
+});
 
 export default AddTodoForm;
