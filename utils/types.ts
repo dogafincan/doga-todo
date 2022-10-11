@@ -8,5 +8,3 @@ export type LocalTodo = {
 export type SetLocalTodos = Dispatch<SetStateAction<LocalTodo[]>>;
 
 export type SetIsLoading = Dispatch<SetStateAction<boolean>>;
-
-export type SignInStatus = "authenticated" | "unauthenticated";

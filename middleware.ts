@@ -4,7 +4,7 @@ export const middleware = (request: NextRequest) => {
   const response = NextResponse.redirect(new URL("/", request.url));
 
   if (request.nextUrl.searchParams.get("error")) {
-    response.cookies.set("signInStatus", "unauthenticated");
+    response.cookies.set("isLoggedIn", "false");
   }
 
   return response;
