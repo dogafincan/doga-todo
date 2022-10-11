@@ -30,6 +30,7 @@ const HeroBanner = memo(function HeroBanner() {
         <Image
           priority
           src={Memoji}
+          placeholder="blur"
           alt="Memoji of Doga Fincan"
           className="w-[200px]"
         />
