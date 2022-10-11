@@ -2,7 +2,7 @@ import { signIn, signOut, useSession } from "next-auth/react";
 import { FaGithub } from "react-icons/fa";
 
 const LoginButton = () => {
-  const { data: session, status } = useSession();
+  const { status } = useSession();
 
   const handleClick = () => {
     if (status === "authenticated") {

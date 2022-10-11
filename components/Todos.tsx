@@ -1,11 +1,11 @@
-import { useEffect } from "react";
+import { memo, useEffect } from "react";
 import { useSession } from "next-auth/react";
 import { motion } from "framer-motion";
 import useGetTodos from "@utils/useGetTodos";
 import Todo from "@components/Todo";
 import { LocalTodo, SetIsLoading, SetLocalTodos } from "@utils/types";
 
-const Todos = ({
+const Todos = memo(function Todos({
   setIsLoading,
   localTodos,
   setLocalTodos,
@@ -13,7 +13,7 @@ const Todos = ({
   setIsLoading: SetIsLoading;
   localTodos: LocalTodo[];
   setLocalTodos: SetLocalTodos;
-}) => {
+}) {
   const { status } = useSession();
   const { data, isFetched } = useGetTodos();
 
@@ -47,6 +47,6 @@ const Todos = ({
           })}
     </motion.ul>
   );
-};
+});
 
 export default Todos;

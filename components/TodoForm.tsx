@@ -17,17 +17,16 @@ const AddTodoForm = ({
   const { status } = useSession();
   const [title, setTitle] = useState("");
   const { addTodo } = useAddTodo();
-  const id = "todo" + uuid();
 
   const handleSubmit = (event: React.SyntheticEvent) => {
     event.preventDefault();
 
     if (status === "authenticated") {
-      addTodo.mutate({ id, title });
+      addTodo.mutate({ id: "todo" + uuid(), title });
     }
 
     if (status === "unauthenticated") {
-      setLocalTodos([{ id, title }, ...localTodos]);
+      setLocalTodos([{ id: "todo" + uuid(), title }, ...localTodos]);
     }
 
     setTitle("");
