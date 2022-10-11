@@ -9,7 +9,7 @@ import initialLocalTodos from "@utils/initialLocalTodos";
 const Index = () => {
   const { status } = useSession();
   const [localTodos, setLocalTodos] = useState(initialLocalTodos);
-  const [isLoading, setIsLoading] = useState(
+  const [isLoading, setIsLoading] = useState(() =>
     status === "unauthenticated" ? false : true
   );
 
