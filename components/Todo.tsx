@@ -1,21 +1,21 @@
 import { useEffect, useRef, useState } from "react";
-import { useSession } from "next-auth/react";
 import { motion } from "framer-motion";
 import { Todos } from "@utils/xata";
 import useEditTodo from "@utils/useEditTodo";
 import useDeleteTodo from "@utils/useDeleteTodo";
-import { LocalTodo, SetLocalTodos } from "@utils/types";
+import { LocalTodo, SetLocalTodos, SignInStatus } from "@utils/types";
 
 const Todo = ({
   todo,
   localTodos,
   setLocalTodos,
+  signInStatus,
 }: {
   todo: Todos;
   localTodos: LocalTodo[];
   setLocalTodos: SetLocalTodos;
+  signInStatus: SignInStatus;
 }) => {
-  const { status } = useSession();
   const [title, setTitle] = useState(todo.title ?? "");
   const [edit, setEdit] = useState(false);
   const [active, setActive] = useState(false);
@@ -40,11 +40,11 @@ const Todo = ({
   };
 
   const handleCheckboxChange = () => {
-    if (status === "authenticated") {
+    if (signInStatus === "authenticated") {
       deleteTodo.mutate({ id: todo.id });
     }
 
-    if (status === "unauthenticated") {
+    if (signInStatus === "unauthenticated") {
       setLocalTodos(localTodos.filter((localTodo) => localTodo.id !== todo.id));
     }
   };
@@ -66,11 +66,11 @@ const Todo = ({
     setEdit(false);
     setActive(false);
 
-    if (status === "authenticated") {
+    if (signInStatus === "authenticated") {
       editTodo.mutate({ id: todo.id, title });
     }
 
-    if (status === "unauthenticated") {
+    if (signInStatus === "unauthenticated") {
       editLocalTodo();
     }
   };
@@ -80,11 +80,11 @@ const Todo = ({
     setActive(false);
 
     if (todo.title !== title) {
-      if (status === "authenticated") {
+      if (signInStatus === "authenticated") {
         editTodo.mutate({ id: todo.id, title });
       }
 
-      if (status === "unauthenticated") {
+      if (signInStatus === "unauthenticated") {
         editLocalTodo();
       }
     }
