@@ -9,10 +9,12 @@ const AddTodoForm = memo(function AddTodoForm({
   isLoading,
   localTodos,
   setLocalTodos,
+  isLocal,
 }: {
   isLoading: boolean;
   localTodos: LocalTodo[];
   setLocalTodos: SetLocalTodos;
+  isLocal: boolean;
 }) {
   const { status } = useSession();
   const [title, setTitle] = useState("");
@@ -21,12 +23,10 @@ const AddTodoForm = memo(function AddTodoForm({
   const handleSubmit = (event: React.SyntheticEvent) => {
     event.preventDefault();
 
-    if (status === "authenticated") {
-      addTodo.mutate({ id: "todo" + uuid(), title });
-    }
-
-    if (status === "unauthenticated") {
+    if (status === "unauthenticated" || isLocal) {
       setLocalTodos([{ id: "todo" + uuid(), title }, ...localTodos]);
+    } else if (status === "authenticated") {
+      addTodo.mutate({ id: "todo" + uuid(), title });
     }
 
     setTitle("");
@@ -48,12 +48,12 @@ const AddTodoForm = memo(function AddTodoForm({
         autoComplete="off"
         aria-label="Add todo"
         className={`h-20 appearance-none rounded-3xl border-0 py-3.5 px-8 text-base shadow duration-200 ease-linear focus:border-transparent focus:outline-0 focus:ring-4 focus:ring-blue-400 motion-reduce:transition-colors dark:border dark:border-slate-50/10 dark:bg-neutral-700/40 dark:shadow-none dark:focus:ring-blue-500 sm:text-xl ${
-          isLoading ? "animate-pulse" : ""
+          isLoading && !isLocal ? "animate-pulse" : ""
         }`}
         value={title}
         onChange={(event) => setTitle(event.target.value)}
-        placeholder={isLoading ? "Loading..." : "Add todo"}
-        disabled={isLoading}
+        placeholder={isLoading && !isLocal ? "Loading..." : "Add todo"}
+        disabled={isLoading && !isLocal}
       />
     </motion.form>
   );

@@ -10,10 +10,12 @@ const TodosContainer = memo(function TodosContainer({
   setIsLoading,
   localTodos,
   setLocalTodos,
+  isLocal,
 }: {
   setIsLoading: SetIsLoading;
   localTodos: LocalTodo[];
   setLocalTodos: SetLocalTodos;
+  isLocal: boolean;
 }) {
   const { status } = useSession();
 
@@ -21,20 +23,24 @@ const TodosContainer = memo(function TodosContainer({
     if (status === "unauthenticated") {
       setIsLoading(false);
     }
-  }, [setIsLoading, status]);
+  }, [status, setIsLoading]);
 
   return (
     <motion.ul className="space-y-4">
-      {status === "authenticated" && (
+      {status === "unauthenticated" || isLocal ? (
+        <LocalTodos
+          localTodos={localTodos}
+          setLocalTodos={setLocalTodos}
+          isLocal={isLocal}
+        />
+      ) : status === "authenticated" ? (
         <Todos
           setIsLoading={setIsLoading}
           localTodos={localTodos}
           setLocalTodos={setLocalTodos}
+          isLocal={isLocal}
         />
-      )}
-      {status === "unauthenticated" && (
-        <LocalTodos localTodos={localTodos} setLocalTodos={setLocalTodos} />
-      )}
+      ) : null}
     </motion.ul>
   );
 });

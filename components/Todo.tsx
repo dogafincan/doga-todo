@@ -10,10 +10,12 @@ const Todo = ({
   todo,
   localTodos,
   setLocalTodos,
+  isLocal,
 }: {
   todo: Todos;
   localTodos: LocalTodo[];
   setLocalTodos: SetLocalTodos;
+  isLocal: boolean;
 }) => {
   const { status } = useSession();
   const [title, setTitle] = useState(todo.title ?? "");
@@ -40,12 +42,10 @@ const Todo = ({
   };
 
   const handleCheckboxChange = () => {
-    if (status === "authenticated") {
-      deleteTodo.mutate({ id: todo.id });
-    }
-
-    if (status === "unauthenticated") {
+    if (status === "unauthenticated" || isLocal) {
       setLocalTodos(localTodos.filter((localTodo) => localTodo.id !== todo.id));
+    } else if (status === "authenticated") {
+      deleteTodo.mutate({ id: todo.id });
     }
   };
 
@@ -66,12 +66,10 @@ const Todo = ({
     setEdit(false);
     setActive(false);
 
-    if (status === "authenticated") {
-      editTodo.mutate({ id: todo.id, title });
-    }
-
-    if (status === "unauthenticated") {
+    if (status === "unauthenticated" || isLocal) {
       editLocalTodo();
+    } else if (status === "authenticated") {
+      editTodo.mutate({ id: todo.id, title });
     }
   };
 
@@ -80,12 +78,10 @@ const Todo = ({
     setActive(false);
 
     if (todo.title !== title) {
-      if (status === "authenticated") {
-        editTodo.mutate({ id: todo.id, title });
-      }
-
-      if (status === "unauthenticated") {
+      if (status === "unauthenticated" || isLocal) {
         editLocalTodo();
+      } else if (status === "authenticated") {
+        editTodo.mutate({ id: todo.id, title });
       }
     }
   };

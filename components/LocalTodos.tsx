@@ -5,9 +5,11 @@ import { LocalTodo, SetLocalTodos } from "@utils/types";
 const LocalTodos = memo(function LocalTodos({
   localTodos,
   setLocalTodos,
+  isLocal,
 }: {
   localTodos: LocalTodo[];
   setLocalTodos: SetLocalTodos;
+  isLocal: boolean;
 }) {
   return (
     <>
@@ -18,6 +20,7 @@ const LocalTodos = memo(function LocalTodos({
             todo={localTodo}
             localTodos={localTodos}
             setLocalTodos={setLocalTodos}
+            isLocal={isLocal}
           />
         );
       })}
