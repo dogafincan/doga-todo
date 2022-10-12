@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from "react";
-import { useSession } from "next-auth/react";
 import { motion } from "framer-motion";
 import { Todos } from "@utils/xata";
 import useEditTodo from "@utils/useEditTodo";
 import useDeleteTodo from "@utils/useDeleteTodo";
 import { LocalTodo, SetLocalTodos } from "@utils/types";
+import useSession from "@utils/useSession";
 
 const Todo = ({
   todo,

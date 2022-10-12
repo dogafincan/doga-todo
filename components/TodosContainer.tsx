@@ -1,7 +1,7 @@
 import { lazy, memo, useEffect } from "react";
-import { useSession } from "next-auth/react";
 import { motion } from "framer-motion";
 import { LocalTodo, SetIsLoading, SetLocalTodos } from "@utils/types";
+import useSession from "@utils/useSession";
 
 const Todos = lazy(() => import("@components/Todos"));
 const LocalTodos = lazy(() => import("@components/LocalTodos"));

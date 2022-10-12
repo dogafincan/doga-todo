@@ -1,9 +1,9 @@
 import { memo, useState } from "react";
-import { useSession } from "next-auth/react";
 import { motion } from "framer-motion";
 import { v4 as uuid } from "uuid";
 import useAddTodo from "@utils/useAddTodo";
 import { LocalTodo, SetLocalTodos } from "@utils/types";
+import useSession from "@utils/useSession";
 
 const AddTodoForm = memo(function AddTodoForm({
   isLoading,

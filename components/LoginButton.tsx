@@ -1,11 +1,14 @@
-import { signIn, signOut, useSession } from "next-auth/react";
+import { signIn, signOut } from "next-auth/react";
+import { del } from "idb-keyval";
 import { FaGithub } from "react-icons/fa";
+import useSession from "@utils/useSession";
 
 const LoginButton = () => {
   const { status } = useSession();
 
   const handleClick = () => {
     if (status === "authenticated") {
+      del("reactQuery");
       signOut();
     }
 
