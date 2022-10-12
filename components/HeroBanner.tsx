@@ -32,7 +32,8 @@ const HeroBanner = memo(function HeroBanner({ isLocal }: { isLocal: boolean }) {
           src={Memoji}
           placeholder="blur"
           alt="Memoji of Doga Fincan"
-          className="w-[200px]"
+          height={200}
+          width={200}
         />
       </motion.div>
     </div>
