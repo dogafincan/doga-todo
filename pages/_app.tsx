@@ -2,6 +2,8 @@ import type { AppProps } from "next/app";
 import type { Session } from "next-auth";
 import { SessionProvider } from "next-auth/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { persistQueryClient } from "@tanstack/react-query-persist-client";
+import createIDBPersister from "@utils/createIDBPersister";
 import { MotionConfig } from "framer-motion";
 import "@styles/globals.css";
 
@@ -12,6 +14,11 @@ const queryClient = new QueryClient({
     },
   },
 });
+
+if (typeof window !== "undefined") {
+  const persister = createIDBPersister();
+  persistQueryClient({ queryClient, persister });
+}
 
 const MyApp = ({
   Component,
