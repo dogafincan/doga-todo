@@ -17,15 +17,15 @@ const useSession = () => {
   const query = useQuery(["session"], getSession);
   const [status, setStatus] = useState<
     "loading" | "authenticated" | "unauthenticated"
-  >("loading");
+  >();
 
   useEffect(() => {
-    if (query.status === "loading") {
-      setStatus("loading");
-    } else if (query.data) {
+    if (query.data) {
       setStatus("authenticated");
-    } else {
+    } else if (query.data === null) {
       setStatus("unauthenticated");
+    } else {
+      setStatus("loading");
     }
   }, [query.data, query.status]);
 
