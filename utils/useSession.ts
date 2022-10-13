@@ -17,7 +17,7 @@ const useSession = () => {
   const query = useQuery(["session"], getSession);
   const [status, setStatus] = useState<
     "loading" | "authenticated" | "unauthenticated"
-  >();
+  >("loading");
 
   useEffect(() => {
     if (query.data) {
@@ -27,7 +27,7 @@ const useSession = () => {
     } else {
       setStatus("loading");
     }
-  }, [query.data, query.status]);
+  }, [query.data]);
 
   return {
     session: query.data,
