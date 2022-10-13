@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { Todos } from "@utils/xata";
 import useEditTodo from "@utils/useEditTodo";
 import useDeleteTodo from "@utils/useDeleteTodo";
@@ -92,11 +92,10 @@ const Todo = ({
   };
 
   return (
-    <motion.li
+    <m.li
       layout
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      transition={{ duration: 0.2 }}
       exit={{ opacity: 0 }}
       onClick={handleTitleClick}
     >
@@ -141,7 +140,7 @@ const Todo = ({
           </div>
         )}
       </div>
-    </motion.li>
+    </m.li>
   );
 };
 

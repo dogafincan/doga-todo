@@ -1,5 +1,5 @@
 import { lazy, memo, useEffect } from "react";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { LocalTodo, SetIsLoading, SetLocalTodos } from "@utils/types";
 import useSession from "@utils/useSession";
 
@@ -26,7 +26,7 @@ const TodosContainer = memo(function TodosContainer({
   }, [status, setIsLoading]);
 
   return (
-    <motion.ul className="space-y-4">
+    <m.ul className="space-y-4">
       {status === "unauthenticated" || isLocal ? (
         <LocalTodos
           localTodos={localTodos}
@@ -41,7 +41,7 @@ const TodosContainer = memo(function TodosContainer({
           isLocal={isLocal}
         />
       ) : null}
-    </motion.ul>
+    </m.ul>
   );
 });
 

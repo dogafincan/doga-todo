@@ -1,5 +1,5 @@
 import Image from "next/future/image";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import LoginButton from "@components/LoginButton";
 import Memoji from "@public/memoji.png";
 import { memo } from "react";
@@ -7,10 +7,9 @@ import { memo } from "react";
 const HeroBanner = memo(function HeroBanner({ isLocal }: { isLocal: boolean }) {
   return (
     <div className="flex h-auto flex-col rounded-3xl bg-gradient-to-r from-rose-500/80 to-fuchsia-500/80 pt-8 shadow dark:shadow-none">
-      <motion.div
+      <m.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ duration: 0.2 }}
         className="flex flex-col items-center space-y-4"
       >
         <h1 className="text-6xl font-bold tracking-tight text-white duration-200 ease-linear will-change-auto motion-reduce:transition-transform sm:mb-1 sm:text-[80px]">
@@ -20,11 +19,10 @@ const HeroBanner = memo(function HeroBanner({ isLocal }: { isLocal: boolean }) {
           A fun way to get things done.
         </h2>
         <LoginButton isLocal={isLocal} />
-      </motion.div>
-      <motion.div
+      </m.div>
+      <m.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ duration: 0.2 }}
         className="flex flex-col items-center justify-end"
       >
         <Image
@@ -35,7 +33,7 @@ const HeroBanner = memo(function HeroBanner({ isLocal }: { isLocal: boolean }) {
           height={200}
           width={200}
         />
-      </motion.div>
+      </m.div>
     </div>
   );
 });
