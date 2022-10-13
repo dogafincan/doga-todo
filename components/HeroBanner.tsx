@@ -26,7 +26,6 @@ const HeroBanner = memo(function HeroBanner({ isLocal }: { isLocal: boolean }) {
         className="flex flex-col items-center justify-end"
       >
         <Image
-          priority
           src={Memoji}
           placeholder="blur"
           alt="Memoji of Doga Fincan"
