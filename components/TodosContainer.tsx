@@ -27,15 +27,15 @@ const TodosContainer = memo(function TodosContainer({
 
   return (
     <m.ul className="space-y-4">
-      {status === "unauthenticated" || isLocal ? (
-        <LocalTodos
+      {status === "authenticated" ? (
+        <Todos
+          setIsLoading={setIsLoading}
           localTodos={localTodos}
           setLocalTodos={setLocalTodos}
           isLocal={isLocal}
         />
-      ) : status === "authenticated" ? (
-        <Todos
-          setIsLoading={setIsLoading}
+      ) : status === "unauthenticated" || isLocal ? (
+        <LocalTodos
           localTodos={localTodos}
           setLocalTodos={setLocalTodos}
           isLocal={isLocal}

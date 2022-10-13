@@ -23,10 +23,10 @@ const AddTodoForm = memo(function AddTodoForm({
   const handleSubmit = (event: React.SyntheticEvent) => {
     event.preventDefault();
 
-    if (status === "unauthenticated" || isLocal) {
-      setLocalTodos([{ id: "todo" + uuid(), title }, ...localTodos]);
-    } else if (status === "authenticated") {
+    if (status === "authenticated") {
       addTodo.mutate({ id: "todo" + uuid(), title });
+    } else if (status === "unauthenticated" || isLocal) {
+      setLocalTodos([{ id: "todo" + uuid(), title }, ...localTodos]);
     }
 
     setTitle("");

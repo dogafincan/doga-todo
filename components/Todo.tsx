@@ -42,10 +42,10 @@ const Todo = ({
   };
 
   const handleCheckboxChange = () => {
-    if (status === "unauthenticated" || isLocal) {
-      setLocalTodos(localTodos.filter((localTodo) => localTodo.id !== todo.id));
-    } else if (status === "authenticated") {
+    if (status === "authenticated") {
       deleteTodo.mutate({ id: todo.id });
+    } else if (status === "unauthenticated" || isLocal) {
+      setLocalTodos(localTodos.filter((localTodo) => localTodo.id !== todo.id));
     }
   };
 
@@ -66,10 +66,10 @@ const Todo = ({
     setEdit(false);
     setActive(false);
 
-    if (status === "unauthenticated" || isLocal) {
-      editLocalTodo();
-    } else if (status === "authenticated") {
+    if (status === "authenticated") {
       editTodo.mutate({ id: todo.id, title });
+    } else if (status === "unauthenticated" || isLocal) {
+      editLocalTodo();
     }
   };
 
@@ -78,10 +78,10 @@ const Todo = ({
     setActive(false);
 
     if (todo.title !== title) {
-      if (status === "unauthenticated" || isLocal) {
-        editLocalTodo();
-      } else if (status === "authenticated") {
+      if (status === "authenticated") {
         editTodo.mutate({ id: todo.id, title });
+      } else if (status === "unauthenticated" || isLocal) {
+        editLocalTodo();
       }
     }
   };

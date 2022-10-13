@@ -6,10 +6,10 @@ const ButtonText = ({ isLocal }: { isLocal: boolean }) => {
   const [buttonText, setButtonText] = useState<string>();
 
   useEffect(() => {
-    if (status === "unauthenticated" || isLocal) {
-      setButtonText("Continue with GitHub");
-    } else if (status === "authenticated") {
+    if (status === "authenticated") {
       setButtonText("Sign out");
+    } else if (status === "unauthenticated" || isLocal) {
+      setButtonText("Continue with GitHub");
     } else if (status === "loading") {
       setButtonText("Loading...");
     }

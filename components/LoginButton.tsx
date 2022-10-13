@@ -9,12 +9,12 @@ const LoginButton = ({ isLocal }: { isLocal: boolean }) => {
   const { status } = useSession();
 
   const handleClick = () => {
-    if (status === "unauthenticated" || isLocal) {
-      signIn("github");
-    } else if (status === "authenticated") {
+    if (status === "authenticated") {
       del("reactQuery");
       Cookie.set("initialVisit", "true");
       signOut();
+    } else if (status === "unauthenticated" || isLocal) {
+      signIn("github");
     }
   };
 
@@ -23,7 +23,7 @@ const LoginButton = ({ isLocal }: { isLocal: boolean }) => {
       <button
         disabled={status === "loading" && !isLocal}
         className={`rounded-md bg-neutral-800 px-4 py-2 text-white shadow duration-200 ease-linear hover:bg-neutral-700 focus:outline-0 focus:ring-4 focus:ring-blue-400 motion-reduce:transition-colors sm:mt-1 sm:px-10 ${
-          status === "loading" ? "animate-pulse" : ""
+          status === "loading" && !isLocal ? "animate-pulse" : ""
         }`}
         onClick={handleClick}
       >
