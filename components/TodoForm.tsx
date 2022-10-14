@@ -36,7 +36,6 @@ const AddTodoForm = memo(function AddTodoForm({
     <m.form
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      layout
       onSubmit={handleSubmit}
       className="flex flex-col"
     >
