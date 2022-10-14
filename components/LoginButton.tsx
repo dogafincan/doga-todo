@@ -1,6 +1,5 @@
 import { signIn, signOut } from "next-auth/react";
 import { useQueryClient } from "@tanstack/react-query";
-import { del } from "idb-keyval";
 import Cookie from "js-cookie";
 import { FaGithub } from "react-icons/fa";
 import useSession from "@utils/useSession";
