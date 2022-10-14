@@ -9,13 +9,12 @@ import TodosContainer from "@components/TodosContainer";
 import { LocalTodo } from "@utils/types";
 
 const Index = ({
-  initialVisit,
+  isLocal,
   initialLocalTodos,
 }: {
-  initialVisit: boolean;
+  isLocal: boolean;
   initialLocalTodos: LocalTodo[];
 }) => {
-  const [isLocal] = useState(initialVisit);
   const [localTodos, setLocalTodos] = useState(initialLocalTodos);
   const [isLoading, setIsLoading] = useState(!isLocal);
 
@@ -58,7 +57,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   return {
     props: {
-      initialVisit: JSON.parse(cookies.initialVisit ?? true),
+      isLocal: JSON.parse(cookies.initialVisit ?? true),
       initialLocalTodos: [
         { id: "1", title: "👋 Hi there!" },
         { id: "2", title: "👨‍💻 My name is Doga Fincan." },

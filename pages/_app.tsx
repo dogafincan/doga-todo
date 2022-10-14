@@ -4,6 +4,7 @@ import { persistQueryClient } from "@tanstack/react-query-persist-client";
 import { LazyMotion, domMax, MotionConfig } from "framer-motion";
 import createIDBPersister from "@utils/createIDBPersister";
 import "@styles/globals.css";
+import SessionProvider from "@components/SessionProvider";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -21,11 +22,13 @@ if (typeof window !== "undefined") {
 const MyApp = ({ Component, pageProps }: AppProps) => {
   return (
     <QueryClientProvider client={queryClient}>
-      <MotionConfig reducedMotion="user" transition={{ duration: 0.2 }}>
-        <LazyMotion features={domMax} strict>
-          <Component {...pageProps} />
-        </LazyMotion>
-      </MotionConfig>
+      <SessionProvider>
+        <MotionConfig reducedMotion="user" transition={{ duration: 0.2 }}>
+          <LazyMotion features={domMax} strict>
+            <Component {...pageProps} />
+          </LazyMotion>
+        </MotionConfig>
+      </SessionProvider>
     </QueryClientProvider>
   );
 };

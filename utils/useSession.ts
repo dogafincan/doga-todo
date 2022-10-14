@@ -1,38 +1,9 @@
-import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
-import { Session } from "next-auth";
-import { useEffect, useState } from "react";
-
-const getSession = async (): Promise<Session | null> => {
-  const res = await axios.get("/api/auth/session");
-
-  if (Object.keys(res.data).length) {
-    return res.data;
-  }
-
-  return null;
-};
+import { useContext } from "react";
+import { SessionContext } from "@components/SessionProvider";
 
 const useSession = () => {
-  const query = useQuery(["session"], getSession);
-  const [status, setStatus] = useState<
-    "loading" | "authenticated" | "unauthenticated"
-  >("loading");
-
-  useEffect(() => {
-    if (query.data) {
-      setStatus("authenticated");
-    } else if (query.data === null) {
-      setStatus("unauthenticated");
-    } else {
-      setStatus("loading");
-    }
-  }, [query.data]);
-
-  return {
-    session: query.data,
-    status: status,
-  };
+  const { session, status } = useContext(SessionContext);
+  return { session, status };
 };
 
 export default useSession;
