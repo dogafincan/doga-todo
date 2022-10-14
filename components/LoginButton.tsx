@@ -23,7 +23,7 @@ const LoginButton = ({ initialVisit }: { initialVisit: boolean }) => {
     <div>
       <button
         disabled={status === "loading" && !initialVisit}
-        className={`rounded-md bg-neutral-800 px-4 py-2 text-white shadow duration-200 ease-linear hover:bg-neutral-700 focus:outline-0 focus:ring-4 focus:ring-blue-400 motion-reduce:transition-colors sm:mt-1 sm:px-10 ${
+        className={`rounded-md bg-neutral-800 px-4 py-2 text-slate-50 shadow duration-200 ease-linear hover:bg-neutral-700 focus:outline-0 focus:ring-4 focus:ring-blue-400 motion-reduce:transition sm:mt-1 sm:px-10 ${
           status === "loading" && !initialVisit ? "animate-pulse" : ""
         }`}
         onClick={handleClick}

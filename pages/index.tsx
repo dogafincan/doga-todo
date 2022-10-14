@@ -7,6 +7,7 @@ import TodoForm from "@components/TodoForm";
 import HeroBanner from "@components/HeroBanner";
 import TodosContainer from "@components/TodosContainer";
 import { LocalTodo } from "@utils/types";
+import { m } from "framer-motion";
 
 const Index = ({
   initialVisit,
@@ -31,7 +32,12 @@ const Index = ({
         <meta name="author" content="Doga Fincan" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className="flex w-full max-w-4xl flex-col space-y-4 p-3 md:w-11/12 md:p-8">
+      <m.main
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.4 }}
+        className="flex w-full max-w-4xl flex-col space-y-4 p-3 md:w-11/12 md:p-8"
+      >
         <HeroBanner initialVisit={initialVisit} />
         <TodoForm
           isLoading={isLoading}
@@ -45,7 +51,7 @@ const Index = ({
           setLocalTodos={setLocalTodos}
           initialVisit={initialVisit}
         />
-      </main>
+      </m.main>
     </>
   );
 };

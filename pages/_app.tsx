@@ -25,7 +25,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
     <QueryClientProvider client={queryClient}>
       <ReactQueryDevtools initialIsOpen={false} />
       <SessionProvider>
-        <MotionConfig reducedMotion="user" transition={{ duration: 0.2 }}>
+        <MotionConfig reducedMotion="user">
           <LazyMotion features={domMax} strict>
             <Component {...pageProps} />
           </LazyMotion>
