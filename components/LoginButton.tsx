@@ -12,13 +12,13 @@ const LoginButton = ({ initialVisit }: { initialVisit: boolean }) => {
 
   const handleClick = () => {
     if (status === "authenticated") {
-      del("reactQuery");
+      // del("reactQuery");
       Cookie.set("initialVisit", "true");
       signOut();
     } else if (status === "unauthenticated" || initialVisit) {
       signIn("github");
     }
-    queryClient.removeQueries(["session"]);
+    queryClient.clear();
   };
 
   return (
