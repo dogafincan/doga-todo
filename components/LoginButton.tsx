@@ -18,7 +18,7 @@ const LoginButton = ({ initialVisit }: { initialVisit: boolean }) => {
     } else if (status === "unauthenticated" || initialVisit) {
       signIn("github");
     }
-    queryClient.invalidateQueries(["session"]);
+    queryClient.removeQueries(["session"]);
   };
 
   return (
