@@ -7,12 +7,12 @@ const Todos = memo(function Todos({
   setIsLoading,
   localTodos,
   setLocalTodos,
-  isLocal,
+  initialVisit,
 }: {
   setIsLoading: SetIsLoading;
   localTodos: LocalTodo[];
   setLocalTodos: SetLocalTodos;
-  isLocal: boolean;
+  initialVisit: boolean;
 }) {
   const { data, isFetched } = useGetTodos();
 
@@ -30,7 +30,7 @@ const Todos = memo(function Todos({
               todo={todo}
               localTodos={localTodos}
               setLocalTodos={setLocalTodos}
-              isLocal={isLocal}
+              initialVisit={initialVisit}
             />
           );
         })}

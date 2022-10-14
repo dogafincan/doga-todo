@@ -10,12 +10,12 @@ const Todo = ({
   todo,
   localTodos,
   setLocalTodos,
-  isLocal,
+  initialVisit,
 }: {
   todo: Todos;
   localTodos: LocalTodo[];
   setLocalTodos: SetLocalTodos;
-  isLocal: boolean;
+  initialVisit: boolean;
 }) => {
   const { status } = useSession();
   const [title, setTitle] = useState(todo.title ?? "");
@@ -44,7 +44,7 @@ const Todo = ({
   const handleCheckboxChange = () => {
     if (status === "authenticated") {
       deleteTodo.mutate({ id: todo.id });
-    } else if (status === "unauthenticated" || isLocal) {
+    } else if (status === "unauthenticated" || initialVisit) {
       setLocalTodos(localTodos.filter((localTodo) => localTodo.id !== todo.id));
     }
   };
@@ -68,7 +68,7 @@ const Todo = ({
 
     if (status === "authenticated") {
       editTodo.mutate({ id: todo.id, title });
-    } else if (status === "unauthenticated" || isLocal) {
+    } else if (status === "unauthenticated" || initialVisit) {
       editLocalTodo();
     }
   };
@@ -80,7 +80,7 @@ const Todo = ({
     if (todo.title !== title) {
       if (status === "authenticated") {
         editTodo.mutate({ id: todo.id, title });
-      } else if (status === "unauthenticated" || isLocal) {
+      } else if (status === "unauthenticated" || initialVisit) {
         editLocalTodo();
       }
     }

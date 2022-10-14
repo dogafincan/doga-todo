@@ -1,19 +1,19 @@
 import useSession from "@utils/useSession";
 import { useEffect, useState } from "react";
 
-const ButtonText = ({ isLocal }: { isLocal: boolean }) => {
+const ButtonText = ({ initialVisit }: { initialVisit: boolean }) => {
   const { status } = useSession();
   const [buttonText, setButtonText] = useState<string>();
 
   useEffect(() => {
     if (status === "authenticated") {
       setButtonText("Sign out");
-    } else if (status === "unauthenticated" || isLocal) {
+    } else if (status === "unauthenticated" || initialVisit) {
       setButtonText("Continue with GitHub");
     } else if (status === "loading") {
       setButtonText("Loading...");
     }
-  }, [isLocal, status]);
+  }, [initialVisit, status]);
 
   return <>{buttonText}</>;
 };

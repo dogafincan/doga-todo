@@ -9,14 +9,14 @@ import TodosContainer from "@components/TodosContainer";
 import { LocalTodo } from "@utils/types";
 
 const Index = ({
-  isLocal,
+  initialVisit,
   initialLocalTodos,
 }: {
-  isLocal: boolean;
+  initialVisit: boolean;
   initialLocalTodos: LocalTodo[];
 }) => {
   const [localTodos, setLocalTodos] = useState(initialLocalTodos);
-  const [isLoading, setIsLoading] = useState(!isLocal);
+  const [isLoading, setIsLoading] = useState(!initialVisit);
 
   useEffect(() => {
     Cookie.set("initialVisit", "false");
@@ -32,18 +32,18 @@ const Index = ({
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className="flex w-full max-w-4xl flex-col space-y-4 p-3 md:w-11/12 md:p-8">
-        <HeroBanner isLocal={isLocal} />
+        <HeroBanner initialVisit={initialVisit} />
         <TodoForm
           isLoading={isLoading}
           localTodos={localTodos}
           setLocalTodos={setLocalTodos}
-          isLocal={isLocal}
+          initialVisit={initialVisit}
         />
         <TodosContainer
           setIsLoading={setIsLoading}
           localTodos={localTodos}
           setLocalTodos={setLocalTodos}
-          isLocal={isLocal}
+          initialVisit={initialVisit}
         />
       </main>
     </>
@@ -57,7 +57,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   return {
     props: {
-      isLocal: JSON.parse(cookies.initialVisit ?? true),
+      initialVisit: JSON.parse(cookies.initialVisit ?? true),
       initialLocalTodos: [
         { id: "1", title: "👋 Hi there!" },
         { id: "2", title: "👨‍💻 My name is Doga Fincan." },

@@ -9,12 +9,12 @@ const TodosContainer = memo(function TodosContainer({
   setIsLoading,
   localTodos,
   setLocalTodos,
-  isLocal,
+  initialVisit,
 }: {
   setIsLoading: SetIsLoading;
   localTodos: LocalTodo[];
   setLocalTodos: SetLocalTodos;
-  isLocal: boolean;
+  initialVisit: boolean;
 }) {
   const { status } = useSession();
 
@@ -31,13 +31,13 @@ const TodosContainer = memo(function TodosContainer({
           setIsLoading={setIsLoading}
           localTodos={localTodos}
           setLocalTodos={setLocalTodos}
-          isLocal={isLocal}
+          initialVisit={initialVisit}
         />
-      ) : status === "unauthenticated" || isLocal ? (
+      ) : status === "unauthenticated" || initialVisit ? (
         <LocalTodos
           localTodos={localTodos}
           setLocalTodos={setLocalTodos}
-          isLocal={isLocal}
+          initialVisit={initialVisit}
         />
       ) : null}
     </ul>

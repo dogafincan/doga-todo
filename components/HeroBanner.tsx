@@ -4,7 +4,11 @@ import LoginButton from "@components/LoginButton";
 import Memoji from "@public/memoji.png";
 import { memo } from "react";
 
-const HeroBanner = memo(function HeroBanner({ isLocal }: { isLocal: boolean }) {
+const HeroBanner = memo(function HeroBanner({
+  initialVisit,
+}: {
+  initialVisit: boolean;
+}) {
   return (
     <div className="flex h-auto flex-col rounded-3xl bg-gradient-to-r from-rose-500/80 to-fuchsia-500/80 pt-8 shadow dark:shadow-none">
       <m.div
@@ -18,7 +22,7 @@ const HeroBanner = memo(function HeroBanner({ isLocal }: { isLocal: boolean }) {
         <h2 className="font-medium italic tracking-tight text-slate-50 ease-linear motion-reduce:transition-transform dark:text-slate-50">
           A fun way to get things done.
         </h2>
-        <LoginButton isLocal={isLocal} />
+        <LoginButton initialVisit={initialVisit} />
       </m.div>
       <m.div
         initial={{ opacity: 0 }}
