@@ -11,7 +11,6 @@ const LoginButton = ({ initialVisit }: { initialVisit: boolean }) => {
 
   const handleClick = () => {
     if (status === "authenticated") {
-      // del("reactQuery");
       Cookie.set("initialVisit", "true");
       signOut();
     } else if (status === "unauthenticated" || initialVisit) {
