@@ -1,5 +1,6 @@
 import { lazy, memo, useEffect } from "react";
 import { useDebouncedCallback } from "use-debounce";
+import { LayoutGroup, m } from "framer-motion";
 import { LocalTodo, SetIsLoading, SetLocalTodos } from "@utils/types";
 import useSession from "@utils/useSession";
 import useClearCompletedTodos from "@utils/useClearCompletedTodos";
@@ -36,24 +37,26 @@ const TodosContainer = memo(function TodosContainer({
   }, 1000);
 
   return (
-    <ul className="space-y-4">
-      {status === "authenticated" ? (
-        <Todos
-          setIsLoading={setIsLoading}
-          localTodos={localTodos}
-          setLocalTodos={setLocalTodos}
-          initialVisit={initialVisit}
-          clearCompleted={clearCompleted}
-        />
-      ) : status === "unauthenticated" || initialVisit ? (
-        <LocalTodos
-          localTodos={localTodos}
-          setLocalTodos={setLocalTodos}
-          initialVisit={initialVisit}
-          clearCompleted={clearCompleted}
-        />
-      ) : null}
-    </ul>
+    <LayoutGroup>
+      <m.ul layout className="space-y-4" transition={{ duration: 0.4 }}>
+        {status === "authenticated" ? (
+          <Todos
+            setIsLoading={setIsLoading}
+            localTodos={localTodos}
+            setLocalTodos={setLocalTodos}
+            initialVisit={initialVisit}
+            clearCompleted={clearCompleted}
+          />
+        ) : status === "unauthenticated" || initialVisit ? (
+          <LocalTodos
+            localTodos={localTodos}
+            setLocalTodos={setLocalTodos}
+            initialVisit={initialVisit}
+            clearCompleted={clearCompleted}
+          />
+        ) : null}
+      </m.ul>
+    </LayoutGroup>
   );
 });
 
