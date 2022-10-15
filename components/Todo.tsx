@@ -102,7 +102,7 @@ const Todo = ({
 
   return (
     <m.li
-      layout
+      layout="position"
       key={todo.id}
       initial={{ opacity: 0, x: -100 }}
       animate={{ opacity: 1, x: 0 }}
