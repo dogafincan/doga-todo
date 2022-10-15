@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 
 const ButtonText = ({ initialVisit }: { initialVisit: boolean }) => {
   const { status } = useSession();
-  const [buttonText, setButtonText] = useState<string>();
+  const [buttonText, setButtonText] = useState("Loading...");
 
   useEffect(() => {
     if (status === "authenticated") {
