@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { m } from "framer-motion";
 import { Todos } from "@utils/xata";
 import useEditTodo from "@utils/useEditTodo";
-import useDeleteTodo from "@utils/useDeleteTodo";
+// import useDeleteTodo from "@utils/useDeleteTodo";
 import { LocalTodo, SetLocalTodos } from "@utils/types";
 import useSession from "@utils/useSession";
 
@@ -19,11 +19,12 @@ const Todo = ({
 }) => {
   const { status } = useSession();
   const [title, setTitle] = useState(todo.title ?? "");
+  const [isCompleted, setIsCompleted] = useState(todo.isCompleted ?? false);
   const [edit, setEdit] = useState(false);
   const [active, setActive] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
   const { editTodo } = useEditTodo();
-  const { deleteTodo } = useDeleteTodo();
+  // const { deleteTodo } = useDeleteTodo();
 
   useEffect(() => {
     inputRef.current?.focus();
@@ -33,7 +34,7 @@ const Todo = ({
     setLocalTodos(
       localTodos.map((localTodo) => {
         if (localTodo.id === todo.id) {
-          return { id: localTodo.id, title };
+          return { id: localTodo.id, title, isCompleted };
         } else {
           return localTodo;
         }
@@ -42,15 +43,22 @@ const Todo = ({
   };
 
   const handleCheckboxChange = () => {
+    // if (status === "authenticated") {
+    //   deleteTodo.mutate({ id: todo.id });
+    // } else if (status === "unauthenticated" || initialVisit) {
+    //   setLocalTodos(localTodos.filter((localTodo) => localTodo.id !== todo.id));
+    // }
+    setEdit(false);
+    setIsCompleted(!isCompleted);
     if (status === "authenticated") {
-      deleteTodo.mutate({ id: todo.id });
+      editTodo.mutate({
+        id: todo.id,
+        title,
+        isCompleted,
+      });
     } else if (status === "unauthenticated" || initialVisit) {
-      setLocalTodos(localTodos.filter((localTodo) => localTodo.id !== todo.id));
+      editLocalTodo();
     }
-  };
-
-  const handleCheckboxFocus = () => {
-    setActive(true);
   };
 
   const handleCheckboxBlur = () => {
@@ -67,7 +75,7 @@ const Todo = ({
     setActive(false);
 
     if (status === "authenticated") {
-      editTodo.mutate({ id: todo.id, title });
+      editTodo.mutate({ id: todo.id, title, isCompleted });
     } else if (status === "unauthenticated" || initialVisit) {
       editLocalTodo();
     }
@@ -79,7 +87,7 @@ const Todo = ({
 
     if (todo.title !== title) {
       if (status === "authenticated") {
-        editTodo.mutate({ id: todo.id, title });
+        editTodo.mutate({ id: todo.id, title, isCompleted });
       } else if (status === "unauthenticated" || initialVisit) {
         editLocalTodo();
       }
@@ -106,6 +114,7 @@ const Todo = ({
         }`}
       >
         <input
+          checked={isCompleted}
           type="checkbox"
           name="complete-todo"
           role="button"
@@ -113,7 +122,6 @@ const Todo = ({
           aria-label="Mark completed"
           className="mr-4 h-7 w-7 appearance-none rounded-full border-2 border-slate-400/50 bg-slate-200/25 duration-200 ease-linear focus:border-spacing-0 focus:border-0 focus:outline-0 focus:ring-2 focus:ring-blue-400 focus:ring-offset-0 motion-reduce:transition-opacity dark:border-slate-50/10 dark:bg-neutral-700/40 focus:dark:ring-blue-500 sm:mr-6"
           onChange={handleCheckboxChange}
-          onFocus={handleCheckboxFocus}
           onBlur={handleCheckboxBlur}
         />
         {edit ? (
@@ -137,7 +145,9 @@ const Todo = ({
             onFocus={handleTitleFocus}
             tabIndex={0}
           >
-            <p className="line-clamp-2">{title}</p>
+            <p className={`line-clamp-2 ${isCompleted ? "line-through" : ""}`}>
+              {title}
+            </p>
           </div>
         )}
       </div>

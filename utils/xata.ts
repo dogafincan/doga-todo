@@ -13,6 +13,7 @@ const tables = [
       { name: "title", type: "string" },
       { name: "createdAt", type: "datetime" },
       { name: "createdBy", type: "email" },
+      { name: "isCompleted", type: "bool" },
     ],
   },
 ] as const;

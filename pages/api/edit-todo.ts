@@ -7,9 +7,9 @@ const handler: NextApiHandler = async (req, res) => {
   const session = await unstable_getServerSession(req, res, authOptions);
 
   if (session) {
-    const { id, title } = req.body;
+    const { id, title, isCompleted } = req.body;
     const xata = getXataClient();
-    const editedTodo = await xata.db.todos.update(id, { title });
+    const editedTodo = await xata.db.todos.update(id, { title, isCompleted });
     res.status(200).json(editedTodo);
   } else {
     res.status(204);
