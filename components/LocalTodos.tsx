@@ -1,18 +1,21 @@
 import { memo } from "react";
+import { AnimatePresence } from "framer-motion";
 import Todo from "@components/Todo";
-import { LocalTodo, SetLocalTodos } from "@utils/types";
+import { ClearCompleted, LocalTodo, SetLocalTodos } from "@utils/types";
 
 const LocalTodos = memo(function LocalTodos({
   localTodos,
   setLocalTodos,
   initialVisit,
+  clearCompleted,
 }: {
   localTodos: LocalTodo[];
   setLocalTodos: SetLocalTodos;
   initialVisit: boolean;
+  clearCompleted: ClearCompleted;
 }) {
   return (
-    <>
+    <AnimatePresence>
       {localTodos.map((localTodo) => {
         return (
           <Todo
@@ -21,10 +24,11 @@ const LocalTodos = memo(function LocalTodos({
             localTodos={localTodos}
             setLocalTodos={setLocalTodos}
             initialVisit={initialVisit}
+            clearCompleted={clearCompleted}
           />
         );
       })}
-    </>
+    </AnimatePresence>
   );
 });
 

@@ -7,10 +7,18 @@ const handler: NextApiHandler = async (req, res) => {
   const session = await unstable_getServerSession(req, res, authOptions);
 
   if (session) {
-    const { id } = req.body;
     const xata = getXataClient();
-    const deletedTodo = await xata.db.todos.delete(id);
-    res.status(200).json(deletedTodo);
+
+    const todos = await xata.db.todos
+      .filter({
+        createdBy: session.user!.email!,
+        isCompleted: true,
+      })
+      .getAll();
+
+    const deletedTodos = await xata.db.todos.delete(todos);
+
+    res.status(200).json(deletedTodos);
   } else {
     res.status(204);
     res.end();

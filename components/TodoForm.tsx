@@ -26,7 +26,10 @@ const AddTodoForm = memo(function AddTodoForm({
     if (status === "authenticated") {
       addTodo.mutate({ id: "todo" + uuid(), title });
     } else if (status === "unauthenticated" || initialVisit) {
-      setLocalTodos([{ id: "todo" + uuid(), title }, ...localTodos]);
+      setLocalTodos([
+        { id: "todo" + uuid(), title, isCompleted: false },
+        ...localTodos,
+      ]);
     }
 
     setTitle("");
@@ -34,8 +37,9 @@ const AddTodoForm = memo(function AddTodoForm({
 
   return (
     <m.form
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
+      initial={{ opacity: 0, x: -100 }}
+      animate={{ opacity: 1, x: 0 }}
+      transition={{ duration: 0.4 }}
       onSubmit={handleSubmit}
       className="flex flex-col"
     >

@@ -20,24 +20,30 @@ const useEditTodo = () => {
 
   const mutation = useMutation(editTodo, {
     onMutate: async (newTodo: Todos) => {
-      await queryClient.cancelQueries(["todos", newTodo.id]);
-      const previousTodo = queryClient.getQueryData<Todos>(["todos"]);
+      await queryClient.cancelQueries(["todos"]);
+      const previousTodos = queryClient.getQueryData<Todos[]>(["todos"]);
 
-      if (previousTodo) {
-        queryClient.setQueryData<Todos>(["todos", newTodo.id], newTodo);
+      if (previousTodos) {
+        queryClient.setQueryData<Todos[]>(["todos"], (old) => {
+          return old?.map((oldTodo) => {
+            if (oldTodo.id === newTodo.id) {
+              return newTodo;
+            } else {
+              return oldTodo;
+            }
+          });
+        });
       }
 
-      return { previousTodo, newTodo };
+      return { previousTodos };
     },
-    onError: (_err, newTodo, context) => {
-      if (context?.previousTodo) {
-        queryClient.setQueryData(["todos", newTodo.id], context.previousTodo);
+    onError: (_err, _newTodo, context) => {
+      if (context?.previousTodos) {
+        queryClient.setQueryData(["todos"], context.previousTodos);
       }
     },
-    onSettled: (newTodo) => {
-      if (newTodo) {
-        queryClient.invalidateQueries(["todos", newTodo.id]);
-      }
+    onSettled: () => {
+      queryClient.invalidateQueries(["todos"]);
     },
   });
 

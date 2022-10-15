@@ -1,18 +1,26 @@
 import { memo, useEffect } from "react";
+import { AnimatePresence } from "framer-motion";
 import useGetTodos from "@utils/useGetTodos";
 import Todo from "@components/Todo";
-import { LocalTodo, SetIsLoading, SetLocalTodos } from "@utils/types";
+import {
+  LocalTodo,
+  SetIsLoading,
+  SetLocalTodos,
+  ClearCompleted,
+} from "@utils/types";
 
 const Todos = memo(function Todos({
   setIsLoading,
   localTodos,
   setLocalTodos,
   initialVisit,
+  clearCompleted,
 }: {
   setIsLoading: SetIsLoading;
   localTodos: LocalTodo[];
   setLocalTodos: SetLocalTodos;
   initialVisit: boolean;
+  clearCompleted: ClearCompleted;
 }) {
   const { data, isFetched } = useGetTodos();
 
@@ -21,7 +29,7 @@ const Todos = memo(function Todos({
   }, [isFetched, setIsLoading]);
 
   return (
-    <>
+    <AnimatePresence>
       {Array.isArray(data) &&
         data?.map((todo) => {
           return (
@@ -31,10 +39,11 @@ const Todos = memo(function Todos({
               localTodos={localTodos}
               setLocalTodos={setLocalTodos}
               initialVisit={initialVisit}
+              clearCompleted={clearCompleted}
             />
           );
         })}
-    </>
+    </AnimatePresence>
   );
 });
 

@@ -1,8 +1,8 @@
+import { memo } from "react";
 import Image from "next/future/image";
 import { m } from "framer-motion";
 import LoginButton from "@components/LoginButton";
 import Memoji from "@public/memoji.png";
-import { memo } from "react";
 
 const HeroBanner = memo(function HeroBanner({
   initialVisit,
@@ -10,7 +10,7 @@ const HeroBanner = memo(function HeroBanner({
   initialVisit: boolean;
 }) {
   return (
-    <div className="flex h-auto flex-col rounded-3xl bg-gradient-to-r from-rose-500/80 to-fuchsia-500/80 pt-8 shadow dark:shadow-none">
+    <div className="flex h-auto flex-col overflow-hidden rounded-3xl bg-gradient-to-r from-rose-500/80 to-fuchsia-500/80 pt-8 shadow dark:shadow-none">
       <div className="flex flex-col items-center space-y-4">
         <h1 className="text-6xl font-bold tracking-tight text-slate-50 duration-200 ease-linear motion-reduce:transition-opacity sm:mb-1 sm:text-[80px]">
           Doga Todo
@@ -20,7 +20,12 @@ const HeroBanner = memo(function HeroBanner({
         </h2>
         <LoginButton initialVisit={initialVisit} />
       </div>
-      <div className="flex flex-col items-center justify-end">
+      <m.div
+        initial={{ y: 100 }}
+        animate={{ y: 0 }}
+        transition={{ duration: 0.6 }}
+        className="flex flex-col items-center justify-end"
+      >
         <Image
           src={Memoji}
           placeholder="blur"
@@ -28,7 +33,7 @@ const HeroBanner = memo(function HeroBanner({
           height={200}
           width={200}
         />
-      </div>
+      </m.div>
     </div>
   );
 });

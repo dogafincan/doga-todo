@@ -2,23 +2,22 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import { Todos } from "@utils/xata";
 
-const deleteTodo = async ({ id }: { id: string }): Promise<Todos> => {
-  const res = await axios.post("/api/delete-todo", { id });
+const clearCompletedTodos = async (): Promise<Todos[]> => {
+  const res = await axios.post("/api/clear-completed-todos");
   return res.data;
 };
 
-const useDeleteTodo = () => {
+const useClearCompletedTodos = () => {
   const queryClient = useQueryClient();
 
-  const mutation = useMutation(deleteTodo, {
-    onMutate: async (deletedTodo: Todos) => {
+  const mutation = useMutation(clearCompletedTodos, {
+    onMutate: async () => {
       await queryClient.cancelQueries(["todos"]);
       const previousTodos = queryClient.getQueryData<Todos[]>(["todos"]);
 
       if (previousTodos) {
-        queryClient.setQueryData<Todos[]>(
-          ["todos"],
-          previousTodos.filter((todo) => todo.id !== deletedTodo.id)
+        queryClient.setQueryData<Todos[]>(["todos"], (old) =>
+          old!.filter((oldTodo) => !oldTodo.isCompleted)
         );
       }
 
@@ -35,8 +34,8 @@ const useDeleteTodo = () => {
   });
 
   return {
-    deleteTodo: mutation,
+    clearCompletedTodos: mutation,
   };
 };
 
-export default useDeleteTodo;
+export default useClearCompletedTodos;

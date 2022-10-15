@@ -2,8 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { m } from "framer-motion";
 import { Todos } from "@utils/xata";
 import useEditTodo from "@utils/useEditTodo";
-// import useDeleteTodo from "@utils/useDeleteTodo";
-import { LocalTodo, SetLocalTodos } from "@utils/types";
+import { ClearCompleted, LocalTodo, SetLocalTodos } from "@utils/types";
 import useSession from "@utils/useSession";
 
 const Todo = ({
@@ -11,11 +10,13 @@ const Todo = ({
   localTodos,
   setLocalTodos,
   initialVisit,
+  clearCompleted,
 }: {
   todo: Todos;
   localTodos: LocalTodo[];
   setLocalTodos: SetLocalTodos;
   initialVisit: boolean;
+  clearCompleted: ClearCompleted;
 }) => {
   const { status } = useSession();
   const [title, setTitle] = useState(todo.title ?? "");
@@ -24,41 +25,41 @@ const Todo = ({
   const [active, setActive] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
   const { editTodo } = useEditTodo();
-  // const { deleteTodo } = useDeleteTodo();
 
   useEffect(() => {
     inputRef.current?.focus();
   }, [edit]);
 
   const editLocalTodo = () => {
-    setLocalTodos(
-      localTodos.map((localTodo) => {
+    setLocalTodos(() => {
+      const nextCompleted = !isCompleted;
+
+      return localTodos.map((localTodo) => {
         if (localTodo.id === todo.id) {
-          return { id: localTodo.id, title, isCompleted };
+          return { id: localTodo.id, title, isCompleted: nextCompleted };
         } else {
           return localTodo;
         }
-      })
-    );
+      });
+    });
   };
 
   const handleCheckboxChange = () => {
-    // if (status === "authenticated") {
-    //   deleteTodo.mutate({ id: todo.id });
-    // } else if (status === "unauthenticated" || initialVisit) {
-    //   setLocalTodos(localTodos.filter((localTodo) => localTodo.id !== todo.id));
-    // }
     setEdit(false);
-    setIsCompleted(!isCompleted);
+    const nextCompleted = !isCompleted;
+    setIsCompleted(nextCompleted);
+
     if (status === "authenticated") {
       editTodo.mutate({
         id: todo.id,
         title,
-        isCompleted,
+        isCompleted: nextCompleted,
       });
     } else if (status === "unauthenticated" || initialVisit) {
       editLocalTodo();
     }
+
+    clearCompleted();
   };
 
   const handleCheckboxBlur = () => {
@@ -66,7 +67,7 @@ const Todo = ({
   };
 
   const handleTitleClick = () => {
-    setEdit(true);
+    setEdit(todo.isCompleted ? false : true);
   };
 
   const handleTitleSubmit = (event: React.SyntheticEvent) => {
@@ -95,17 +96,18 @@ const Todo = ({
   };
 
   const handleTitleFocus = () => {
-    setEdit(true);
-    setActive(true);
+    setEdit(!todo.isCompleted);
+    setActive(!todo.isCompleted);
   };
 
   return (
     <m.li
       layout
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.2 }}
+      key={todo.id}
+      initial={{ opacity: 0, x: -100 }}
+      animate={{ opacity: 1, x: 0 }}
+      exit={{ opacity: 0, x: 100 }}
+      transition={{ duration: 0.4 }}
       onClick={handleTitleClick}
     >
       <div
@@ -143,7 +145,7 @@ const Todo = ({
           <div
             className="pr-5 sm:pr-10"
             onFocus={handleTitleFocus}
-            tabIndex={0}
+            tabIndex={todo.isCompleted ? -1 : 0}
           >
             <p className={`line-clamp-2 ${isCompleted ? "line-through" : ""}`}>
               {title}
