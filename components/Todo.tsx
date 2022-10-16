@@ -102,7 +102,7 @@ const Todo = ({
 
   return (
     <m.li
-      layout="preserve-aspect"
+      layout
       key={todo.id}
       initial={{ opacity: 0, x: -100 }}
       animate={{ opacity: 1, x: 0 }}
@@ -110,9 +110,8 @@ const Todo = ({
       transition={{ duration: 0.4 }}
       onClick={handleTitleClick}
     >
-      <m.div
-        layout
-        className={`flex h-20 cursor-text items-center rounded-3xl bg-white pl-5 shadow duration-200 ease-linear motion-reduce:transition-opacity dark:border dark:border-slate-50/10 dark:bg-neutral-700/40 dark:shadow-none sm:py-3.5 sm:pl-8 ${
+      <div
+        className={`flex h-20 shrink-0 cursor-text items-center rounded-3xl bg-white pl-5 shadow duration-200 ease-linear motion-reduce:transition-opacity dark:border dark:border-slate-50/10 dark:bg-neutral-700/40 dark:shadow-none sm:py-3.5 sm:pl-8 ${
           active || edit ? "ring-4 ring-blue-400 dark:ring-blue-500" : ""
         }`}
       >
@@ -153,7 +152,7 @@ const Todo = ({
             </p>
           </div>
         )}
-      </m.div>
+      </div>
     </m.li>
   );
 };
