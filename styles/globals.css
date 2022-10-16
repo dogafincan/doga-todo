@@ -3,5 +3,5 @@
 @tailwind utilities;
 
 #__next {
-  @apply flex flex-col items-center;
+  @apply flex min-h-full flex-col items-center;
 }
