@@ -1,4 +1,4 @@
-import { lazy, memo, useEffect } from "react";
+import { lazy, memo, useEffect, useState } from "react";
 import { useDebouncedCallback } from "use-debounce";
 import { LayoutGroup, m } from "framer-motion";
 import { LocalTodo, SetIsLoading, SetLocalTodos } from "@utils/types";
@@ -21,6 +21,7 @@ const TodosContainer = memo(function TodosContainer({
 }) {
   const { status } = useSession();
   const { clearCompletedTodos } = useClearCompletedTodos();
+  const [invisibleDivs, setInvisibleDivs] = useState<string[]>([]);
 
   useEffect(() => {
     if (status === "unauthenticated") {
@@ -38,11 +39,7 @@ const TodosContainer = memo(function TodosContainer({
 
   return (
     <LayoutGroup>
-      <m.ul
-        layout
-        transition={{ duration: 0.2 }}
-        className="min-h-full space-y-4"
-      >
+      <m.ul layout transition={{ duration: 0.2 }} className="space-y-4">
         {status === "authenticated" ? (
           <Todos
             setIsLoading={setIsLoading}
@@ -50,6 +47,8 @@ const TodosContainer = memo(function TodosContainer({
             setLocalTodos={setLocalTodos}
             initialVisit={initialVisit}
             clearCompleted={clearCompleted}
+            invisibleDivs={invisibleDivs}
+            setInvisibleDivs={setInvisibleDivs}
           />
         ) : status === "unauthenticated" || initialVisit ? (
           <LocalTodos
@@ -57,6 +56,8 @@ const TodosContainer = memo(function TodosContainer({
             setLocalTodos={setLocalTodos}
             initialVisit={initialVisit}
             clearCompleted={clearCompleted}
+            invisibleDivs={invisibleDivs}
+            setInvisibleDivs={setInvisibleDivs}
           />
         ) : null}
       </m.ul>

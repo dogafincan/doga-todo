@@ -1,8 +1,14 @@
 import { useEffect, useRef, useState } from "react";
-import { m } from "framer-motion";
+import { m, useIsPresent } from "framer-motion";
+import { v4 as uuid } from "uuid";
 import { Todos } from "@utils/xata";
 import useEditTodo from "@utils/useEditTodo";
-import { ClearCompleted, LocalTodo, SetLocalTodos } from "@utils/types";
+import {
+  ClearCompleted,
+  LocalTodo,
+  SetInvisibleDivs,
+  SetLocalTodos,
+} from "@utils/types";
 import useSession from "@utils/useSession";
 
 const Todo = ({
@@ -11,12 +17,16 @@ const Todo = ({
   setLocalTodos,
   initialVisit,
   clearCompleted,
+  invisibleDivs,
+  setInvisibleDivs,
 }: {
   todo: Todos;
   localTodos: LocalTodo[];
   setLocalTodos: SetLocalTodos;
   initialVisit: boolean;
   clearCompleted: ClearCompleted;
+  invisibleDivs: string[];
+  setInvisibleDivs: SetInvisibleDivs;
 }) => {
   const { status } = useSession();
   const [title, setTitle] = useState(todo.title ?? "");
@@ -25,6 +35,11 @@ const Todo = ({
   const [active, setActive] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
   const { editTodo } = useEditTodo();
+  const isPresent = useIsPresent();
+
+  useEffect(() => {
+    !isPresent && setInvisibleDivs((prev) => [...prev, uuid()]);
+  }, [invisibleDivs, isPresent, setInvisibleDivs]);
 
   useEffect(() => {
     inputRef.current?.focus();
@@ -107,7 +122,7 @@ const Todo = ({
       initial={{ opacity: 0, x: -100 }}
       animate={{ opacity: 1, x: 0 }}
       exit={{ opacity: 0, x: 100 }}
-      transition={{ duration: 0.4 }}
+      transition={{ duration: 0.2 }}
       onClick={handleTitleClick}
     >
       <div
@@ -122,7 +137,7 @@ const Todo = ({
           role="button"
           aria-pressed="false"
           aria-label="Mark completed"
-          className="mr-4 h-7 w-7 appearance-none rounded-full border-2 border-slate-400/50 bg-slate-200/25 duration-200 ease-linear focus:border-spacing-0 focus:border-0 focus:outline-0 focus:ring-2 focus:ring-blue-400 focus:ring-offset-0 motion-reduce:transition-opacity dark:border-slate-50/10 dark:bg-neutral-700/40 focus:dark:ring-blue-500 sm:mr-6"
+          className="mr-4 h-7 w-7 appearance-none rounded-full border-2 border-slate-400/50 bg-slate-200/25 duration-200 ease-linear focus:border-spacing-0 focus:border-0 focus:outline-0 focus:ring-4 focus:ring-blue-400 focus:ring-offset-0 motion-reduce:transition-opacity dark:border-slate-50/10 dark:bg-neutral-700/40 focus:dark:ring-blue-500 sm:mr-6"
           onChange={handleCheckboxChange}
           onBlur={handleCheckboxBlur}
         />
