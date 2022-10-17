@@ -3,9 +3,10 @@
 @tailwind utilities;
 
 #__next {
-  @apply h-screen-dynamic flex flex-col items-center;
+  @apply flex flex-col items-center;
 }
 
-.h-screen-dynamic {
-  min-height: calc(100dvh + 220px);
+.min-h-screen-dynamic {
+  min-height: calc(100vh - 16px);
+  min-height: calc(100dvh - 16px);
 }

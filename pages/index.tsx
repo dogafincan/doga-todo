@@ -3,9 +3,8 @@ import Head from "next/head";
 import { GetServerSideProps } from "next";
 import cookie from "cookie";
 import Cookie from "js-cookie";
-import TodoForm from "@components/TodoForm";
 import HeroBanner from "@components/HeroBanner";
-import TodosContainer from "@components/TodosContainer";
+import Todos from "@components/Todos";
 import { LocalTodo } from "@utils/types";
 import { m } from "framer-motion";
 
@@ -34,16 +33,11 @@ const Index = ({
       </Head>
       <m.main
         transition={{ duration: 0.4 }}
-        className="h-screen-dynamic flex w-full max-w-4xl flex-col space-y-4 p-3 md:w-11/12 md:p-8"
+        className="flex w-full max-w-4xl flex-col space-y-4 pt-3 md:w-11/12 md:pt-8"
       >
         <HeroBanner initialVisit={initialVisit} />
-        <TodoForm
+        <Todos
           isLoading={isLoading}
-          localTodos={localTodos}
-          setLocalTodos={setLocalTodos}
-          initialVisit={initialVisit}
-        />
-        <TodosContainer
           setIsLoading={setIsLoading}
           localTodos={localTodos}
           setLocalTodos={setLocalTodos}
