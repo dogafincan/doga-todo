@@ -1,4 +1,4 @@
-import { lazy, memo, useEffect, useState } from "react";
+import { lazy, memo, useEffect } from "react";
 import { useDebouncedCallback } from "use-debounce";
 import { LayoutGroup, m } from "framer-motion";
 import { LocalTodo, SetIsLoading, SetLocalTodos } from "@utils/types";
@@ -41,7 +41,7 @@ const TodosContainer = memo(function TodosContainer({
       <m.ul
         layout
         transition={{ duration: 0.2 }}
-        className="h-full space-y-4 transition"
+        className="min-h-max space-y-4"
       >
         {status === "authenticated" ? (
           <Todos

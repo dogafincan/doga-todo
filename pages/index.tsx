@@ -33,10 +33,8 @@ const Index = ({
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <m.main
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
         transition={{ duration: 0.4 }}
-        className="h-screen-dynamic flex w-full max-w-4xl flex-col space-y-4 p-3 md:w-11/12 md:p-8"
+        className="h-screen-dynamic mb-52 flex w-full max-w-4xl flex-col space-y-4 p-3 md:w-11/12 md:p-8"
       >
         <HeroBanner initialVisit={initialVisit} />
         <TodoForm

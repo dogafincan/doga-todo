@@ -29,7 +29,7 @@ const Todos = memo(function Todos({
   }, [isFetched, setIsLoading]);
 
   return (
-    <AnimatePresence mode="popLayout">
+    <AnimatePresence>
       {Array.isArray(data) &&
         data?.map((todo) => {
           return (

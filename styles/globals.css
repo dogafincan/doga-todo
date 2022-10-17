@@ -7,5 +7,5 @@
 }
 
 .h-screen-dynamic {
-  min-height: 100dvh;
+  min-height: calc(100dvh + 220px);
 }

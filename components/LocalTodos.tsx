@@ -15,7 +15,7 @@ const LocalTodos = memo(function LocalTodos({
   clearCompleted: ClearCompleted;
 }) {
   return (
-    <AnimatePresence mode="popLayout">
+    <AnimatePresence>
       {localTodos.map((localTodo) => {
         return (
           <Todo
