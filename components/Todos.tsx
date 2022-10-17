@@ -1,6 +1,6 @@
 import { memo, useEffect } from "react";
 import { useDebouncedCallback } from "use-debounce";
-import { AnimatePresence, LayoutGroup, m } from "framer-motion";
+import { AnimatePresence, m } from "framer-motion";
 import Todo from "@components/Todo";
 import useSession from "@utils/useSession";
 import useGetTodos from "@utils/useGetTodos";
@@ -45,57 +45,53 @@ const TodosContainer = memo(function TodosContainer({
 
   return (
     <div className="min-h-screen-dynamic space-y-4 pb-52">
-      <LayoutGroup>
-        <TodoForm
-          isLoading={isLoading}
-          localTodos={localTodos}
-          setLocalTodos={setLocalTodos}
-          initialVisit={initialVisit}
-        />
-        <m.ul
-          layout
-          initial={false}
-          transition={{ duration: 0.4 }}
-          animate={{
-            height: `calc(96px*${
-              status === "authenticated" && data
-                ? data.length
-                : localTodos.length
-            })`,
-          }}
-          className="space-y-4"
-        >
-          <AnimatePresence>
-            {status === "authenticated"
-              ? data?.map((todo) => {
-                  return (
-                    <Todo
-                      key={todo.id}
-                      todo={todo}
-                      localTodos={localTodos}
-                      setLocalTodos={setLocalTodos}
-                      initialVisit={initialVisit}
-                      clearCompleted={clearCompleted}
-                    />
-                  );
-                })
-              : status === "unauthenticated" || initialVisit
-              ? localTodos.map((localTodo) => {
-                  return (
-                    <Todo
-                      key={localTodo.id}
-                      todo={localTodo}
-                      localTodos={localTodos}
-                      setLocalTodos={setLocalTodos}
-                      initialVisit={initialVisit}
-                      clearCompleted={clearCompleted}
-                    />
-                  );
-                })
-              : null}
-          </AnimatePresence>
-        </m.ul>
-      </LayoutGroup>
+      <TodoForm
+        isLoading={isLoading}
+        localTodos={localTodos}
+        setLocalTodos={setLocalTodos}
+        initialVisit={initialVisit}
+      />
+      <m.ul
+        layout
+        initial={false}
+        transition={{ duration: 0.4 }}
+        animate={{
+          height: `calc(96px*${
+            status === "authenticated" && data ? data.length : localTodos.length
+          })`,
+        }}
+        className="space-y-4"
+      >
+        <AnimatePresence>
+          {status === "authenticated"
+            ? data?.map((todo) => {
+                return (
+                  <Todo
+                    key={todo.id}
+                    todo={todo}
+                    localTodos={localTodos}
+                    setLocalTodos={setLocalTodos}
+                    initialVisit={initialVisit}
+                    clearCompleted={clearCompleted}
+                  />
+                );
+              })
+            : status === "unauthenticated" || initialVisit
+            ? localTodos.map((localTodo) => {
+                return (
+                  <Todo
+                    key={localTodo.id}
+                    todo={localTodo}
+                    localTodos={localTodos}
+                    setLocalTodos={setLocalTodos}
+                    initialVisit={initialVisit}
+                    clearCompleted={clearCompleted}
+                  />
+                );
+              })
+            : null}
+        </AnimatePresence>
+      </m.ul>
     </div>
   );
 });
