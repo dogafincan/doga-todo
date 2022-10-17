@@ -3,5 +3,9 @@
 @tailwind utilities;
 
 #__next {
-  @apply flex flex-col items-center;
+  @apply h-screen-dynamic flex flex-col items-center;
+}
+
+.h-screen-dynamic {
+  min-height: 100dvh;
 }

@@ -38,7 +38,11 @@ const TodosContainer = memo(function TodosContainer({
 
   return (
     <LayoutGroup>
-      <m.ul layout transition={{ duration: 0.2 }} className="space-y-4">
+      <m.ul
+        layout
+        transition={{ duration: 0.2 }}
+        className="h-full space-y-4 transition"
+      >
         {status === "authenticated" ? (
           <Todos
             setIsLoading={setIsLoading}
