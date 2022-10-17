@@ -20,5 +20,3 @@ export type SessionContextType = {
 };
 
 export type ClearCompleted = DebouncedState<() => void>;
-
-export type SetInvisibleDivs = Dispatch<SetStateAction<string[]>>;

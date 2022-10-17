@@ -1,14 +1,8 @@
 import { useEffect, useRef, useState } from "react";
-import { m, useIsPresent } from "framer-motion";
-import { v4 as uuid } from "uuid";
+import { m } from "framer-motion";
 import { Todos } from "@utils/xata";
 import useEditTodo from "@utils/useEditTodo";
-import {
-  ClearCompleted,
-  LocalTodo,
-  SetInvisibleDivs,
-  SetLocalTodos,
-} from "@utils/types";
+import { ClearCompleted, LocalTodo, SetLocalTodos } from "@utils/types";
 import useSession from "@utils/useSession";
 
 const Todo = ({
@@ -17,16 +11,12 @@ const Todo = ({
   setLocalTodos,
   initialVisit,
   clearCompleted,
-  invisibleDivs,
-  setInvisibleDivs,
 }: {
   todo: Todos;
   localTodos: LocalTodo[];
   setLocalTodos: SetLocalTodos;
   initialVisit: boolean;
   clearCompleted: ClearCompleted;
-  invisibleDivs: string[];
-  setInvisibleDivs: SetInvisibleDivs;
 }) => {
   const { status } = useSession();
   const [title, setTitle] = useState(todo.title ?? "");
@@ -35,11 +25,6 @@ const Todo = ({
   const [active, setActive] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
   const { editTodo } = useEditTodo();
-  const isPresent = useIsPresent();
-
-  useEffect(() => {
-    !isPresent && setInvisibleDivs((prev) => [...prev, uuid()]);
-  }, [invisibleDivs, isPresent, setInvisibleDivs]);
 
   useEffect(() => {
     inputRef.current?.focus();

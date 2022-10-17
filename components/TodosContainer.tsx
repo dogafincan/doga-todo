@@ -21,7 +21,6 @@ const TodosContainer = memo(function TodosContainer({
 }) {
   const { status } = useSession();
   const { clearCompletedTodos } = useClearCompletedTodos();
-  const [invisibleDivs, setInvisibleDivs] = useState<string[]>([]);
 
   useEffect(() => {
     if (status === "unauthenticated") {
@@ -47,8 +46,6 @@ const TodosContainer = memo(function TodosContainer({
             setLocalTodos={setLocalTodos}
             initialVisit={initialVisit}
             clearCompleted={clearCompleted}
-            invisibleDivs={invisibleDivs}
-            setInvisibleDivs={setInvisibleDivs}
           />
         ) : status === "unauthenticated" || initialVisit ? (
           <LocalTodos
@@ -56,8 +53,6 @@ const TodosContainer = memo(function TodosContainer({
             setLocalTodos={setLocalTodos}
             initialVisit={initialVisit}
             clearCompleted={clearCompleted}
-            invisibleDivs={invisibleDivs}
-            setInvisibleDivs={setInvisibleDivs}
           />
         ) : null}
       </m.ul>
