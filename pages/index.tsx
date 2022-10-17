@@ -31,10 +31,7 @@ const Index = ({
         <meta name="author" content="Doga Fincan" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <m.main
-        transition={{ duration: 0.4 }}
-        className="flex w-full max-w-4xl flex-col space-y-4 pt-3 md:w-11/12 md:pt-8"
-      >
+      <main className="flex w-full max-w-4xl flex-col space-y-4 px-3 pt-3 md:w-11/12 md:px-0 md:pt-8">
         <HeroBanner initialVisit={initialVisit} />
         <Todos
           isLoading={isLoading}
@@ -43,7 +40,7 @@ const Index = ({
           setLocalTodos={setLocalTodos}
           initialVisit={initialVisit}
         />
-      </m.main>
+      </main>
     </>
   );
 };
