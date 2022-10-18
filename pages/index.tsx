@@ -14,9 +14,6 @@ const Index = ({
   initialVisit: boolean;
   initialLocalTodos: LocalTodo[];
 }) => {
-  const [localTodos, setLocalTodos] = useState(initialLocalTodos);
-  const [isLoading, setIsLoading] = useState(!initialVisit);
-
   useEffect(() => {
     Cookie.set("initialVisit", "false");
   }, []);
@@ -33,10 +30,7 @@ const Index = ({
       <main className="flex w-full max-w-4xl flex-col space-y-4 px-3 pt-3 md:w-11/12 md:px-0 md:pt-8">
         <HeroBanner initialVisit={initialVisit} />
         <Todos
-          isLoading={isLoading}
-          setIsLoading={setIsLoading}
-          localTodos={localTodos}
-          setLocalTodos={setLocalTodos}
+          initialLocalTodos={initialLocalTodos}
           initialVisit={initialVisit}
         />
       </main>

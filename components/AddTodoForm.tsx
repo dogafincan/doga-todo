@@ -1,23 +1,28 @@
-import { memo, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import { v4 as uuid } from "uuid";
 import useAddTodo from "@utils/useAddTodo";
 import { LocalTodo, SetLocalTodos } from "@utils/types";
 import useSession from "@utils/useSession";
+import useGetTodos from "@utils/useGetTodos";
 
 const AddTodoForm = memo(function AddTodoForm({
-  isLoading,
   localTodos,
   setLocalTodos,
   initialVisit,
 }: {
-  isLoading: boolean;
   localTodos: LocalTodo[];
   setLocalTodos: SetLocalTodos;
   initialVisit: boolean;
 }) {
+  const [isLoading, setIsLoading] = useState(!initialVisit);
   const { status } = useSession();
   const [title, setTitle] = useState("");
   const { addTodo } = useAddTodo();
+  const { isFetched } = useGetTodos();
+
+  useEffect(() => {
+    if (isFetched) setIsLoading(false);
+  }, [isFetched, setIsLoading]);
 
   const handleSubmit = (event: React.SyntheticEvent) => {
     event.preventDefault();

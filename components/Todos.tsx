@@ -1,39 +1,24 @@
-import { memo, useEffect } from "react";
+import { memo, useState } from "react";
 import { useDebouncedCallback } from "use-debounce";
 import { AnimatePresence, m } from "framer-motion";
 import Todo from "@components/Todo";
 import useSession from "@utils/useSession";
 import useGetTodos from "@utils/useGetTodos";
 import useClearCompletedTodos from "@utils/useClearCompletedTodos";
-import { LocalTodo, SetIsLoading, SetLocalTodos } from "@utils/types";
+import { LocalTodo } from "@utils/types";
 import AddTodoForm from "@components/AddTodoForm";
 
 const Todos = memo(function Todos({
-  isLoading,
-  setIsLoading,
-  localTodos,
-  setLocalTodos,
+  initialLocalTodos,
   initialVisit,
 }: {
-  isLoading: boolean;
-  setIsLoading: SetIsLoading;
-  localTodos: LocalTodo[];
-  setLocalTodos: SetLocalTodos;
+  initialLocalTodos: LocalTodo[];
   initialVisit: boolean;
 }) {
+  const [localTodos, setLocalTodos] = useState(initialLocalTodos);
   const { status } = useSession();
   const { clearCompletedTodos } = useClearCompletedTodos();
-  const { data, isFetched } = useGetTodos();
-
-  useEffect(() => {
-    if (isFetched) setIsLoading(false);
-  }, [isFetched, setIsLoading]);
-
-  useEffect(() => {
-    if (status === "unauthenticated") {
-      setIsLoading(false);
-    }
-  }, [status, setIsLoading]);
+  const { data } = useGetTodos();
 
   const clearCompleted = useDebouncedCallback(() => {
     if (status === "authenticated") {
@@ -46,7 +31,6 @@ const Todos = memo(function Todos({
   return (
     <div className="min-h-screen-dynamic space-y-4">
       <AddTodoForm
-        isLoading={isLoading}
         localTodos={localTodos}
         setLocalTodos={setLocalTodos}
         initialVisit={initialVisit}
