@@ -4,8 +4,13 @@ import Cookie from "js-cookie";
 import { FaGithub } from "react-icons/fa";
 import useSession from "@utils/useSession";
 import useButtonText from "@utils/useButtonText";
+import { memo } from "react";
 
-const LoginButton = ({ initialVisit }: { initialVisit: boolean }) => {
+const LoginButton = memo(function LoginButton({
+  initialVisit,
+}: {
+  initialVisit: boolean;
+}) {
   const { status } = useSession();
   const queryClient = useQueryClient();
   const buttonText = useButtonText(initialVisit);
@@ -36,6 +41,6 @@ const LoginButton = ({ initialVisit }: { initialVisit: boolean }) => {
       </button>
     </div>
   );
-};
+});
 
 export default LoginButton;
