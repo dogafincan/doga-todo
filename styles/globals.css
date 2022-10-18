@@ -7,6 +7,6 @@
 }
 
 .min-h-screen-dynamic {
-  min-height: calc(100vh - 16px);
-  min-height: calc(100dvh - 16px);
+  min-height: calc(100vh - 8px);
+  min-height: calc(100dvh - 8px);
 }
