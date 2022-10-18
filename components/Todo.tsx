@@ -1,23 +1,22 @@
-import { useEffect, useRef, useState } from "react";
+import { forwardRef, useEffect, useRef, useState } from "react";
 import { m } from "framer-motion";
 import { Todos } from "@utils/xata";
 import useEditTodo from "@utils/useEditTodo";
 import { ClearCompleted, LocalTodo, SetLocalTodos } from "@utils/types";
 import useSession from "@utils/useSession";
 
-const Todo = ({
-  todo,
-  localTodos,
-  setLocalTodos,
-  initialVisit,
-  clearCompleted,
-}: {
+type Props = {
   todo: Todos;
   localTodos: LocalTodo[];
   setLocalTodos: SetLocalTodos;
   initialVisit: boolean;
   clearCompleted: ClearCompleted;
-}) => {
+};
+
+const Todo = forwardRef<HTMLLIElement, Props>(function Todo(props, ref) {
+  const { todo, localTodos, setLocalTodos, initialVisit, clearCompleted } =
+    props;
+
   const { status } = useSession();
   const [title, setTitle] = useState(todo.title ?? "");
   const [isCompleted, setIsCompleted] = useState(todo.isCompleted ?? false);
@@ -102,6 +101,7 @@ const Todo = ({
 
   return (
     <m.li
+      ref={ref}
       layout
       key={todo.id}
       initial={{ opacity: 0, scale: 0 }}
@@ -155,6 +155,6 @@ const Todo = ({
       </div>
     </m.li>
   );
-};
+});
 
 export default Todo;

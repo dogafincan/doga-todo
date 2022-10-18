@@ -62,7 +62,7 @@ const TodosContainer = memo(function TodosContainer({
         }}
         className="space-y-4"
       >
-        <AnimatePresence>
+        <AnimatePresence mode="popLayout">
           {status === "authenticated"
             ? data?.map((todo) => {
                 return (
