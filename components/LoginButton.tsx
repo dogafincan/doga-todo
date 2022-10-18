@@ -3,11 +3,12 @@ import { useQueryClient } from "@tanstack/react-query";
 import Cookie from "js-cookie";
 import { FaGithub } from "react-icons/fa";
 import useSession from "@utils/useSession";
-import ButtonText from "@components/ButtonText";
+import useButtonText from "@utils/useButtonText";
 
 const LoginButton = ({ initialVisit }: { initialVisit: boolean }) => {
   const { status } = useSession();
   const queryClient = useQueryClient();
+  const buttonText = useButtonText(initialVisit);
 
   const handleClick = () => {
     if (status === "authenticated") {
@@ -30,7 +31,7 @@ const LoginButton = ({ initialVisit }: { initialVisit: boolean }) => {
       >
         <p className="flex items-center gap-x-2">
           <FaGithub />
-          <ButtonText initialVisit={initialVisit} />
+          {buttonText}
         </p>
       </button>
     </div>

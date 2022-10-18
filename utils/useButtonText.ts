@@ -1,7 +1,7 @@
 import useSession from "@utils/useSession";
 import { useEffect, useState } from "react";
 
-const ButtonText = ({ initialVisit }: { initialVisit: boolean }) => {
+const useButtonText = (initialVisit: boolean) => {
   const { status } = useSession();
   const [buttonText, setButtonText] = useState("Loading...");
 
@@ -15,7 +15,7 @@ const ButtonText = ({ initialVisit }: { initialVisit: boolean }) => {
     }
   }, [initialVisit, status]);
 
-  return <>{buttonText}</>;
+  return buttonText;
 };
 
-export default ButtonText;
+export default useButtonText;
