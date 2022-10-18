@@ -6,9 +6,9 @@ import useSession from "@utils/useSession";
 import useGetTodos from "@utils/useGetTodos";
 import useClearCompletedTodos from "@utils/useClearCompletedTodos";
 import { LocalTodo, SetIsLoading, SetLocalTodos } from "@utils/types";
-import TodoForm from "@components/TodoForm";
+import AddTodoForm from "@components/AddTodoForm";
 
-const TodosContainer = memo(function TodosContainer({
+const Todos = memo(function Todos({
   isLoading,
   setIsLoading,
   localTodos,
@@ -45,7 +45,7 @@ const TodosContainer = memo(function TodosContainer({
 
   return (
     <div className="min-h-screen-dynamic space-y-4">
-      <TodoForm
+      <AddTodoForm
         isLoading={isLoading}
         localTodos={localTodos}
         setLocalTodos={setLocalTodos}
@@ -97,4 +97,4 @@ const TodosContainer = memo(function TodosContainer({
   );
 });
 
-export default TodosContainer;
+export default Todos;

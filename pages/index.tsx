@@ -6,7 +6,6 @@ import Cookie from "js-cookie";
 import HeroBanner from "@components/HeroBanner";
 import Todos from "@components/Todos";
 import { LocalTodo } from "@utils/types";
-import { m } from "framer-motion";
 
 const Index = ({
   initialVisit,
