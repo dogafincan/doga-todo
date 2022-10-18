@@ -9,7 +9,7 @@ const useButtonText = (initialVisit: boolean) => {
     if (status === "authenticated") {
       setButtonText("Sign out");
     } else if (status === "unauthenticated" || initialVisit) {
-      setButtonText("Continue with GitHub");
+      setButtonText("Sign in with GitHub");
     } else if (status === "loading") {
       setButtonText("Loading...");
     }
