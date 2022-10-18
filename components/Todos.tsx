@@ -64,7 +64,8 @@ const TodosContainer = memo(function TodosContainer({
       >
         <AnimatePresence mode="popLayout">
           {status === "authenticated"
-            ? data?.map((todo) => {
+            ? data &&
+              data?.map((todo) => {
                 return (
                   <Todo
                     key={todo.id}
