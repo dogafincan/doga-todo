@@ -29,18 +29,20 @@ const Todo = forwardRef<HTMLLIElement, Props>(function Todo(props, ref) {
     inputRef.current?.focus();
   }, [edit]);
 
-  const editLocalTodo = () => {
-    setLocalTodos(() => {
-      const nextCompleted = !isCompleted;
-
-      return localTodos.map((localTodo) => {
+  const editLocalTodo = (checkboxChanged: boolean) => {
+    setLocalTodos(() =>
+      localTodos.map((localTodo) => {
         if (localTodo.id === todo.id) {
-          return { id: localTodo.id, title, isCompleted: nextCompleted };
+          return {
+            id: localTodo.id,
+            title,
+            isCompleted: checkboxChanged ? !isCompleted : isCompleted,
+          };
         } else {
           return localTodo;
         }
-      });
-    });
+      })
+    );
   };
 
   const handleCheckboxChange = () => {
@@ -55,7 +57,7 @@ const Todo = forwardRef<HTMLLIElement, Props>(function Todo(props, ref) {
         isCompleted: nextCompleted,
       });
     } else if (status === "unauthenticated" || initialVisit) {
-      editLocalTodo();
+      editLocalTodo(true);
     }
 
     clearCompleted();
@@ -77,7 +79,7 @@ const Todo = forwardRef<HTMLLIElement, Props>(function Todo(props, ref) {
     if (status === "authenticated") {
       editTodo.mutate({ id: todo.id, title, isCompleted });
     } else if (status === "unauthenticated" || initialVisit) {
-      editLocalTodo();
+      editLocalTodo(false);
     }
   };
 
@@ -89,7 +91,7 @@ const Todo = forwardRef<HTMLLIElement, Props>(function Todo(props, ref) {
       if (status === "authenticated") {
         editTodo.mutate({ id: todo.id, title, isCompleted });
       } else if (status === "unauthenticated" || initialVisit) {
-        editLocalTodo();
+        editLocalTodo(false);
       }
     }
   };
