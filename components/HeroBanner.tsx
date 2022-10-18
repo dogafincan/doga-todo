@@ -12,12 +12,22 @@ const HeroBanner = memo(function HeroBanner({
   return (
     <section className="flex h-auto shrink-0 flex-col overflow-hidden rounded-3xl bg-gradient-to-r from-rose-500/80 to-fuchsia-500/80 pt-8 shadow dark:shadow-none">
       <div className="flex flex-col items-center space-y-4">
-        <h1 className="text-6xl font-bold tracking-tight text-slate-50 duration-200 ease-linear motion-reduce:transition-opacity sm:mb-1 sm:text-[80px]">
+        <m.h1
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.2 }}
+          className="text-6xl font-bold tracking-tight text-slate-50 duration-200 ease-linear motion-reduce:transition-opacity sm:mb-1 sm:text-[80px]"
+        >
           Doga Todo
-        </h1>
-        <h2 className="font-medium italic tracking-tight text-slate-50 duration-200 ease-linear motion-reduce:transition-opacity">
+        </m.h1>
+        <m.h2
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.2 }}
+          className="font-medium italic tracking-tight text-slate-50 duration-200 ease-linear motion-reduce:transition-opacity"
+        >
           A fun way to get things done.
-        </h2>
+        </m.h2>
         <LoginButton initialVisit={initialVisit} />
       </div>
       <m.div

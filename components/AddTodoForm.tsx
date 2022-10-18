@@ -1,4 +1,5 @@
 import { memo, useEffect, useState } from "react";
+import { m } from "framer-motion";
 import { v4 as uuid } from "uuid";
 import useAddTodo from "@utils/useAddTodo";
 import { LocalTodo, SetLocalTodos } from "@utils/types";
@@ -44,7 +45,13 @@ const AddTodoForm = memo(function AddTodoForm({
   };
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col">
+    <m.form
+      initial={{ opacity: 0, scale: 0 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ duration: 0.2 }}
+      onSubmit={handleSubmit}
+      className="flex flex-col"
+    >
       <input
         tabIndex={0}
         type="text"
@@ -59,7 +66,7 @@ const AddTodoForm = memo(function AddTodoForm({
         placeholder={isLoading && !initialVisit ? "Loading..." : "Add todo"}
         disabled={isLoading && !initialVisit}
       />
-    </form>
+    </m.form>
   );
 });
 
