@@ -29,7 +29,7 @@ const Todos = memo(function Todos({
   }, 1000);
 
   return (
-    <div className="min-h-screen-dynamic space-y-4">
+    <section className="min-h-screen-dynamic space-y-4">
       <AddTodoForm
         localTodos={localTodos}
         setLocalTodos={setLocalTodos}
@@ -77,7 +77,7 @@ const Todos = memo(function Todos({
             : null}
         </AnimatePresence>
       </m.ul>
-    </div>
+    </section>
   );
 });
 
