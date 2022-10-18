@@ -22,6 +22,10 @@ const AddTodoForm = memo(function AddTodoForm({
   const handleSubmit = (event: React.SyntheticEvent) => {
     event.preventDefault();
 
+    if (!title) {
+      return;
+    }
+
     if (status === "authenticated") {
       addTodo.mutate({ id: "todo" + uuid(), title });
     } else if (status === "unauthenticated" || initialVisit) {
