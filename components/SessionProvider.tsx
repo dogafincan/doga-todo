@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useEffect, useState } from "react";
+import { createContext, ReactNode, useEffect, useMemo, useState } from "react";
 import { SessionContextType, SessionStatus } from "@utils/types";
 import { Session } from "next-auth";
 import axios from "axios";
@@ -33,10 +33,16 @@ const SessionProvider = ({ children }: { children?: ReactNode }) => {
     }
   }, [query.data]);
 
+  const value = useMemo(
+    () => ({
+      session: query.data,
+      status,
+    }),
+    [query.data, status]
+  );
+
   return (
-    <SessionContext.Provider value={{ session: query.data, status }}>
-      {children}
-    </SessionContext.Provider>
+    <SessionContext.Provider value={value}>{children}</SessionContext.Provider>
   );
 };
 
