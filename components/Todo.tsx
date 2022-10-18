@@ -29,6 +29,12 @@ const Todo = forwardRef<HTMLLIElement, Props>(function Todo(props, ref) {
     inputRef.current?.focus();
   }, [edit]);
 
+  useEffect(() => {
+    if (isCompleted) {
+      clearCompleted();
+    }
+  }, [clearCompleted, isCompleted]);
+
   const editLocalTodo = (checkboxChanged: boolean) => {
     setLocalTodos(() =>
       localTodos.map((localTodo) => {
@@ -59,8 +65,6 @@ const Todo = forwardRef<HTMLLIElement, Props>(function Todo(props, ref) {
     } else if (status === "unauthenticated" || initialVisit) {
       editLocalTodo(true);
     }
-
-    clearCompleted();
   };
 
   const handleCheckboxBlur = () => {
