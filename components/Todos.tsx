@@ -44,7 +44,7 @@ const TodosContainer = memo(function TodosContainer({
   }, 1000);
 
   return (
-    <div className="min-h-screen-dynamic space-y-4 pb-52">
+    <div className="min-h-screen-dynamic space-y-4">
       <TodoForm
         isLoading={isLoading}
         localTodos={localTodos}
