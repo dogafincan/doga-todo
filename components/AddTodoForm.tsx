@@ -2,17 +2,15 @@ import { memo, useEffect, useState } from "react";
 import { m } from "framer-motion";
 import { v4 as uuid } from "uuid";
 import useAddTodo from "@utils/useAddTodo";
-import { LocalTodo, SetLocalTodos } from "@utils/types";
+import { LocalTodosDispatch } from "@utils/types";
 import useSession from "@utils/useSession";
 import useGetTodos from "@utils/useGetTodos";
 
 const AddTodoForm = memo(function AddTodoForm({
-  localTodos,
-  setLocalTodos,
+  localTodosDispatch,
   initialVisit,
 }: {
-  localTodos: LocalTodo[];
-  setLocalTodos: SetLocalTodos;
+  localTodosDispatch: LocalTodosDispatch;
   initialVisit: boolean;
 }) {
   const [isLoading, setIsLoading] = useState(!initialVisit);
@@ -35,10 +33,7 @@ const AddTodoForm = memo(function AddTodoForm({
     if (status === "authenticated") {
       addTodo.mutate({ id: "todo" + uuid(), title });
     } else if (status === "unauthenticated" || initialVisit) {
-      setLocalTodos([
-        { id: "todo" + uuid(), title, isCompleted: false },
-        ...localTodos,
-      ]);
+      localTodosDispatch({ type: "added", title });
     }
 
     setTitle("");

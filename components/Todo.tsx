@@ -2,21 +2,19 @@ import { forwardRef, memo, useEffect, useRef, useState } from "react";
 import { m } from "framer-motion";
 import { Todos } from "@utils/xata";
 import useEditTodo from "@utils/useEditTodo";
-import { ClearCompleted, LocalTodo, SetLocalTodos } from "@utils/types";
+import { ClearCompleted, LocalTodosDispatch } from "@utils/types";
 import useSession from "@utils/useSession";
 
 type Props = {
   todo: Todos;
-  localTodos: LocalTodo[];
-  setLocalTodos: SetLocalTodos;
+  localTodosDispatch: LocalTodosDispatch;
   initialVisit: boolean;
   clearCompleted: ClearCompleted;
 };
 
 const Todo = memo(
   forwardRef<HTMLLIElement, Props>(function Todo(props, ref) {
-    const { todo, localTodos, setLocalTodos, initialVisit, clearCompleted } =
-      props;
+    const { todo, localTodosDispatch, initialVisit, clearCompleted } = props;
 
     const { status } = useSession();
     const [title, setTitle] = useState(todo.title ?? "");
@@ -36,22 +34,6 @@ const Todo = memo(
       }
     }, [clearCompleted, isCompleted]);
 
-    const editLocalTodo = (checkboxChanged: boolean) => {
-      setLocalTodos(() =>
-        localTodos.map((localTodo) => {
-          if (localTodo.id === todo.id) {
-            return {
-              id: localTodo.id,
-              title,
-              isCompleted: checkboxChanged ? !isCompleted : isCompleted,
-            };
-          } else {
-            return localTodo;
-          }
-        })
-      );
-    };
-
     const handleCheckboxChange = () => {
       setEdit(false);
       const nextCompleted = !isCompleted;
@@ -64,7 +46,12 @@ const Todo = memo(
           isCompleted: nextCompleted,
         });
       } else if (status === "unauthenticated" || initialVisit) {
-        editLocalTodo(true);
+        localTodosDispatch({
+          type: "edited",
+          id: todo.id,
+          title,
+          isCompleted: !isCompleted,
+        });
       }
     };
 
@@ -84,7 +71,12 @@ const Todo = memo(
       if (status === "authenticated") {
         editTodo.mutate({ id: todo.id, title, isCompleted });
       } else if (status === "unauthenticated" || initialVisit) {
-        editLocalTodo(false);
+        localTodosDispatch({
+          type: "edited",
+          id: todo.id,
+          title,
+          isCompleted: isCompleted,
+        });
       }
     };
 
@@ -96,7 +88,12 @@ const Todo = memo(
         if (status === "authenticated") {
           editTodo.mutate({ id: todo.id, title, isCompleted });
         } else if (status === "unauthenticated" || initialVisit) {
-          editLocalTodo(false);
+          localTodosDispatch({
+            type: "edited",
+            id: todo.id,
+            title,
+            isCompleted: isCompleted,
+          });
         }
       }
     };

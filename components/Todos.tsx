@@ -1,4 +1,4 @@
-import { memo, useState } from "react";
+import { memo, useReducer } from "react";
 import { useDebouncedCallback } from "use-debounce";
 import { AnimatePresence, m } from "framer-motion";
 import Todo from "@components/Todo";
@@ -7,6 +7,7 @@ import useGetTodos from "@utils/useGetTodos";
 import useClearCompletedTodos from "@utils/useClearCompletedTodos";
 import { LocalTodo } from "@utils/types";
 import AddTodoForm from "@components/AddTodoForm";
+import localTodosReducer from "@utils/todosReducer";
 
 const Todos = memo(function Todos({
   initialLocalTodos,
@@ -15,24 +16,26 @@ const Todos = memo(function Todos({
   initialLocalTodos: LocalTodo[];
   initialVisit: boolean;
 }) {
-  const [localTodos, setLocalTodos] = useState(initialLocalTodos);
   const { status } = useSession();
   const { clearCompletedTodos } = useClearCompletedTodos();
   const { data } = useGetTodos();
+  const [localTodos, localTodosDispatch] = useReducer(
+    localTodosReducer,
+    initialLocalTodos
+  );
 
   const clearCompleted = useDebouncedCallback(() => {
     if (status === "authenticated") {
       clearCompletedTodos.mutate();
     } else if (status === "unauthenticated" || initialVisit) {
-      setLocalTodos(localTodos.filter((localTodo) => !localTodo.isCompleted));
+      localTodosDispatch({ type: "filtered" });
     }
   }, 1000);
 
   return (
     <section className="min-h-screen-dynamic space-y-4">
       <AddTodoForm
-        localTodos={localTodos}
-        setLocalTodos={setLocalTodos}
+        localTodosDispatch={localTodosDispatch}
         initialVisit={initialVisit}
       />
       <m.ul
@@ -54,8 +57,7 @@ const Todos = memo(function Todos({
                   <Todo
                     key={todo.id}
                     todo={todo}
-                    localTodos={localTodos}
-                    setLocalTodos={setLocalTodos}
+                    localTodosDispatch={localTodosDispatch}
                     initialVisit={initialVisit}
                     clearCompleted={clearCompleted}
                   />
@@ -67,8 +69,7 @@ const Todos = memo(function Todos({
                   <Todo
                     key={localTodo.id}
                     todo={localTodo}
-                    localTodos={localTodos}
-                    setLocalTodos={setLocalTodos}
+                    localTodosDispatch={localTodosDispatch}
                     initialVisit={initialVisit}
                     clearCompleted={clearCompleted}
                   />

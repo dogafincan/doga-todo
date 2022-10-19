@@ -20,3 +20,10 @@ export type SessionContextType = {
 };
 
 export type ClearCompleted = DebouncedState<() => void>;
+
+export type LocalTodosDispatch = Dispatch<LocalTodosReducerActions>;
+
+export type LocalTodosReducerActions =
+  | { type: "filtered" }
+  | { type: "added"; title: string }
+  | { type: "edited"; id: string; title: string; isCompleted: boolean };
