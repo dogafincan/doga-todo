@@ -33,7 +33,7 @@ const Todos = memo(function Todos({
   }, 1000);
 
   return (
-    <section className="min-h-screen-dynamic space-y-4">
+    <section className="min-h-screen-dynamic space-y-4 pb-52">
       <AddTodoForm
         localTodosDispatch={localTodosDispatch}
         initialVisit={initialVisit}
