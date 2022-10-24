@@ -100,10 +100,7 @@ test.describe("index page", () => {
 
     const toBeCompleted = page.getByText("Test!");
 
-    await page
-      .getByRole("button", { name: "Mark completed" })
-      .nth(0)
-      .check({ timeout: 1000 });
+    await page.getByRole("button", { name: "Mark completed" }).nth(0).check();
 
     await expect(toBeCompleted).not.toBeVisible();
 
