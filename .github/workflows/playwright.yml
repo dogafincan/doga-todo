@@ -12,11 +12,10 @@ jobs:
         with:
           node-version: 16
       - name: Cache playwright binaries
-        uses: actions/cache@v2
         id: playwright-cache
+        uses: actions/cache@v3
         with:
-          path: |
-            ~/.cache/ms-playwright
+          path: ~/.cache/ms-playwright
           key: cache-playwright-linux-1.27.1
       - name: Install dependencies
         run: npm ci
