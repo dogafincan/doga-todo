@@ -1,34 +1,42 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+<div align="center">
+	<br>
+	<a href="https://doga-todo.vercel.app">
+		<img src="public/android-chrome-512x512.png" width="200" height="200">
+	</a>
+  <br>
+  <br>
+	<h1>Doga Todo</h1>
+	<p>
+		<i>A fun way to get things done.</i>
+	</p>
+	<br>
+</div>
 
-## Getting Started
+I started this project because there were a few technologies and services that I wanted to try out. I hadn't had the chance to work with these technologies at my day job, so I figured the best way to learn these technologies would be to build something with them. Doga Todo is the result.
 
-First, run the development server:
+Of course the app had to look good and be performant as well. Now I know a lot of design decisions are subjective, but at least we have a way to quantify performance. My goal was to get a perfect score using Google Lighthouse, and luckily I was able to do so.
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+<div align="center">
+  <br>
+  <img src="public/screenshot.png">
+  <img src="public/lighthouse-score.png">
+  <br>
+  <br>
+</div>
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+If you're a developer yourself, feel free to look around and gain inspiration from the code. If you have suggestions on how to improve the design and/or code, don't hesitate to let me know!
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+<br>
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+# Technologies and services used:
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- TypeScript
+- Next.js
+- Tailwind
+- Vercel
+- Xata
+- React Query
+- Framer Motion
+- React Testing Library
+- Playwright
+- GitHub Actions
