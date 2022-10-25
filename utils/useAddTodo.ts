@@ -1,10 +1,21 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import axios from "axios";
-import { Todos } from "@utils/xata";
+import { Todos } from "../utils/xata";
 
 const addTodo = async ({ id, title }: Todos): Promise<Todos> => {
-  const res = await axios.post("/api/add-todo", { id, title });
-  return res.data;
+  const response = await fetch("/api/add-todo", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      id,
+      title,
+    }),
+  });
+
+  const data = await response.json();
+
+  return data;
 };
 
 const useAddTodo = () => {

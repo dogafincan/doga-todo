@@ -4,8 +4,8 @@ import { useQueryClient } from "@tanstack/react-query";
 import { m } from "framer-motion";
 import Cookie from "js-cookie";
 import { FaGithub } from "react-icons/fa";
-import useSession from "@utils/useSession";
-import useButtonText from "@utils/useButtonText";
+import useSession from "../utils/useSession";
+import useButtonText from "../utils/useButtonText";
 
 const LoginButton = memo(function LoginButton({
   initialVisit,

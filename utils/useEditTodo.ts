@@ -1,6 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import axios from "axios";
-import { Todos } from "@utils/xata";
+import { Todos } from "../utils/xata";
 
 const editTodo = async ({
   id,
@@ -11,8 +10,21 @@ const editTodo = async ({
   title: string;
   isCompleted: boolean;
 }): Promise<Todos> => {
-  const res = await axios.patch("/api/edit-todo", { id, title, isCompleted });
-  return res.data;
+  const response = await fetch("/api/edit-todo", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      id,
+      title,
+      isCompleted,
+    }),
+  });
+
+  const data = await response.json();
+
+  return data;
 };
 
 const useEditTodo = () => {

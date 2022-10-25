@@ -1,10 +1,17 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import axios from "axios";
-import { Todos } from "@utils/xata";
+import { Todos } from "../utils/xata";
 
 const clearCompletedTodos = async (): Promise<Todos[]> => {
-  const res = await axios.post("/api/clear-completed-todos");
-  return res.data;
+  const response = await fetch("/api/clear-completed-todos", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+
+  const data = await response.json();
+
+  return data;
 };
 
 const useClearCompletedTodos = () => {

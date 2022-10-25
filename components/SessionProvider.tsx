@@ -1,14 +1,20 @@
 import { createContext, ReactNode, useEffect, useMemo, useState } from "react";
-import { SessionContextType, SessionStatus } from "@utils/types";
 import { Session } from "next-auth";
-import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
+import { SessionContextType, SessionStatus } from "../utils/types";
 
 const getSession = async (): Promise<Session | null> => {
-  const res = await axios.get("/api/auth/session");
+  const response = await fetch("/api/auth/session", {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
 
-  if (Object.keys(res.data).length) {
-    return res.data;
+  const data = await response.json();
+
+  if (Object.keys(data).length) {
+    return data;
   }
 
   return null;

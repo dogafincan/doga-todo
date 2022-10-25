@@ -1,8 +1,8 @@
 import { memo } from "react";
 import Image from "next/future/image";
 import { m } from "framer-motion";
-import LoginButton from "@components/LoginButton";
-import Memoji from "@public/memoji.png";
+import LoginButton from "../components/LoginButton";
+import Memoji from "../public/memoji.png";
 
 const HeroBanner = memo(function HeroBanner({
   initialVisit,

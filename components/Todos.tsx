@@ -1,13 +1,13 @@
 import { memo, useReducer } from "react";
 import { useDebouncedCallback } from "use-debounce";
 import { AnimatePresence, m } from "framer-motion";
-import Todo from "@components/Todo";
-import useSession from "@utils/useSession";
-import useGetTodos from "@utils/useGetTodos";
-import useClearCompletedTodos from "@utils/useClearCompletedTodos";
-import { LocalTodo } from "@utils/types";
-import AddTodoForm from "@components/AddTodoForm";
-import localTodosReducer from "@utils/todosReducer";
+import Todo from "../components/Todo";
+import useSession from "../utils/useSession";
+import useGetTodos from "../utils/useGetTodos";
+import useClearCompletedTodos from "../utils/useClearCompletedTodos";
+import { LocalTodo } from "../utils/types";
+import AddTodoForm from "../components/AddTodoForm";
+import localTodosReducer from "../utils/todosReducer";
 
 const Todos = memo(function Todos({
   initialLocalTodos,

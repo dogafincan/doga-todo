@@ -3,9 +3,9 @@ import Head from "next/head";
 import { GetServerSideProps } from "next";
 import cookie from "cookie";
 import Cookie from "js-cookie";
-import HeroBanner from "@components/HeroBanner";
-import Todos from "@components/Todos";
-import { LocalTodo } from "@utils/types";
+import HeroBanner from "../components/HeroBanner";
+import Todos from "../components/Todos";
+import { LocalTodo } from "../utils/types";
 
 const Index = ({
   initialVisit,

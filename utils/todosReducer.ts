@@ -1,5 +1,5 @@
 import { v4 as uuid } from "uuid";
-import { LocalTodo, LocalTodosReducerActions } from "@utils/types";
+import { LocalTodo, LocalTodosReducerActions } from "../utils/types";
 
 function localTodosReducer(
   localTodos: LocalTodo[],
