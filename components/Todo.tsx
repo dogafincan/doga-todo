@@ -13,6 +13,11 @@ type Props = {
 };
 
 const Todo = memo(
+  // When using Framer Motion's AnimatePresence's popLayout mode, any immediate
+  // child of AnimatePresence that's a custom component must be wrapped in
+  // React's forwardRef function, forwarding the provided ref to the DOM node
+  // you wish to pop out of the layout.
+  // For more info, see: https://www.framer.com/docs/animate-presence/
   forwardRef<HTMLLIElement, Props>(function Todo(props, ref) {
     const { initialVisit, todo, clearCompleted, localTodosDispatch } = props;
     const { status } = useSession();

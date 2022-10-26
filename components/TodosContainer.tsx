@@ -22,6 +22,9 @@ const TodosContainer = memo(function TodosContainer({
     initialLocalTodos
   );
 
+  // Marking a todo as completed triggers the debounced function below.
+  // Debouncing the function allows the user to mark multiple todos as
+  // completed in one go without layout shifts.
   const clearCompleted = useDebouncedCallback(() => {
     if (status === "authenticated") {
       clearCompletedTodos.mutate();
