@@ -1,11 +1,12 @@
-import { memo, useReducer } from "react";
+import { lazy, memo, useReducer } from "react";
 import { useDebouncedCallback } from "use-debounce";
-import Todos from "@/components/Todos";
-import LocalTodos from "@/components/LocalTodos";
 import useSession from "@/utils/useSession";
 import useClearCompletedTodos from "@/utils/useClearCompletedTodos";
 import { LocalTodo } from "@/utils/types";
 import localTodosReducer from "@/utils/todosReducer";
+
+const Todos = lazy(() => import("@/components/Todos"));
+const LocalTodos = lazy(() => import("@/components/LocalTodos"));
 
 const TodosContainer = memo(function TodosContainer({
   initialVisit,

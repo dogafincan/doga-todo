@@ -1,7 +1,8 @@
 import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import TodosContainer from "@/components/TodosContainer";
+import LocalTodos from "@/components/LocalTodos";
+import { useDebouncedCallback } from "use-debounce";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -11,7 +12,7 @@ const queryClient = new QueryClient({
   },
 });
 
-const initialLocalTodos = [
+const localTodos = [
   {
     id: "1",
     title: "👋 I've set up a few todos for you to play around with.",
@@ -41,14 +42,25 @@ const initialLocalTodos = [
 
 describe("Todo", () => {
   it("renders correctly", async () => {
-    render(
-      <QueryClientProvider client={queryClient}>
-        <TodosContainer
-          initialVisit={true}
-          initialLocalTodos={initialLocalTodos}
-        />
-      </QueryClientProvider>
-    );
+    const localTodosDispatch = jest.fn();
+    const clearCompletedTest = jest.fn();
+
+    const Component = () => {
+      const clearCompletedDebounced = useDebouncedCallback(clearCompletedTest);
+
+      return (
+        <QueryClientProvider client={queryClient}>
+          <LocalTodos
+            initialVisit={true}
+            localTodos={localTodos}
+            localTodosDispatch={localTodosDispatch}
+            clearCompleted={clearCompletedDebounced}
+          />
+        </QueryClientProvider>
+      );
+    };
+
+    render(<Component />);
 
     const checkBoxes = screen.getAllByRole("button", {
       name: "Mark completed",
