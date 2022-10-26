@@ -11,6 +11,9 @@ const Index = ({
   initialVisit,
   initialLocalTodos,
 }: {
+  // Cookies are used to register whether it's the user's first time visiting
+  // the app. If that's the case, the app will assume no data has to be
+  // loaded from the server and auth-related loading states can be avoided.
   initialVisit: boolean;
   initialLocalTodos: LocalTodo[];
 }) => {
@@ -26,6 +29,7 @@ const Index = ({
         <meta name="keywords" content="Todo, List, Groceries, Productivity" />
         <meta name="author" content="Doga Fincan" />
         <link rel="icon" href="/favicon.ico" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
       </Head>
       <main className="flex w-full max-w-4xl flex-col space-y-4 px-3 pt-3 md:w-11/12 md:px-0 md:pt-8">
         <HeroBanner initialVisit={initialVisit} />

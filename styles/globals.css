@@ -2,10 +2,21 @@
 @tailwind components;
 @tailwind utilities;
 
+/* 
+Next.js generates a div that resides in de app's body element, and
+that wraps the content of the app. The CSS below targets that div.
+*/
 #__next {
   @apply flex flex-col items-center;
 }
 
+/* 
+When adding and removing todos, it becomes slightly disorienting when
+the hero banner appears and disappears into view as a result of this.
+A solution for this is to make the todo list at least as tall as the
+device's viewport. Also, the vh viewport unit is used as a fallback for
+browsers that don't support the dvh viewport unit.
+*/
 .min-h-screen-dynamic {
   min-height: calc(100vh - 8px);
   min-height: calc(100dvh - 8px);

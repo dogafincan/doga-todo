@@ -27,6 +27,9 @@ const LocalTodos = memo(function LocalTodos({
         initial={false}
         transition={{ duration: 0.4 }}
         animate={{
+          // The height of the unordered list is calculated using a
+          // hardcoded number. In the future, it might be better to
+          // calculate the height dynamically.
           height: `calc(96px*${localTodos.length})`,
         }}
         className="space-y-4"

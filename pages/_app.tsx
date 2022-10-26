@@ -14,6 +14,10 @@ const queryClient = new QueryClient({
   },
 });
 
+// The React Query cache lives in memory and is removed when the browser is
+// reloaded or the user hits refresh. This can result in longer load times.
+// Persisting the React Query cache using IndexedDB is one way to ensure
+// that local data is available in those cases.
 if (typeof window !== "undefined") {
   const persister = createIDBPersister();
   persistQueryClient({ queryClient, persister, maxAge: Infinity });

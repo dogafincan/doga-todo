@@ -15,6 +15,7 @@ const queryClient = new QueryClient({
 describe("HeroBanner", () => {
   it("renders correctly", async () => {
     const localTodosDispatch = jest.fn();
+
     render(
       <QueryClientProvider client={queryClient}>
         <AddTodoForm

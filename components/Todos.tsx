@@ -22,6 +22,9 @@ const Todos = memo(function Todos({
         initial={false}
         transition={{ duration: 0.4 }}
         animate={{
+          // The height of the unordered list is calculated using a
+          // hardcoded number. In the future, it might be better to
+          // calculate the height dynamically.
           height: `calc(96px*${data ? data.length : 0})`,
         }}
         className="space-y-4"
