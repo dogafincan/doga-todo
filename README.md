@@ -29,6 +29,7 @@ If you're a developer yourself, feel free to look around and gain inspiration fr
 # Technologies and services used:
 
 - <a href="https://www.typescriptlang.org">TypeScript</a>
+- <a href="https://reactjs.org">React</a>
 - <a href="https://nextjs.org">Next.js</a>
 - <a href="https://tailwindcss.com">Tailwind</a>
 - <a href="https://vercel.com">Vercel</a>
