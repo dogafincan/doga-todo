@@ -2,9 +2,9 @@ import type { AppProps } from "next/app";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { persistQueryClient } from "@tanstack/react-query-persist-client";
 import { LazyMotion, domMax, MotionConfig } from "framer-motion";
-import createIDBPersister from "../utils/createIDBPersister";
-import "../styles/globals.css";
-import SessionProvider from "../components/SessionProvider";
+import SessionProvider from "@/components/SessionProvider";
+import createIDBPersister from "@/utils/createIDBPersister";
+import "@/styles/globals.css";
 
 const queryClient = new QueryClient({
   defaultOptions: {

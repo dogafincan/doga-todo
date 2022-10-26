@@ -1,7 +1,7 @@
 import { createContext, ReactNode, useEffect, useMemo, useState } from "react";
 import { Session } from "next-auth";
 import { useQuery } from "@tanstack/react-query";
-import { SessionContextType, SessionStatus } from "../utils/types";
+import { SessionContextType, SessionStatus } from "@/utils/types";
 
 const getSession = async (): Promise<Session | null> => {
   const response = await fetch("/api/auth/session", {

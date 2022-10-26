@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { Todos } from "../utils/xata";
+import { Todos } from "@/utils/xata";
 
 const addTodo = async ({ id, title }: Todos): Promise<Todos> => {
   const response = await fetch("/api/add-todo", {

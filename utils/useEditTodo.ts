@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { Todos } from "../utils/xata";
+import { Todos } from "@/utils/xata";
 
 const editTodo = async ({
   id,

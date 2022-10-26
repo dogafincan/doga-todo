@@ -3,8 +3,7 @@ import "@testing-library/jest-dom";
 import userEvent from "@testing-library/user-event";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { useDebouncedCallback } from "use-debounce";
-import Todo from "../components/Todo";
-import React from "react";
+import Todo from "@/components/Todo";
 
 const queryClient = new QueryClient({
   defaultOptions: {

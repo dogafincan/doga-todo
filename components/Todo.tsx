@@ -1,21 +1,20 @@
 import { forwardRef, memo, useEffect, useRef, useState } from "react";
 import { m } from "framer-motion";
-import { Todos } from "../utils/xata";
-import useEditTodo from "../utils/useEditTodo";
-import { ClearCompleted, LocalTodosDispatch } from "../utils/types";
-import useSession from "../utils/useSession";
+import { Todos } from "@/utils/xata";
+import useEditTodo from "@/utils/useEditTodo";
+import useSession from "@/utils/useSession";
+import { ClearCompleted, LocalTodosDispatch } from "@/utils/types";
 
 type Props = {
-  todo: Todos;
-  localTodosDispatch: LocalTodosDispatch;
   initialVisit: boolean;
+  todo: Todos;
   clearCompleted: ClearCompleted;
+  localTodosDispatch?: LocalTodosDispatch;
 };
 
 const Todo = memo(
   forwardRef<HTMLLIElement, Props>(function Todo(props, ref) {
-    const { todo, localTodosDispatch, initialVisit, clearCompleted } = props;
-
+    const { initialVisit, todo, clearCompleted, localTodosDispatch } = props;
     const { status } = useSession();
     const [title, setTitle] = useState(todo.title ?? "");
     const [isCompleted, setIsCompleted] = useState(todo.isCompleted ?? false);
@@ -46,7 +45,7 @@ const Todo = memo(
           isCompleted: nextCompleted,
         });
       } else if (status === "unauthenticated" || initialVisit) {
-        localTodosDispatch({
+        localTodosDispatch!({
           type: "edited",
           id: todo.id,
           title,
@@ -71,7 +70,7 @@ const Todo = memo(
       if (status === "authenticated") {
         editTodo.mutate({ id: todo.id, title, isCompleted });
       } else if (status === "unauthenticated" || initialVisit) {
-        localTodosDispatch({
+        localTodosDispatch!({
           type: "edited",
           id: todo.id,
           title,
@@ -88,7 +87,7 @@ const Todo = memo(
         if (status === "authenticated") {
           editTodo.mutate({ id: todo.id, title, isCompleted });
         } else if (status === "unauthenticated" || initialVisit) {
-          localTodosDispatch({
+          localTodosDispatch!({
             type: "edited",
             id: todo.id,
             title,

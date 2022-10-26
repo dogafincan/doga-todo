@@ -1,8 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import Todos from "../components/Todos";
-import React from "react";
+import TodosContainer from "@/components/TodosContainer";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -44,7 +43,10 @@ describe("Todo", () => {
   it("renders correctly", async () => {
     render(
       <QueryClientProvider client={queryClient}>
-        <Todos initialVisit={true} initialLocalTodos={initialLocalTodos} />
+        <TodosContainer
+          initialVisit={true}
+          initialLocalTodos={initialLocalTodos}
+        />
       </QueryClientProvider>
     );
 

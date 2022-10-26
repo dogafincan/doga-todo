@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import useSession from "../utils/useSession";
+import useSession from "@/utils/useSession";
 
 const useButtonText = (initialVisit: boolean) => {
   const { status } = useSession();

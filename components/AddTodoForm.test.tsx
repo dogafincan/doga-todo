@@ -2,7 +2,7 @@ import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import userEvent from "@testing-library/user-event";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import AddTodoForm from "../components/AddTodoForm";
+import AddTodoForm from "@/components/AddTodoForm";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -20,6 +20,7 @@ describe("HeroBanner", () => {
         <AddTodoForm
           initialVisit={true}
           localTodosDispatch={localTodosDispatch}
+          isFetched={true}
         />
       </QueryClientProvider>
     );
@@ -37,6 +38,7 @@ describe("HeroBanner", () => {
         <AddTodoForm
           initialVisit={true}
           localTodosDispatch={localTodosDispatch}
+          isFetched={true}
         />
       </QueryClientProvider>
     );

@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import HeroBanner from "../components/HeroBanner";
+import HeroBanner from "@/components/HeroBanner";
 
 const queryClient = new QueryClient({
   defaultOptions: {

@@ -3,9 +3,9 @@ import Head from "next/head";
 import { GetServerSideProps } from "next";
 import cookie from "cookie";
 import Cookie from "js-cookie";
-import HeroBanner from "../components/HeroBanner";
-import Todos from "../components/Todos";
-import { LocalTodo } from "../utils/types";
+import HeroBanner from "@/components/HeroBanner";
+import TodosContainer from "@/components/TodosContainer";
+import { LocalTodo } from "@/utils/types";
 
 const Index = ({
   initialVisit,
@@ -29,7 +29,7 @@ const Index = ({
       </Head>
       <main className="flex w-full max-w-4xl flex-col space-y-4 px-3 pt-3 md:w-11/12 md:px-0 md:pt-8">
         <HeroBanner initialVisit={initialVisit} />
-        <Todos
+        <TodosContainer
           initialLocalTodos={initialLocalTodos}
           initialVisit={initialVisit}
         />
