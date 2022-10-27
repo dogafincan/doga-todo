@@ -7,20 +7,16 @@ import { FaGithub } from "react-icons/fa";
 import useSession from "@/utils/useSession";
 import useButtonText from "@/utils/useButtonText";
 
-const LoginButton = memo(function LoginButton({
-  initialVisit,
-}: {
-  initialVisit: boolean;
-}) {
+const LoginButton = memo(function LoginButton() {
   const { status } = useSession();
   const queryClient = useQueryClient();
-  const buttonText = useButtonText(initialVisit);
+  const buttonText = useButtonText();
 
   const handleClick = () => {
     if (status === "authenticated") {
       Cookie.set("initialVisit", "true");
       signOut();
-    } else if (status === "unauthenticated" || initialVisit) {
+    } else if (status === "unauthenticated") {
       signIn("github");
     }
     queryClient.clear();
@@ -31,9 +27,9 @@ const LoginButton = memo(function LoginButton({
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.2 }}
-      disabled={status === "loading" && !initialVisit}
+      disabled={status === "loading"}
       className={`rounded-md bg-neutral-800 px-4 py-2 text-slate-50 shadow duration-200 ease-linear hover:bg-neutral-700 focus:outline-0 focus:ring-4 focus:ring-blue-400 motion-reduce:transition sm:mt-1 sm:px-10 ${
-        status === "loading" && !initialVisit ? "animate-pulse" : ""
+        status === "loading" ? "animate-pulse" : ""
       }`}
       onClick={handleClick}
     >

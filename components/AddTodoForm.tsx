@@ -6,11 +6,9 @@ import useAddTodo from "@/utils/useAddTodo";
 import { LocalTodosDispatch } from "@/utils/types";
 
 const AddTodoForm = memo(function AddTodoForm({
-  initialVisit,
   isFetched,
   localTodosDispatch,
 }: {
-  initialVisit: boolean;
   isFetched: boolean;
   localTodosDispatch?: LocalTodosDispatch;
 }) {
@@ -27,7 +25,7 @@ const AddTodoForm = memo(function AddTodoForm({
 
     if (status === "authenticated") {
       addTodo.mutate({ id: "todo" + uuid(), title });
-    } else if (status === "unauthenticated" || initialVisit) {
+    } else if (status === "unauthenticated") {
       localTodosDispatch!({ type: "added", title });
     }
 
@@ -49,12 +47,12 @@ const AddTodoForm = memo(function AddTodoForm({
         autoComplete="off"
         aria-label="Add todo"
         className={`h-20 appearance-none rounded-3xl border-0 py-3.5 px-8 text-base shadow duration-200 ease-linear focus:border-transparent focus:outline-0 focus:ring-4 focus:ring-blue-400 motion-reduce:transition-opacity dark:border dark:border-slate-50/10 dark:bg-neutral-700/40 dark:shadow-none dark:focus:ring-blue-500 sm:text-xl ${
-          !isFetched && !initialVisit ? "animate-pulse" : ""
+          !isFetched ? "animate-pulse" : ""
         }`}
         value={title}
         onChange={(event) => setTitle(event.target.value)}
-        placeholder={!isFetched && !initialVisit ? "Loading..." : "Add todo"}
-        disabled={!isFetched && !initialVisit}
+        placeholder={!isFetched ? "Loading..." : "Add todo"}
+        disabled={!isFetched}
       />
     </m.form>
   );

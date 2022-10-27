@@ -6,17 +6,15 @@ import useGetTodos from "@/utils/useGetTodos";
 import { ClearCompleted } from "@/utils/types";
 
 const Todos = memo(function Todos({
-  initialVisit,
   clearCompleted,
 }: {
-  initialVisit: boolean;
   clearCompleted: ClearCompleted;
 }) {
   const { data, isFetched } = useGetTodos();
 
   return (
     <>
-      <AddTodoForm initialVisit={initialVisit} isFetched={isFetched} />
+      <AddTodoForm isFetched={isFetched} />
       <m.ul
         layout
         initial={false}
@@ -36,7 +34,6 @@ const Todos = memo(function Todos({
                 <Todo
                   key={todo.id}
                   todo={todo}
-                  initialVisit={initialVisit}
                   clearCompleted={clearCompleted}
                 />
               );

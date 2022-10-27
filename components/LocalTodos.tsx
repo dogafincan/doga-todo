@@ -5,23 +5,17 @@ import AddTodoForm from "@/components/AddTodoForm";
 import { ClearCompleted, LocalTodo, LocalTodosDispatch } from "@/utils/types";
 
 const LocalTodos = memo(function LocalTodos({
-  initialVisit,
   clearCompleted,
   localTodos,
   localTodosDispatch,
 }: {
-  initialVisit: boolean;
   clearCompleted: ClearCompleted;
   localTodos: LocalTodo[];
   localTodosDispatch: LocalTodosDispatch;
 }) {
   return (
     <>
-      <AddTodoForm
-        initialVisit={initialVisit}
-        localTodosDispatch={localTodosDispatch}
-        isFetched={true}
-      />
+      <AddTodoForm localTodosDispatch={localTodosDispatch} isFetched={true} />
       <m.ul
         layout
         initial={false}
@@ -41,7 +35,6 @@ const LocalTodos = memo(function LocalTodos({
                 key={localTodo.id}
                 todo={localTodo}
                 localTodosDispatch={localTodosDispatch}
-                initialVisit={initialVisit}
                 clearCompleted={clearCompleted}
               />
             );

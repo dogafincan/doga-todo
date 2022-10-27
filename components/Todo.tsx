@@ -6,7 +6,6 @@ import useSession from "@/utils/useSession";
 import { ClearCompleted, LocalTodosDispatch } from "@/utils/types";
 
 type Props = {
-  initialVisit: boolean;
   todo: Todos;
   clearCompleted: ClearCompleted;
   localTodosDispatch?: LocalTodosDispatch;
@@ -19,7 +18,7 @@ const Todo = memo(
   // you wish to pop out of the layout.
   // For more info, see: https://www.framer.com/docs/animate-presence/
   forwardRef<HTMLLIElement, Props>(function Todo(props, ref) {
-    const { initialVisit, todo, clearCompleted, localTodosDispatch } = props;
+    const { todo, clearCompleted, localTodosDispatch } = props;
     const { status } = useSession();
     const [title, setTitle] = useState(todo.title ?? "");
     const [isCompleted, setIsCompleted] = useState(todo.isCompleted ?? false);
@@ -49,7 +48,7 @@ const Todo = memo(
           title,
           isCompleted: nextCompleted,
         });
-      } else if (status === "unauthenticated" || initialVisit) {
+      } else if (status === "unauthenticated") {
         localTodosDispatch!({
           type: "edited",
           id: todo.id,
@@ -74,7 +73,7 @@ const Todo = memo(
 
       if (status === "authenticated") {
         editTodo.mutate({ id: todo.id, title, isCompleted });
-      } else if (status === "unauthenticated" || initialVisit) {
+      } else if (status === "unauthenticated") {
         localTodosDispatch!({
           type: "edited",
           id: todo.id,
@@ -91,7 +90,7 @@ const Todo = memo(
       if (todo.title !== title) {
         if (status === "authenticated") {
           editTodo.mutate({ id: todo.id, title, isCompleted });
-        } else if (status === "unauthenticated" || initialVisit) {
+        } else if (status === "unauthenticated") {
           localTodosDispatch!({
             type: "edited",
             id: todo.id,

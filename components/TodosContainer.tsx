@@ -2,19 +2,13 @@ import { lazy, memo, useReducer } from "react";
 import { useDebouncedCallback } from "use-debounce";
 import useSession from "@/utils/useSession";
 import useClearCompletedTodos from "@/utils/useClearCompletedTodos";
-import { LocalTodo } from "@/utils/types";
 import localTodosReducer from "@/utils/todosReducer";
+import { initialLocalTodos } from "@/utils/initialLocalTodos";
 
 const Todos = lazy(() => import("@/components/Todos"));
 const LocalTodos = lazy(() => import("@/components/LocalTodos"));
 
-const TodosContainer = memo(function TodosContainer({
-  initialVisit,
-  initialLocalTodos,
-}: {
-  initialVisit: boolean;
-  initialLocalTodos: LocalTodo[];
-}) {
+const TodosContainer = memo(function TodosContainer() {
   const { status } = useSession();
   const { clearCompletedTodos } = useClearCompletedTodos();
   const [localTodos, localTodosDispatch] = useReducer(
@@ -28,7 +22,7 @@ const TodosContainer = memo(function TodosContainer({
   const clearCompleted = useDebouncedCallback(() => {
     if (status === "authenticated") {
       clearCompletedTodos.mutate();
-    } else if (status === "unauthenticated" || initialVisit) {
+    } else if (status === "unauthenticated") {
       localTodosDispatch({ type: "filtered" });
     }
   }, 1000);
@@ -36,10 +30,9 @@ const TodosContainer = memo(function TodosContainer({
   return (
     <section className="min-h-screen-dynamic space-y-4 pb-52">
       {status === "authenticated" ? (
-        <Todos initialVisit={initialVisit} clearCompleted={clearCompleted} />
-      ) : status === "unauthenticated" || initialVisit ? (
+        <Todos clearCompleted={clearCompleted} />
+      ) : status === "unauthenticated" ? (
         <LocalTodos
-          initialVisit={initialVisit}
           clearCompleted={clearCompleted}
           localTodos={localTodos}
           localTodosDispatch={localTodosDispatch}

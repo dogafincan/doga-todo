@@ -4,11 +4,7 @@ import { m } from "framer-motion";
 import LoginButton from "@/components/LoginButton";
 import Memoji from "@/public/memoji.png";
 
-const HeroBanner = memo(function HeroBanner({
-  initialVisit,
-}: {
-  initialVisit: boolean;
-}) {
+const HeroBanner = memo(function HeroBanner() {
   return (
     <section className="flex h-auto shrink-0 flex-col overflow-hidden rounded-3xl bg-gradient-to-r from-rose-500/80 to-fuchsia-500/80 pt-8 shadow dark:shadow-none">
       <div className="flex flex-col items-center space-y-4">
@@ -28,7 +24,7 @@ const HeroBanner = memo(function HeroBanner({
         >
           A fun way to get things done.
         </m.h2>
-        <LoginButton initialVisit={initialVisit} />
+        <LoginButton />
       </div>
       <m.div
         initial={{ y: 100, opacity: 0 }}
