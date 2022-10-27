@@ -31,7 +31,8 @@ export type DatabaseSchema = {
 const DatabaseClient = buildClient();
 
 const defaultOptions = {
-  databaseURL: "https://Doga-Fincan-s-workspace-pbeo4t.xata.sh/db/todo",
+  databaseURL:
+    "https://Doga-Fincan-s-workspace-pbeo4t.us-east-1.xata.sh/db/doga-todo",
 };
 
 export class XataClient extends DatabaseClient<DatabaseSchema> {
