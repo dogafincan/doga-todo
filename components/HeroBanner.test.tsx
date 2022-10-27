@@ -15,7 +15,7 @@ describe("HeroBanner", () => {
   it("renders correctly", () => {
     render(
       <QueryClientProvider client={queryClient}>
-        <HeroBanner initialVisit={true} />
+        <HeroBanner />
       </QueryClientProvider>
     );
 
@@ -31,7 +31,7 @@ describe("HeroBanner", () => {
 
     expect(SubHeading).toBeInTheDocument();
 
-    const button = screen.getByRole("button", { name: "Sign in with GitHub" });
+    const button = screen.getByRole("button");
 
     expect(button).toBeInTheDocument();
 

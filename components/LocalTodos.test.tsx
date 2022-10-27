@@ -51,7 +51,6 @@ describe("Todo", () => {
       return (
         <QueryClientProvider client={queryClient}>
           <LocalTodos
-            initialVisit={true}
             localTodos={localTodos}
             localTodosDispatch={localTodosDispatch}
             clearCompleted={clearCompletedDebounced}

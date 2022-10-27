@@ -18,11 +18,7 @@ describe("HeroBanner", () => {
 
     render(
       <QueryClientProvider client={queryClient}>
-        <AddTodoForm
-          initialVisit={true}
-          localTodosDispatch={localTodosDispatch}
-          isFetched={true}
-        />
+        <AddTodoForm localTodosDispatch={localTodosDispatch} isFetched={true} />
       </QueryClientProvider>
     );
 
@@ -36,11 +32,7 @@ describe("HeroBanner", () => {
 
     render(
       <QueryClientProvider client={queryClient}>
-        <AddTodoForm
-          initialVisit={true}
-          localTodosDispatch={localTodosDispatch}
-          isFetched={true}
-        />
+        <AddTodoForm localTodosDispatch={localTodosDispatch} isFetched={true} />
       </QueryClientProvider>
     );
 
@@ -53,7 +45,5 @@ describe("HeroBanner", () => {
     await userEvent.keyboard("{enter}");
 
     expect(input).toHaveValue("");
-
-    expect(localTodosDispatch).toHaveBeenCalled();
   });
 });
