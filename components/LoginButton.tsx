@@ -2,7 +2,6 @@ import { memo } from "react";
 import { signIn, signOut } from "next-auth/react";
 import { useQueryClient } from "@tanstack/react-query";
 import { m } from "framer-motion";
-import Cookie from "js-cookie";
 import { FaGithub } from "react-icons/fa";
 import useSession from "@/utils/useSession";
 import useButtonText from "@/utils/useButtonText";
@@ -14,7 +13,6 @@ const LoginButton = memo(function LoginButton() {
 
   const handleClick = () => {
     if (status === "authenticated") {
-      Cookie.set("initialVisit", "true");
       signOut();
     } else if (status === "unauthenticated") {
       signIn("github");
