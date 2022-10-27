@@ -13,11 +13,14 @@ const LoginButton = memo(function LoginButton() {
 
   const handleClick = () => {
     if (status === "authenticated") {
+      // When a user signs out, their data will still be
+      // accessible locally because it's stored in IndexedDb.
+      // The line below clears their data before signing out.
+      queryClient.clear();
       signOut();
     } else if (status === "unauthenticated") {
       signIn("github");
     }
-    queryClient.clear();
   };
 
   return (
